@@ -1,0 +1,31 @@
+.margin{
+  margin-left: 40%;
+  margin-bottom: 5%;
+}
+.input-container{
+  display: flex;
+}
+.item-container{
+  width: 35%;
+  width: 35%;
+  margin-left: 5%;
+  margin-top: 2%;
+  font-family: 'Montserrat';
+  font-size: 18px;
+}
+.input-data {
+  border: none;
+  border-bottom: 2px solid black;
+  width: 300px;
+}
+.input-data:focus {
+  border: none;
+  border-bottom: 2px solid black;
+  width: 300px;
+}
+.input-font-control{
+  font-family: 'Montserrat';
+  font-size: 18px;
+  height: 30px;
+  margin-top: 1.7%;
+}

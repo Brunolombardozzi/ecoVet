@@ -1,0 +1,67 @@
+
+<div>
+  <h1 style="text-align: center;">Carga ecografias</h1>
+  <div style="height: 500px; width: 100%;">
+    <div class="input-container">
+      <div class="item-container">Tipo ecografia</div>
+        <input class="input-data input-font-control" [(ngModel)]="tipoEcografia" type="text">
+    </div>
+    <div class="input-container">
+      <div  class="item-container">Nombre ecografista</div>
+      <input  class="input-data input-font-control" [(ngModel)]="nombreEcografista" type="text">
+    </div>
+    <div class="input-container">
+      <div  class="item-container">Fecha</div>
+      <input  class="input-data input-font-control" [(ngModel)]="fecha" type="text">
+      <!-- <div class="row">
+        <div class="pr-3 pb-3 pe-3 w-auto">
+          <bs-datepicker-inline [bsValue]="fecha"></bs-datepicker-inline>
+        </div>
+      </div> -->
+
+    </div>
+
+    <div class="input-container">
+      <div  class="item-container">Monto </div>
+      <input   class="input-data input-font-control" [(ngModel)]="monto" type="number">
+    </div>
+    <div class="input-container">
+      <div  class="item-container">Metodo de pago</div>
+      <input  class="input-data input-font-control" [(ngModel)]="metodoPago" type="text">
+    </div>
+    <div class="input-container">
+      <div class="item-container">Apellido duenio</div>
+      <input  class="input-data input-font-control" [(ngModel)]="apellido" type="text">
+    </div>
+    <div class="input-container">
+      <div class="item-container">Nombre duenio</div>
+      <input  class="input-data input-font-control" [(ngModel)]="nombreDuenio" type="text">
+    </div>
+    <div class="input-container">
+      <div class="item-container">Nombre mascota</div>
+      <input  class="input-data input-font-control" [(ngModel)]="nombreMascota" type="text">
+    </div>
+    <div class="input-container">
+      <div class="item-container">Realizada</div>
+      <div style="display: flex;align-items: flex-end;">
+        <input  class="input-data input-font-control" style="height: 20px;"  [(ngModel)]="realizada" type="checkbox">
+      </div>
+    </div>
+    <div class="input-container">
+      <div class="item-container">Estado de informe</div>
+      <input  class="input-data input-font-control" [(ngModel)]="estadoInforme" type="text">
+    </div>
+    <div class="input-container">
+      <div class="item-container">Derivante</div>
+      <input  class="input-data input-font-control" [(ngModel)]="derivante" type="text">
+    </div>
+  </div>
+  <div style="display:flex;width: 100%; align-items: center;">
+    <div style="width:50%">
+      <button class="btn btn-danger margin" (click)="cancelarCarga()">Cancelar</button>
+    </div>
+    <div style="width:50%">
+      <button class="btn btn-success margin" (click)="guardarEcografia()">Guardar</button>
+    </div>
+  </div>
+</div>
