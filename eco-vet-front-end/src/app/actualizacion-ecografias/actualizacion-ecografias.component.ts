@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { AppComponent } from '../app.component';
+import { DataService } from '../service/data.service';
 
 @Component({
   selector: 'app-actualizacion-ecografias',
@@ -9,7 +10,7 @@ import { AppComponent } from '../app.component';
 export class ActualizacionEcografiasComponent  implements OnChanges {
 
   @Input()
-  parent?: AppComponent;
+  parent?: any;
   tipoEcografia:any;
   nombreEcografista:any;
   fecha:any;
@@ -23,7 +24,12 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
   derivante:any;
   @Input()
   ecografiaSeleccionada:any;
-  constructor() {}
+  @Output()
+  actulizarListadoEcos = new EventEmitter<any>();
+  ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura'];
+  metodosPago:any[] = ['Efectivo','Mercado Pago','Transfer./Debito'];
+  placeHolder='Seleccione Ecografista'
+  constructor(private dataService:DataService) {}
   ngOnChanges(changes: SimpleChanges): void {
   }
 
@@ -44,10 +50,42 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
     this.estadoInforme = this.ecografiaSeleccionada.estadoInforme
     this.derivante = this.ecografiaSeleccionada.derivante
   }
-  guardarEcografia(){
-    console.log('Se corrigio correctamente la ecografia de: ' + this.nombreMascota);
+  actualizarEcografia(){
+    let ecografiasActualizadas:any;
+    let eco :any = {
+      apellido  : this.apellido,
+       derivante  : this.derivante,
+       estadoInforme  : this.estadoInforme,
+       fecha  : this.fecha,
+       metodoPago  : this.metodoPago,
+       monto  : this.monto,
+       nombreDuenio  : this.nombreDuenio,
+       nombreEcografista  : this.nombreEcografista,
+       nombreMascota  : this.nombreMascota,
+       numero  : this.ecografiaSeleccionada.numero,
+       realizada  : this.realizada,
+       tipo  : this.tipoEcografia,
+       mes : this.fecha.substring(5,7),
+       anio : this.fecha.substring(0,4),
+       dia : Number(this.fecha.substring(8,10))
+      }
+    this.dataService.actualizarEcografia(eco,this)
+    ecografiasActualizadas= this.dataService.traerTodasLasEcografias();
+    this.actulizarListadoEcos.emit(ecografiasActualizadas);
   }
   cancelarCarga(){
     this.parent?.closeModal();
+  }
+  seleccionEcorafista(ecografista:any){
+    this.nombreEcografista = ecografista;
+  }
+  seleccionMetodoPago(metodoPago:any){
+    this.metodoPago = metodoPago;
+  }
+  getNombreEcografista(){
+    return 'Seleccione Ecografista'
+  }
+  getMetodoPago(){
+    return 'Seleccione Metodo Pago'
   }
 }

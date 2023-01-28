@@ -1,0 +1,25 @@
+.input-control{
+  border: none;
+  border-bottom: 1px solid white;
+  background-color: transparent;
+  width: 80%;
+  color: white;
+}
+.input-control:focus-visible{
+  border: none;
+
+}
+.font{
+  font-family: 'Montserrat';
+  font-size: 20px;
+  color: white;
+}
+.item-reporte{
+  font-size: 18px;
+  width: 350px;
+  margin: 0px 20px;
+}
+.item-filter{
+  font-size: 21px;
+  font-weight: bold;
+}

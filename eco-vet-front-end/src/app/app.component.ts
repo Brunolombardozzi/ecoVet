@@ -10,15 +10,21 @@ var ELEMENT_DATA: Ecografia[] = [];
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit , OnChanges{
+  mostrarListado:boolean=true;
+  mostrarLogin:boolean=true;
   modalRef?: BsModalRef | null;
   ecografiaSeleccionada:any;
   displayedColumns: string[] = [/*'numero',*/ 'tipo', 'nombreEcografista', 'fecha','monto','metodoPago','apellido','nombreDuenio','nombreMascota','realizada','estadoInforme','derivante'];
   dataSource = [];
   clickedRows = new Set<Ecografia>();
+  muestraMenu :any;
   @ViewChild('editarEcografia') editorEcografia: any;
+    @ViewChild('listadoEcos') listadoEcos: any;
   constructor(private modalService: BsModalService,private dataService:DataService){}
   ngOnInit(): void {
-    this.uploadData();
+    this.mostrarLogin=true;
+    // var URLactual = window.location;
+    // console.log(URLactual);
   }
   ngOnChanges(changes:SimpleChanges){
   }
@@ -42,9 +48,22 @@ export class AppComponent implements OnInit , OnChanges{
   }
 
   async actualizarListado(ecografias:any){
-    ecografias.then((data:any)=>{
-      console.log(data)
-      this.dataSource = data;
-    })
+
   }
+
+  async vistaListado(any:any){
+    this.listadoEcos.listarEcografias();
+    if(!any) this.mostrarListado = false;
+    else this.mostrarListado=true;
+  }
+
+  vistaLogin() {
+    this.mostrarLogin = false;
+    this.uploadData();
+  }
+  evaluarVistaMenu(muestraMenu:any){
+      this.muestraMenu = muestraMenu;
+  }
+
+
 }

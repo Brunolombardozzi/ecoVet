@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { doc } from 'firebase/firestore';
 import { data } from 'jquery';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AppComponent } from '../app.component';
@@ -18,15 +19,34 @@ export interface DialogData {
   template: 'passed in {{ data.name }}'
 })
 
-export class NavBarComponent{
+export class NavBarComponent implements OnInit{
   modalRef?: BsModalRef | null;
   @ViewChild('cargaEcografia') cargaEcografia: any;
   @Input()
   parent?: AppComponent;
+  @Input()
+  muestraMenu: any;
   @Output()
   actulizarListadoEcos = new EventEmitter<any>();
+  @Output()
+  ocultarListado = new EventEmitter<any>();
+  mostrarCargaEcografias:boolean=true;
+  mostrarReporteMensual:boolean=false;
+  mostrarReporteDiario:boolean=true;
+  mostrarReporteQuincena=false;
 
   constructor(private modalService: BsModalService,private dataService:DataService) {}
+  ngOnInit(): void {
+    if(this.muestraMenu === 1){
+      this.mostrarCargaEcografias = true;
+      this.mostrarReporteMensual = false;
+      this.mostrarReporteDiario = true;
+    } else if(this.muestraMenu === 0) {
+      this.mostrarCargaEcografias = false;
+      this.mostrarReporteMensual = true;
+      this.mostrarReporteDiario = true;
+    }
+  }
   closeFirstModal() {
     if (!this.modalRef) {
       return;
@@ -34,17 +54,26 @@ export class NavBarComponent{
     this.modalRef.hide();
     this.modalRef = null;
   }
+
   closeModal(){
     this.modalService.hide(1);
   }
 
   cargarEcografia(){
+    // this.ocultarListado.emit(1);  OCULTAR?
     this.modalRef = this.modalService.show(this.cargaEcografia, { id: 1, class: 'modal-lg' });
   }
-  mostrarReportes(){
-  }
+
   actualizarListado(ecografias:any){
-    console.log(ecografias)
-    this.actulizarListadoEcos.emit(ecografias)
+    this.ocultarListado.emit(true);
   }
+
+  ocultarLista(){
+    this.ocultarListado.emit(false);
+  }
+
+  mostrarListado(){
+    this.ocultarListado.emit(true);
+  }
+
 }

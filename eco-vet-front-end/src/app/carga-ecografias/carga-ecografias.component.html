@@ -1,18 +1,28 @@
 
 <div>
-  <h1 style="text-align: center;">Carga ecografias</h1>
+  <h1 style="text-align: center;">CARGA ECOGRAFIA</h1>
   <div style="height: 500px; width: 100%;">
     <div class="input-container">
-      <div class="item-container">Tipo ecografia</div>
+      <div class="item-container">Tipo Ecografia</div>
         <input class="input-data input-font-control" [(ngModel)]="tipoEcografia" type="text">
     </div>
+
     <div class="input-container">
-      <div  class="item-container">Nombre ecografista</div>
+      <div  class="item-container">
+        <div class="dropdown"  style="background-color: transparent;">
+          <button class="btn btn-secondary dropdown-toggle"  style="background-color: transparent;color: black ;" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{getNombreEcografista()}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <button *ngFor="let ecografista of ecografistas " (click)="seleccionEcorafista(ecografista)"  style="color: black ;" class="dropdown-item" type="button">{{ecografista}}</button>
+          </div>
+        </div>
+      </div>
       <input  class="input-data input-font-control" [(ngModel)]="nombreEcografista" type="text">
     </div>
     <div class="input-container">
       <div  class="item-container">Fecha</div>
-      <input  class="input-data input-font-control" [(ngModel)]="fecha" type="text">
+      <input  class="input-data input-font-control" [(ngModel)]="fecha" type="date">
       <!-- <div class="row">
         <div class="pr-3 pb-3 pe-3 w-auto">
           <bs-datepicker-inline [bsValue]="fecha"></bs-datepicker-inline>
@@ -23,10 +33,19 @@
 
     <div class="input-container">
       <div  class="item-container">Monto </div>
-      <input   class="input-data input-font-control" [(ngModel)]="monto" type="number">
+      <input   class="input-data input-font-control" [(ngModel)]="monto" type="text">
     </div>
     <div class="input-container">
-      <div  class="item-container">Metodo de pago</div>
+      <div  class="item-container">
+        <div class="dropdown"   style="background-color: transparent; ;">
+          <button class="btn btn-secondary dropdown-toggle"  style="background-color: transparent; ;color: black;" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{getMetodoPago()}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <button *ngFor="let metodoPago of metodosPago " (click)="seleccionMetodoPago(metodoPago)" class="dropdown-item" type="button">{{metodoPago}}</button>
+          </div>
+        </div>
+      </div>
       <input  class="input-data input-font-control" [(ngModel)]="metodoPago" type="text">
     </div>
     <div class="input-container">
@@ -56,7 +75,7 @@
       <input  class="input-data input-font-control" [(ngModel)]="derivante" type="text">
     </div>
   </div>
-  <div style="display:flex;width: 100%; align-items: center;">
+  <div style="display:flex;width: 100%; align-items: center;    margin-top: 5%;">
     <div style="width:50%">
       <button class="btn btn-danger margin" (click)="cancelarCarga()">Cancelar</button>
     </div>

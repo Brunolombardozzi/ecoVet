@@ -3,8 +3,7 @@ import { Injectable,  } from "@angular/core";
 import { Observable } from "rxjs";
 import { Ecografia } from "../model/ecografia";
 import { initializeApp } from "firebase/app";
-import { getDocs, getFirestore , addDoc, collection} from "firebase/firestore";
-
+import { getDocs, getFirestore , addDoc, collection,doc, setDoc, query, where, collectionGroup} from "firebase/firestore";
 const a = initializeApp({
   apiKey: 'AIzaSyB6WwldrMPAcp9-7MgXR03qmNGD1tuesU4',
   authDomain: 'eco-vet.firebaseapp.com',
@@ -17,16 +16,12 @@ const db = getFirestore();
   providedIn: 'root',
 })
 export class DataService {
-
-    itemsCollection? : any;
-    items?:Observable<any>;
     constructor(){
     }
 
     cargarNuevaEcografia(ecografia:Ecografia,componenteCarga:any){
       try {
         const docRef:any = addDoc(collection(db, "ecografia"),ecografia);
-        console.log("Se guardo correctamente la ecografia de id:", ecografia.nombreMascota);
         componenteCarga.parent.closeModal();
         return new Observable();
       } catch (e) {
@@ -35,6 +30,21 @@ export class DataService {
       }
     }
 
+    async actualizarEcografia(ecografia:Ecografia,componenteActualizacion:any){
+      try {
+        // await setDoc(doc(db, "ecografia", ecografia.numero), ecografia);
+        await setDoc(doc(db, "contraseniaCarga", ecografia.numero), {
+          valor:'clivet24'
+        });
+        await setDoc(doc(db, "contraseniaReportes", ecografia.numero), {
+          valor:'reportes123'
+        });
+        console.log("Se actualizo correctamente la ecografia de ", ecografia.nombreMascota);
+        componenteActualizacion.parent.closeModal();
+      } catch (e) {
+        console.error("Error al actualizar la ecografia", e);
+      }
+    }
 
     async traerTodasLasEcografias(){
       let ecografias:Ecografia[]=[];
@@ -42,51 +52,82 @@ export class DataService {
       querySnapshot.forEach((doc:any) => {
         let ecografia:any = doc._document.data.value.mapValue.fields;
         ecografias.push({
-          numero: ecografia.numero.integerValue,
+          numero: doc.id,
+          mes: ecografia.mes.stringValue,
+          anio: ecografia.anio.stringValue,
           tipo: ecografia.tipo.stringValue,
           nombreEcografista: ecografia.nombreEcografista.stringValue,
           fecha: ecografia.fecha.stringValue,
-          monto: ecografia.monto.integerValue,
+          monto: ecografia.monto.stringValue,
           metodoPago:ecografia.metodoPago.stringValue,
           apellido:ecografia.apellido.stringValue,
           nombreDuenio:ecografia.nombreDuenio.stringValue,
           nombreMascota:ecografia.nombreMascota.stringValue,
           realizada:ecografia.realizada.booleanValue,
           estadoInforme:ecografia.estadoInforme.stringValue,
-          derivante:ecografia.derivante.stringValue
+          derivante:ecografia.derivante.stringValue,
+          dia:ecografia.dia.IntegerValue
         })
       });
       return ecografias;
     }
+      async traerReporteDiario(fecha:any,ecografista:any){
+        let ecografias:Ecografia[]=[];
+        const ecografiasCollection = collection(db, "ecografia");
+        const q = query(ecografiasCollection, where("nombreEcografista", "==", ecografista),where("fecha","==",fecha));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc:any) => {
+          debugger
+          let ecografia:any = doc._document.data.value.mapValue.fields;
+          ecografias.push(ecografia)
+        });
+        return ecografias;
+      }
 
+      async traerReporteMensual(mes:string,anio:string,ecografista:string){
+        if(mes.length===1){
+          mes = '0' + mes;
+        }
+        let ecografias:Ecografia[]=[];
+        const ecografiasCollection = collection(db, 'ecografia');
+        const q = query(ecografiasCollection,where("anio","==",anio),where("mes","==",mes),where("nombreEcografista","==",ecografista));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc:any) => {
+          let ecografia:any = doc._document.data.value.mapValue.fields;
+          ecografias.push(ecografia)
+        });
+        return ecografias;
+      }
+
+
+      async traerReporteQuincena(mes:string,anio:string,ecografista:string){
+        if(mes.length===1){
+          mes = '0' + mes;
+        }
+        let ecografias:Ecografia[]=[];
+        const ecografiasCollection = collection(db, 'ecografia');
+        const q = query(ecografiasCollection,where("anio","==",anio),where("mes","==",mes),where("nombreEcografista","==",ecografista));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc:any) => {
+          let ecografia:any = doc._document.data.value.mapValue.fields;
+          ecografias.push(ecografia)
+        });
+        return ecografias;
+      }
+
+      async traerContrasenias(){
+        let ecografias:Ecografia[]=[];
+        let contraseniaCarga;
+        let contraseniaReportes;
+        const querySnapshot = await getDocs(collection(db, "contraseniaReportes"));
+        querySnapshot.forEach((doc:any) => {
+          contraseniaReportes = doc._document.data.value.mapValue.fields;
+        });
+        const querySnapshot1 = await getDocs(collection(db, "contraseniaCarga"));
+        querySnapshot1.forEach((doc:any) => {
+          contraseniaCarga = doc._document.data.value.mapValue.fields;
+        });
+        return [contraseniaCarga,contraseniaReportes];
+      }
 
   }
-
-// GUARDA EN CACHE CON FIRESTORE LITE.
-
-// export class DataService {
-
-//   itemsCollection? : AngularFirestoreCollection<Ecografia>;
-//   items?:Observable<any>;
-//   constructor(private db: AngularFirestore){
-//     this.db.collection<Ecografia>('ecografia').snapshotChanges().subscribe((items:any)=>{
-//       if(items && items.length !=0){
-//         console.log(items[0].payload._delegate.doc._document.data.value.mapValue.fields)
-//       }
-//     })
-//     this.db.collection<Ecografia>('ecografia').valueChanges().subscribe((items:any)=>{
-//       if(items && items.length !=0){
-//         console.log(items)
-//       } else {
-//         console.log('No hay ecografias para mostrar')
-//       }
-//     })
-//   }
-
-//   cargarEcografia(ecografia:Ecografia){
-//     this.db.collection('ecografia').doc().set(ecografia);
-//   this.db.collection('ecografia').get().subscribe(data=>{
-//       console.log(data)
-//     })
-//   }
-// }

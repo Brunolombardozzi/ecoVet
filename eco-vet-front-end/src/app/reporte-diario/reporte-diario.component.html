@@ -1,0 +1,31 @@
+<div style="border:1px solid white;margin:20px; color: white;">
+  <div style="display: flex;margin:5px">
+    <div>
+      <div class="font item-filter">Dia</div>
+      <input class="input-control font" [(ngModel)]="fecha" type="date">
+    </div>
+    <div>
+      <div class="font item-filter">Ecografista</div>
+      <input class="input-control font"  [(ngModel)]="ecografista">
+    </div>
+    <div stle="display: flex;align-items: center;">
+      <button type="button" class="btn btn-primary" style="font-weight: bold;" (click)="generarReportes()">FILTRAR</button>
+    </div>
+  </div>
+</div>
+<div style="color: white;" >
+  <div style="display: flex;">
+    <div class="font item-reporte">CANTIDAD</div>
+    <div class="font">{{cantidadTotal}}</div>
+  </div>
+  <div style="display: flex;">
+    <div class="font item-reporte">CANTIDAD | MONTO EFECTIVO</div>
+    <div class="font ">{{contadorEF}}</div>
+    <div class="font" style="margin-left:5px">${{cantidadEfectivo}}</div>
+  </div>
+  <div style="display: flex;">
+    <div class="font item-reporte">CANTIDAD | MONTO MERCADO PAGO</div>
+    <div class="font">{{contadorMP}}</div>
+    <div class="font" style="margin-left:5px">${{cantidadMercadoPago}}</div>
+  </div>
+</div>

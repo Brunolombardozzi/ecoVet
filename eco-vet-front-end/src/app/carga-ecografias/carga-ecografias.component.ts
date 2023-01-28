@@ -19,8 +19,8 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
   actulizarListadoEcos = new EventEmitter<any>();
   tipoEcografia:any='';
   nombreEcografista:any='';
-  fecha:any='';
-  monto:any='';
+  fecha:any= new Date();
+  monto:string='';
   metodoPago:any='';
   apellido:any='';
   nombreDuenio:any='';
@@ -28,6 +28,11 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
   realizada:boolean =false;
   estadoInforme:string ='';
   derivante:any='';
+  mes:any='';
+  anio:any='';
+  ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura'];
+  metodosPago:any[] = ['Efectivo','Mercado Pago','Transfer./Debito'];
+  placeHolder='Seleccione Ecografista'
   constructor(private dataService:DataService) {}
   ngOnChanges(changes: SimpleChanges): void {
   }
@@ -36,7 +41,6 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
   }
 
   guardarEcografia(){
-    let ecografiasActualizadas:any;
     let nuevaEco :any = {
     apellido  : this.apellido,
      derivante  : this.derivante,
@@ -47,15 +51,29 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
      nombreDuenio  : this.nombreDuenio,
      nombreEcografista  : this.nombreEcografista,
      nombreMascota  : this.nombreMascota,
-     numero  : 5,
+     numero  : 0,
      realizada  : this.realizada,
      tipo  : this.tipoEcografia,
+     mes : this.fecha.substring(5,7),
+     anio : this.fecha.substring(0,4),
+     dia : Number(this.fecha.substring(8,6))
     }
     this.dataService.cargarNuevaEcografia(nuevaEco,this)
-    ecografiasActualizadas= this.dataService.traerTodasLasEcografias();
-    this.actulizarListadoEcos.emit(ecografiasActualizadas);
+    this.actulizarListadoEcos.emit(1);
   }
   cancelarCarga(){
     this.parent?.closeModal();
+  }
+  seleccionEcorafista(ecografista:any){
+    this.nombreEcografista = ecografista;
+  }
+  seleccionMetodoPago(metodoPago:any){
+    this.metodoPago = metodoPago;
+  }
+  getNombreEcografista(){
+      return 'Seleccione Ecografista'
+  }
+  getMetodoPago(){
+      return 'Seleccione Metodo Pago'
   }
 }

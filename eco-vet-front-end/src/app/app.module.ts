@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { CargaEcografiasComponent } from './carga-ecografias/carga-ecografias.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule} from './app-routing.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
@@ -16,15 +16,37 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { RouterModule, Routes } from '@angular/router';
+import { ListadoEcografiasTotalesComponent } from './listado-ecografias-totales/listado-ecografias-totales.component';
+import { ReporteMensualComponent } from './reporte-mensual/reporte-mensual.component';
+import { ReporteDiarioComponent } from './reporte-diario/reporte-diario.component';
+import { LoginComponent } from './seguridad/login/login.component';
+import { ReporteQuincenaComponent } from './reporte-quincena/reporte-quincena.component';
+
+const routes: Routes  = [
+  { path: 'reporte-diario', component: ReporteDiarioComponent},
+  { path: 'listado-ecografias', component: ListadoEcografiasTotalesComponent},
+  { path: 'reporte-mensual', component: ReporteMensualComponent},
+  { path: 'login', component: LoginComponent},
+  { path: 'reporte-quincena', component: ReporteQuincenaComponent}
+
+];
+
 @NgModule({
   declarations: [
     AppComponent,
     CargaEcografiasComponent,
     NavBarComponent,
-    ActualizacionEcografiasComponent
+    ActualizacionEcografiasComponent,
+    ListadoEcografiasTotalesComponent,
+    ReporteMensualComponent,
+    ReporteDiarioComponent,
+    LoginComponent,
+    ReporteQuincenaComponent
   ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot(routes),
     AppRoutingModule,
     MatDialogModule,
     ModalModule.forRoot(),
@@ -35,9 +57,9 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule
-
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

@@ -11,4 +11,7 @@ export interface Ecografia{
   realizada:any;
   estadoInforme:any;
   derivante:any;
+  mes:any;
+  anio:any;
+  dia:any;
 }

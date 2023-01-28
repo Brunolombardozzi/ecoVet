@@ -12,11 +12,15 @@
   margin-top: 2%;
   font-family: 'Montserrat';
   font-size: 18px;
+  font-weight: bold;
 }
 .input-data {
   border: none;
   border-bottom: 2px solid black;
   width: 300px;
+  font-size: 18px;
+
+  overflow: auto;
 }
 .input-data:focus {
   border: none;
@@ -28,4 +32,5 @@
   font-size: 18px;
   height: 30px;
   margin-top: 1.7%;
+  margin-right: 30px;
 }
