@@ -4,6 +4,7 @@
   border-bottom: 1px solid white;
   background-color: transparent;
   width: 80%;
+
 }
 .input-control:focus-visible{
   border: none;

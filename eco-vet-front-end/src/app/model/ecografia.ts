@@ -4,6 +4,9 @@ export interface Ecografia{
   nombreEcografista: any;
   fecha: any;
   monto: any;
+  montoEfectivo:any;
+  montoMercadoPago:any;
+  montoTransferencia:any;
   metodoPago:any;
   apellido:any;
   nombreDuenio:any;
@@ -14,4 +17,6 @@ export interface Ecografia{
   mes:any;
   anio:any;
   dia:any;
+  casoEspecial:any;
+  observaciones:any;
 }

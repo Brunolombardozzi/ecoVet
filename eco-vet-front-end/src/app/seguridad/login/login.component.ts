@@ -18,14 +18,11 @@ export class LoginComponent implements  OnChanges {
   @Output()
   vistaCargaOReportes = new EventEmitter<any>();
   ngOnChanges(changes:SimpleChanges){
-    console.log(changes)
+    // console.log(changes)
   }
   acceder(){
     let contraseniaReportes:any;
     let contraseniaCarga:any;
-    this.viewAlert = true;
-    this.vistaCargaOReportes.emit(1);
-    this.vistaLogin.emit(1);
     this.dataService.traerContrasenias().then(data=>{
       if(data){
         contraseniaCarga = data[0];
@@ -39,10 +36,10 @@ export class LoginComponent implements  OnChanges {
         this.vistaLogin.emit(1);
       } else {
         this.viewAlert = true;
-        this.vistaCargaOReportes.emit(1);
-        this.vistaLogin.emit(1);
       }
     })
+    // this.vistaCargaOReportes.emit(1);
+    // this.vistaLogin.emit(1);
   }
 
   alert(){

@@ -29,20 +29,43 @@ export class ReporteMensualComponent {
   ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura'];
   porcentajePorEcografista=0;
   porcentaje=0;
+  dataSource = [];
+  clickedRows = new Set<Ecografia>();
+  displayedColumns: string[] = ['nombreEcografista', 'fecha','monto','metodoPago','apellido','nombreMascota','realizada','estadoInforme','derivante'];
   generarReportes(){
 
     this.dataService.traerReporteMensual(this.mes,this.anio,this.ecografista).then(data=>{
         this.elegirMes();
+        let ecografiasParaTabla:any=[];
         this.ecografiasReportadas1 = [];
         for(let ecografia of data){
-          console.log(ecografia)
             this.ecografiasReportadas1.push(ecografia)
+            ecografiasParaTabla.push({
+                numero: ecografia.numero.stringValue,
+                mes: ecografia.mes.stringValue,
+                anio: ecografia.anio.stringValue,
+                tipo: ecografia.tipo.stringValue,
+                nombreEcografista: ecografia.nombreEcografista.stringValue,
+                fecha: ecografia.fecha.stringValue,
+                monto: ecografia.monto.stringValue,
+                metodoPago:ecografia.metodoPago.stringValue,
+                apellido:ecografia.apellido.stringValue,
+                nombreDuenio:ecografia.nombreDuenio.stringValue,
+                nombreMascota:ecografia.nombreMascota.stringValue,
+                realizada:ecografia.realizada.booleanValue,
+                estadoInforme:ecografia.estadoInforme.stringValue,
+                derivante:ecografia.derivante.stringValue,
+                dia:ecografia.dia.IntegerValue
+              })
         }
-        this.porcentajePorEcografista = this.getPorcentaje(1,1);
-        this.ecografista = this.getPorcentajePorEcografista();
+        this.dataSource = ecografiasParaTabla;
+        this.porcentajePorEcografista = this.getPorcentaje();
       });
+
   }
-  getPorcentaje(porcentaje:any,index:any){
+  getPorcentaje(){
+    debugger
+
     let cantPorcentaje=0;
       for(let eco of this.ecografiasReportadas1){
         if(eco.metodoPago.stringValue==='Mercado Pago'){ //PORCENTAJE CON IMPUESTO MERCADO PAGO
@@ -66,8 +89,10 @@ export class ReporteMensualComponent {
       return '35%'
     } else if(this.ecografista === 'Santiago') {
       return '22%'
+    } else if(this.ecografista === '') {
+      return ''
     } else {
-      return '%'
+      return '100%'
     }
   }
   getValorParaPorcentaje(){
@@ -91,29 +116,29 @@ export class ReporteMensualComponent {
   }
   elegirMes() {
     if(this.mes==='1'){
-      this.mesParaMuestra =' de ' + 'Enero'
+      this.mesParaMuestra =  'Enero'
     } else if(this.mes==='2'){
-      this.mesParaMuestra =' de ' + 'Febrero'
+      this.mesParaMuestra =  'Febrero'
     }else if(this.mes==='3'){
-      this.mesParaMuestra =' de ' + 'Marzo'
+      this.mesParaMuestra =  'Marzo'
     } else if(this.mes==='4'){
-      this.mesParaMuestra =' de ' + 'Abril'
+      this.mesParaMuestra =   'Abril'
     } else if(this.mes==='5'){
-      this.mesParaMuestra =' de ' + 'Mayo'
+      this.mesParaMuestra =  'Mayo'
     } else if(this.mes==='6'){
-      this.mesParaMuestra =' de ' + 'Junio'
+      this.mesParaMuestra =  'Junio'
     } else if(this.mes==='7'){
-      this.mesParaMuestra =' de ' + 'Julio'
+      this.mesParaMuestra =  'Julio'
     } else if(this.mes==='8'){
-      this.mesParaMuestra =' de ' + 'Agosto'
+      this.mesParaMuestra =  'Agosto'
     } else if(this.mes==='9'){
-      this.mesParaMuestra =' de ' + 'Septiembre'
+      this.mesParaMuestra =  'Septiembre'
     } else if(this.mes==='10'){
-      this.mesParaMuestra =' de ' + 'Octubre'
+      this.mesParaMuestra =  'Octubre'
     } else if(this.mes==='11'){
-      this.mesParaMuestra = ' de ' +'Noviembre'
+      this.mesParaMuestra =   'Noviembre'
     } else if(this.mes==='12'){
-      this.mesParaMuestra = ' de ' +'Diciembre'
+      this.mesParaMuestra =  'Diciembre'
     }
   }
   seleccionEcorafista(ecografista:any){
@@ -130,6 +155,9 @@ getEcografistaName(){
   } else {
     return ''
   }
+}
+modificarRow(ecografia:any){
+// console.log(1)
 }
 }
 

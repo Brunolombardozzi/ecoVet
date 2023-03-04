@@ -42,9 +42,9 @@ export class AppComponent implements OnInit , OnChanges{
     this.modalRef = this.modalService.show(this.editorEcografia, { id: 2, class: 'modal-lg' });
   }
   listarEcografias(){
-    this.dataService.traerTodasLasEcografias().then((data:any)=>{
-      this.dataSource = data;
-    })
+    // this.dataService.traerTodasLasEcografias().then((data:any)=>{
+    //   this.dataSource = data;
+    // })
   }
 
   async actualizarListado(ecografias:any){
@@ -52,9 +52,7 @@ export class AppComponent implements OnInit , OnChanges{
   }
 
   async vistaListado(any:any){
-    this.listadoEcos.listarEcografias();
-    if(!any) this.mostrarListado = false;
-    else this.mostrarListado=true;
+
   }
 
   vistaLogin() {

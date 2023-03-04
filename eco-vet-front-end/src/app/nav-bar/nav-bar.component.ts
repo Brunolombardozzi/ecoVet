@@ -62,6 +62,9 @@ export class NavBarComponent implements OnInit{
   cargarEcografia(){
     // this.ocultarListado.emit(1);  OCULTAR?
     this.modalRef = this.modalService.show(this.cargaEcografia, { id: 1, class: 'modal-lg' });
+    let e :any= document.getElementsByClassName('modal-content')[0];
+    e.style.width='70%'
+    e.style.marginLeft='16%'
   }
 
   actualizarListado(ecografias:any){

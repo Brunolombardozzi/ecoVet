@@ -22,6 +22,7 @@ import { ReporteMensualComponent } from './reporte-mensual/reporte-mensual.compo
 import { ReporteDiarioComponent } from './reporte-diario/reporte-diario.component';
 import { LoginComponent } from './seguridad/login/login.component';
 import { ReporteQuincenaComponent } from './reporte-quincena/reporte-quincena.component';
+// import { FileSaverModule } from 'ngx-filesaver';
 
 const routes: Routes  = [
   { path: 'reporte-diario', component: ReporteDiarioComponent},

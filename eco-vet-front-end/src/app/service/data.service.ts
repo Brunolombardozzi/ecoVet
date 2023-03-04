@@ -3,7 +3,7 @@ import { Injectable,  } from "@angular/core";
 import { Observable } from "rxjs";
 import { Ecografia } from "../model/ecografia";
 import { initializeApp } from "firebase/app";
-import { getDocs, getFirestore , addDoc, collection,doc, setDoc, query, where, collectionGroup} from "firebase/firestore";
+import { getDocs, getFirestore , addDoc, collection,doc, setDoc, query, where, deleteDoc } from "firebase/firestore";
 const a = initializeApp({
   apiKey: 'AIzaSyB6WwldrMPAcp9-7MgXR03qmNGD1tuesU4',
   authDomain: 'eco-vet.firebaseapp.com',
@@ -32,13 +32,8 @@ export class DataService {
 
     async actualizarEcografia(ecografia:Ecografia,componenteActualizacion:any){
       try {
-        // await setDoc(doc(db, "ecografia", ecografia.numero), ecografia);
-        await setDoc(doc(db, "contraseniaCarga", ecografia.numero), {
-          valor:'clivet24'
-        });
-        await setDoc(doc(db, "contraseniaReportes", ecografia.numero), {
-          valor:'reportes123'
-        });
+        console.log(ecografia)
+        await setDoc(doc(db, "ecografia", ecografia.numero), ecografia);
         console.log("Se actualizo correctamente la ecografia de ", ecografia.nombreMascota);
         componenteActualizacion.parent.closeModal();
       } catch (e) {
@@ -46,12 +41,89 @@ export class DataService {
       }
     }
 
-    async traerTodasLasEcografias(){
+    async traerTodasLasEcografias(mes:string){
       let ecografias:Ecografia[]=[];
-      const querySnapshot = await getDocs(collection(db, "ecografia"));
+      let fechaHoy:Date = new Date();
+      const ecografiasCollection = collection(db, "ecografia");
+      const q = query(ecografiasCollection,where("mes","==",mes));
+      const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc:any) => {
         let ecografia:any = doc._document.data.value.mapValue.fields;
-        ecografias.push({
+        if(ecografia.montoEfectivo && ecografia.montoMercadoPago  && ecografia.montoTransferencia){
+
+          if(ecografia.casoEspecial && ecografia.observaciones){
+            ecografias.push({
+              numero: doc.id,
+              mes: ecografia.mes.stringValue,
+              anio: ecografia.anio.stringValue,
+              tipo: ecografia.tipo.stringValue,
+              nombreEcografista: ecografia.nombreEcografista.stringValue,
+              fecha: ecografia.fecha.stringValue,
+              monto: ecografia.monto.stringValue,
+              montoEfectivo : ecografia.montoEfectivo.stringValue,
+              montoMercadoPago : ecografia.montoMercadoPago.stringValue,
+              montoTransferencia : ecografia.montoTransferencia.stringValue,
+              metodoPago:ecografia.metodoPago.stringValue,
+              apellido:ecografia.apellido.stringValue,
+              nombreDuenio:ecografia.nombreDuenio.stringValue,
+              nombreMascota:ecografia.nombreMascota.stringValue,
+              realizada:ecografia.realizada.booleanValue,
+              estadoInforme:ecografia.estadoInforme.stringValue,
+              derivante:ecografia.derivante.stringValue,
+              dia:ecografia.dia.IntegerValue,
+              casoEspecial:ecografia.casoEspecial.stringValue,
+              observaciones:ecografia.observaciones.stringValue
+            })
+          } else {
+            ecografias.push({
+              numero: doc.id,
+              mes: ecografia.mes.stringValue,
+              anio: ecografia.anio.stringValue,
+              tipo: ecografia.tipo.stringValue,
+              nombreEcografista: ecografia.nombreEcografista.stringValue,
+              fecha: ecografia.fecha.stringValue,
+              monto: ecografia.monto.stringValue,
+              montoEfectivo : ecografia.montoEfectivo.stringValue,
+              montoMercadoPago : ecografia.montoMercadoPago.stringValue,
+              montoTransferencia : ecografia.montoTransferencia.stringValue,
+              metodoPago:ecografia.metodoPago.stringValue,
+              apellido:ecografia.apellido.stringValue,
+              nombreDuenio:ecografia.nombreDuenio.stringValue,
+              nombreMascota:ecografia.nombreMascota.stringValue,
+              realizada:ecografia.realizada.booleanValue,
+              estadoInforme:ecografia.estadoInforme.stringValue,
+              derivante:ecografia.derivante.stringValue,
+              dia:ecografia.dia.IntegerValue,
+              casoEspecial:'No',
+              observaciones:''
+            })
+          }
+      } else {
+        if(ecografia.casoEspecial && ecografia.observaciones){
+          ecografias.push({
+            numero: doc.id,
+            mes: ecografia.mes.stringValue,
+            anio: ecografia.anio.stringValue,
+            tipo: ecografia.tipo.stringValue,
+            nombreEcografista: ecografia.nombreEcografista.stringValue,
+            fecha: ecografia.fecha.stringValue,
+            monto: ecografia.monto.stringValue,
+            montoEfectivo : '',
+            montoMercadoPago :'',
+            montoTransferencia : '',
+            metodoPago:ecografia.metodoPago.stringValue,
+            apellido:ecografia.apellido.stringValue,
+            nombreDuenio:ecografia.nombreDuenio.stringValue,
+            nombreMascota:ecografia.nombreMascota.stringValue,
+            realizada:ecografia.realizada.booleanValue,
+            estadoInforme:ecografia.estadoInforme.stringValue,
+            derivante:ecografia.derivante.stringValue,
+            dia:ecografia.dia.IntegerValue,
+            casoEspecial:ecografia.casoEspecial.stringValue,
+            observaciones:ecografia.observaciones.stringValue
+          });
+        }else {
+          ecografias.push({
           numero: doc.id,
           mes: ecografia.mes.stringValue,
           anio: ecografia.anio.stringValue,
@@ -59,6 +131,9 @@ export class DataService {
           nombreEcografista: ecografia.nombreEcografista.stringValue,
           fecha: ecografia.fecha.stringValue,
           monto: ecografia.monto.stringValue,
+          montoEfectivo : '',
+          montoMercadoPago :'',
+          montoTransferencia : '',
           metodoPago:ecografia.metodoPago.stringValue,
           apellido:ecografia.apellido.stringValue,
           nombreDuenio:ecografia.nombreDuenio.stringValue,
@@ -66,9 +141,13 @@ export class DataService {
           realizada:ecografia.realizada.booleanValue,
           estadoInforme:ecografia.estadoInforme.stringValue,
           derivante:ecografia.derivante.stringValue,
-          dia:ecografia.dia.IntegerValue
-        })
-      });
+          dia:ecografia.dia.IntegerValue,
+          casoEspecial:'No',
+          observaciones:''
+        });
+      }
+    }
+    });
       return ecografias;
     }
       async traerReporteDiario(fecha:any,ecografista:any){
@@ -77,7 +156,6 @@ export class DataService {
         const q = query(ecografiasCollection, where("nombreEcografista", "==", ecografista),where("fecha","==",fecha));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc:any) => {
-          debugger
           let ecografia:any = doc._document.data.value.mapValue.fields;
           ecografias.push(ecografia)
         });
@@ -98,6 +176,40 @@ export class DataService {
         });
         return ecografias;
       }
+
+      async eliminarEcografia(id:string,componenteActualizacion:any){
+        await deleteDoc(doc(db, "ecografia", id));
+        componenteActualizacion.parent.closeModal();
+      }
+
+      // elegirMes(mes:any):any {
+      //   mes = mes.toString()
+      //   if(mes==='0'){
+      //     return  '01'
+      //   } else if(mes==='1'){
+      //     return  '02'
+      //   } else if(mes==='2'){
+      //     return  '03'
+      //   }else if(mes==='3'){
+      //     return  '04'
+      //   } else if(mes==='4'){
+      //     return   '05'
+      //   } else if(mes==='5'){
+      //     return  '06'
+      //   } else if(mes==='6'){
+      //     return  '07'
+      //   } else if(mes==='7'){
+      //     return  '08'
+      //   } else if(mes==='8'){
+      //     return  '09'
+      //   } else if(mes==='9'){
+      //     return  '10'
+      //   } else if(mes==='10'){
+      //     return  '11'
+      //   } else if(mes==='11'){
+      //     return   '12'
+      //   }
+      // }
 
 
       async traerReporteQuincena(mes:string,anio:string,ecografista:string){

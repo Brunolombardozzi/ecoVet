@@ -12,8 +12,6 @@
     cursor:pointer;
 }
 
-
-
 .overlay {
   position: fixed;
   top: 0;
@@ -49,4 +47,8 @@
   visibility: visible;
   z-index: 2;
   opacity: 1;
+}
+:root.modal-content{
+  margin-left: 25%;
+  width: 50%;
 }

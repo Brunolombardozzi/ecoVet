@@ -10,3 +10,6 @@
     font-size: 22px;
 }
 
+:root ::ng-deep mat-mdc-row{
+  height: 25px !important;
+}

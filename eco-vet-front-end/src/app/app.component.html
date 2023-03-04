@@ -1,4 +1,4 @@
-<div *ngIf="!mostrarLogin" class="general" style="background-color: rebeccapurple;" >
+<div *ngIf="!mostrarLogin" class="general" style="background-color:#D4D4D4;" >
   <app-nav-bar *ngIf="muestraMenu===0 || muestraMenu === 1" [parent]="this"(ocultarListado)="vistaListado($event)" [muestraMenu]="muestraMenu" (actulizarListadoEcos)="actualizarListado($event)"></app-nav-bar>
   <router-outlet></router-outlet>
 </div>
