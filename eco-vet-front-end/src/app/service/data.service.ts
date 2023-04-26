@@ -52,6 +52,125 @@ export class DataService {
         if(ecografia.montoEfectivo && ecografia.montoMercadoPago  && ecografia.montoTransferencia){
 
           if(ecografia.casoEspecial && ecografia.observaciones){
+
+            if(ecografia.minutos && ecografia.hora && ecografia.segundos ){
+              ecografias.push({
+                numero: doc.id,
+                mes: ecografia.mes.stringValue,
+                anio: ecografia.anio.stringValue,
+                tipo: ecografia.tipo.stringValue,
+                nombreEcografista: ecografia.nombreEcografista.stringValue,
+                fecha: ecografia.fecha.stringValue,
+                monto: ecografia.monto.stringValue,
+                montoEfectivo : ecografia.montoEfectivo.stringValue,
+                montoMercadoPago : ecografia.montoMercadoPago.stringValue,
+                montoTransferencia : ecografia.montoTransferencia.stringValue,
+                metodoPago:ecografia.metodoPago.stringValue,
+                apellido:ecografia.apellido.stringValue,
+                nombreDuenio:ecografia.nombreDuenio.stringValue,
+                nombreMascota:ecografia.nombreMascota.stringValue,
+                realizada:ecografia.realizada.booleanValue,
+                estadoInforme:ecografia.estadoInforme.stringValue,
+                derivante:ecografia.derivante.stringValue,
+                dia:ecografia.dia.stringValue,
+                casoEspecial:ecografia.casoEspecial.stringValue,
+                observaciones:ecografia.observaciones.stringValue,
+                minutos : ecografia.minutos.stringValue,
+                hora: ecografia.hora.stringValue,
+                segundos : ecografia.segundos.stringValue
+              })
+            } else {
+              ecografias.push({
+                numero: doc.id,
+                mes: ecografia.mes.stringValue,
+                anio: ecografia.anio.stringValue,
+                tipo: ecografia.tipo.stringValue,
+                nombreEcografista: ecografia.nombreEcografista.stringValue,
+                fecha: ecografia.fecha.stringValue,
+                monto: ecografia.monto.stringValue,
+                montoEfectivo : ecografia.montoEfectivo.stringValue,
+                montoMercadoPago : ecografia.montoMercadoPago.stringValue,
+                montoTransferencia : ecografia.montoTransferencia.stringValue,
+                metodoPago:ecografia.metodoPago.stringValue,
+                apellido:ecografia.apellido.stringValue,
+                nombreDuenio:ecografia.nombreDuenio.stringValue,
+                nombreMascota:ecografia.nombreMascota.stringValue,
+                realizada:ecografia.realizada.booleanValue,
+                estadoInforme:ecografia.estadoInforme.stringValue,
+                derivante:ecografia.derivante.stringValue,
+                dia:ecografia.dia.stringValue,
+                casoEspecial:ecografia.casoEspecial.stringValue,
+                observaciones:ecografia.observaciones.stringValue,
+                minutos : '',
+                hora: '',
+                segundos : ''
+              })
+            }
+
+
+          } else {
+
+            if(ecografia.minutos && ecografia.hora && ecografia.segundos ){
+              ecografias.push({
+                numero: doc.id,
+                mes: ecografia.mes.stringValue,
+                anio: ecografia.anio.stringValue,
+                tipo: ecografia.tipo.stringValue,
+                nombreEcografista: ecografia.nombreEcografista.stringValue,
+                fecha: ecografia.fecha.stringValue,
+                monto: ecografia.monto.stringValue,
+                montoEfectivo : ecografia.montoEfectivo.stringValue,
+                montoMercadoPago : ecografia.montoMercadoPago.stringValue,
+                montoTransferencia : ecografia.montoTransferencia.stringValue,
+                metodoPago:ecografia.metodoPago.stringValue,
+                apellido:ecografia.apellido.stringValue,
+                nombreDuenio:ecografia.nombreDuenio.stringValue,
+                nombreMascota:ecografia.nombreMascota.stringValue,
+                realizada:ecografia.realizada.booleanValue,
+                estadoInforme:ecografia.estadoInforme.stringValue,
+                derivante:ecografia.derivante.stringValue,
+                dia:ecografia.dia.stringValue,
+                casoEspecial:'No',
+                observaciones:'',
+                minutos : ecografia.minutos.stringValue,
+                hora: ecografia.hora.stringValue,
+                segundos : ecografia.segundos.stringValue
+              })
+            } else {
+              ecografias.push({
+                numero: doc.id,
+                mes: ecografia.mes.stringValue,
+                anio: ecografia.anio.stringValue,
+                tipo: ecografia.tipo.stringValue,
+                nombreEcografista: ecografia.nombreEcografista.stringValue,
+                fecha: ecografia.fecha.stringValue,
+                monto: ecografia.monto.stringValue,
+                montoEfectivo : ecografia.montoEfectivo.stringValue,
+                montoMercadoPago : ecografia.montoMercadoPago.stringValue,
+                montoTransferencia : ecografia.montoTransferencia.stringValue,
+                metodoPago:ecografia.metodoPago.stringValue,
+                apellido:ecografia.apellido.stringValue,
+                nombreDuenio:ecografia.nombreDuenio.stringValue,
+                nombreMascota:ecografia.nombreMascota.stringValue,
+                realizada:ecografia.realizada.booleanValue,
+                estadoInforme:ecografia.estadoInforme.stringValue,
+                derivante:ecografia.derivante.stringValue,
+                dia:ecografia.dia.stringValue,
+                casoEspecial:'No',
+                observaciones:'',
+                minutos : '',
+                hora: '',
+                segundos:''
+              })
+            }
+          }
+
+
+      } else {
+
+
+        if(ecografia.casoEspecial && ecografia.observaciones){
+          if(ecografia.minutos && ecografia.hora && ecografia.segundos ){
             ecografias.push({
               numero: doc.id,
               mes: ecografia.mes.stringValue,
@@ -60,9 +179,9 @@ export class DataService {
               nombreEcografista: ecografia.nombreEcografista.stringValue,
               fecha: ecografia.fecha.stringValue,
               monto: ecografia.monto.stringValue,
-              montoEfectivo : ecografia.montoEfectivo.stringValue,
-              montoMercadoPago : ecografia.montoMercadoPago.stringValue,
-              montoTransferencia : ecografia.montoTransferencia.stringValue,
+              montoEfectivo : '',
+              montoMercadoPago :'',
+              montoTransferencia : '',
               metodoPago:ecografia.metodoPago.stringValue,
               apellido:ecografia.apellido.stringValue,
               nombreDuenio:ecografia.nombreDuenio.stringValue,
@@ -70,10 +189,68 @@ export class DataService {
               realizada:ecografia.realizada.booleanValue,
               estadoInforme:ecografia.estadoInforme.stringValue,
               derivante:ecografia.derivante.stringValue,
-              dia:ecografia.dia.IntegerValue,
+              dia:ecografia.dia.stringValue,
               casoEspecial:ecografia.casoEspecial.stringValue,
-              observaciones:ecografia.observaciones.stringValue
-            })
+              observaciones:ecografia.observaciones.stringValue,
+              minutos : ecografia.minutos.stringValue,
+              hora: ecografia.hora.stringValue,
+              segundos : ecografia.segundos.stringValue
+            });
+          }else {
+            ecografias.push({
+              numero: doc.id,
+              mes: ecografia.mes.stringValue,
+              anio: ecografia.anio.stringValue,
+              tipo: ecografia.tipo.stringValue,
+              nombreEcografista: ecografia.nombreEcografista.stringValue,
+              fecha: ecografia.fecha.stringValue,
+              monto: ecografia.monto.stringValue,
+              montoEfectivo : '',
+              montoMercadoPago :'',
+              montoTransferencia : '',
+              metodoPago:ecografia.metodoPago.stringValue,
+              apellido:ecografia.apellido.stringValue,
+              nombreDuenio:ecografia.nombreDuenio.stringValue,
+              nombreMascota:ecografia.nombreMascota.stringValue,
+              realizada:ecografia.realizada.booleanValue,
+              estadoInforme:ecografia.estadoInforme.stringValue,
+              derivante:ecografia.derivante.stringValue,
+              dia:ecografia.dia.stringValue,
+              casoEspecial:ecografia.casoEspecial.stringValue,
+              observaciones:ecografia.observaciones.stringValue,
+              minutos :'',
+              hora: '',
+              segundos:''
+            });
+          }
+
+        }else {
+          if(ecografia.minutos && ecografia.hora && ecografia.segundos ){
+            ecografias.push({
+              numero: doc.id,
+              mes: ecografia.mes.stringValue,
+              anio: ecografia.anio.stringValue,
+              tipo: ecografia.tipo.stringValue,
+              nombreEcografista: ecografia.nombreEcografista.stringValue,
+              fecha: ecografia.fecha.stringValue,
+              monto: ecografia.monto.stringValue,
+              montoEfectivo : '',
+              montoMercadoPago :'',
+              montoTransferencia : '',
+              metodoPago:ecografia.metodoPago.stringValue,
+              apellido:ecografia.apellido.stringValue,
+              nombreDuenio:ecografia.nombreDuenio.stringValue,
+              nombreMascota:ecografia.nombreMascota.stringValue,
+              realizada:ecografia.realizada.booleanValue,
+              estadoInforme:ecografia.estadoInforme.stringValue,
+              derivante:ecografia.derivante.stringValue,
+              dia:ecografia.dia.stringValue,
+              casoEspecial:'No',
+              observaciones:'',
+              minutos : ecografia.minutos.stringValue,
+              hora: ecografia.hora.stringValue,
+              segundos : ecografia.segundos.stringValue
+            });
           } else {
             ecografias.push({
               numero: doc.id,
@@ -83,9 +260,9 @@ export class DataService {
               nombreEcografista: ecografia.nombreEcografista.stringValue,
               fecha: ecografia.fecha.stringValue,
               monto: ecografia.monto.stringValue,
-              montoEfectivo : ecografia.montoEfectivo.stringValue,
-              montoMercadoPago : ecografia.montoMercadoPago.stringValue,
-              montoTransferencia : ecografia.montoTransferencia.stringValue,
+              montoEfectivo : '',
+              montoMercadoPago :'',
+              montoTransferencia : '',
               metodoPago:ecografia.metodoPago.stringValue,
               apellido:ecografia.apellido.stringValue,
               nombreDuenio:ecografia.nombreDuenio.stringValue,
@@ -93,58 +270,15 @@ export class DataService {
               realizada:ecografia.realizada.booleanValue,
               estadoInforme:ecografia.estadoInforme.stringValue,
               derivante:ecografia.derivante.stringValue,
-              dia:ecografia.dia.IntegerValue,
+              dia:ecografia.dia.stringValue,
               casoEspecial:'No',
-              observaciones:''
-            })
+              observaciones:'',
+              minutos : '',
+              hora: '',
+              segundos:''
+            });
           }
-      } else {
-        if(ecografia.casoEspecial && ecografia.observaciones){
-          ecografias.push({
-            numero: doc.id,
-            mes: ecografia.mes.stringValue,
-            anio: ecografia.anio.stringValue,
-            tipo: ecografia.tipo.stringValue,
-            nombreEcografista: ecografia.nombreEcografista.stringValue,
-            fecha: ecografia.fecha.stringValue,
-            monto: ecografia.monto.stringValue,
-            montoEfectivo : '',
-            montoMercadoPago :'',
-            montoTransferencia : '',
-            metodoPago:ecografia.metodoPago.stringValue,
-            apellido:ecografia.apellido.stringValue,
-            nombreDuenio:ecografia.nombreDuenio.stringValue,
-            nombreMascota:ecografia.nombreMascota.stringValue,
-            realizada:ecografia.realizada.booleanValue,
-            estadoInforme:ecografia.estadoInforme.stringValue,
-            derivante:ecografia.derivante.stringValue,
-            dia:ecografia.dia.IntegerValue,
-            casoEspecial:ecografia.casoEspecial.stringValue,
-            observaciones:ecografia.observaciones.stringValue
-          });
-        }else {
-          ecografias.push({
-          numero: doc.id,
-          mes: ecografia.mes.stringValue,
-          anio: ecografia.anio.stringValue,
-          tipo: ecografia.tipo.stringValue,
-          nombreEcografista: ecografia.nombreEcografista.stringValue,
-          fecha: ecografia.fecha.stringValue,
-          monto: ecografia.monto.stringValue,
-          montoEfectivo : '',
-          montoMercadoPago :'',
-          montoTransferencia : '',
-          metodoPago:ecografia.metodoPago.stringValue,
-          apellido:ecografia.apellido.stringValue,
-          nombreDuenio:ecografia.nombreDuenio.stringValue,
-          nombreMascota:ecografia.nombreMascota.stringValue,
-          realizada:ecografia.realizada.booleanValue,
-          estadoInforme:ecografia.estadoInforme.stringValue,
-          derivante:ecografia.derivante.stringValue,
-          dia:ecografia.dia.IntegerValue,
-          casoEspecial:'No',
-          observaciones:''
-        });
+
       }
     }
     });
@@ -153,7 +287,7 @@ export class DataService {
       async traerReporteDiario(fecha:any,ecografista:any){
         let ecografias:Ecografia[]=[];
         const ecografiasCollection = collection(db, "ecografia");
-        const q = query(ecografiasCollection, where("nombreEcografista", "==", ecografista),where("fecha","==",fecha));
+        const q = query(ecografiasCollection,where("fecha","==",fecha));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc:any) => {
           let ecografia:any = doc._document.data.value.mapValue.fields;
@@ -242,4 +376,62 @@ export class DataService {
         return [contraseniaCarga,contraseniaReportes];
       }
 
+
+      elegirMes(mes:string) {
+        if(mes==='0'){
+         return  'Enero'
+        } else if(mes==='1'){
+         return  'Febrero'
+        }else if(mes==='2'){
+         return  'Marzo'
+        } else if(mes==='3'){
+         return   'Abril'
+        } else if(mes==='4'){
+         return  'Mayo'
+        } else if(mes==='5'){
+         return  'Junio'
+        } else if(mes==='6'){
+         return  'Julio'
+        } else if(mes==='7'){
+         return  'Agosto'
+        } else if(mes==='8'){
+         return  'Septiembre'
+        } else if(mes==='9'){
+         return  'Octubre'
+        } else if(mes==='10'){
+         return  'Noviembre'
+        } else if(mes==='11'){
+         return  'Diciembre'
+        } else {
+          return '';
+        }
+      }
+
+      elegirMesParaService(mes:any):any {
+        if(mes==='Enero'){
+          return  '01'
+         } else if(mes==='Febrero'){
+          return  '02'
+         }else if(mes==='Marzo'){
+          return  '03'
+         } else if(mes==='Abril'){
+          return   '04'
+         } else if(mes==='Mayo'){
+          return  '05'
+         } else if(mes=== 'Junio'){
+          return  '06'
+         } else if(mes==='Julio'){
+          return  '07'
+         } else if(mes==='Agosto'){
+          return  '08'
+         } else if(mes==='Septiembre'){
+          return  '09'
+         } else if(mes==='Octubre'){
+          return  '10'
+         } else if(mes==='Noviembre'){
+          return  '11'
+         } else if(mes=== 'Diciembre'){
+          return  '12'
+         }
+        }
   }

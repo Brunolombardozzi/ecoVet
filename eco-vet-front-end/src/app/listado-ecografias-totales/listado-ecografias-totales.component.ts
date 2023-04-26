@@ -85,35 +85,6 @@ export class ListadoEcografiasTotalesComponent implements AfterViewInit,OnInit {
     }
   }
 
-  elegirMes(mes:string) {
-    if(mes==='0'){
-     return  'Enero'
-    } else if(mes==='1'){
-     return  'Febrero'
-    }else if(mes==='2'){
-     return  'Marzo'
-    } else if(mes==='3'){
-     return   'Abril'
-    } else if(mes==='4'){
-     return  'Mayo'
-    } else if(mes==='5'){
-     return  'Junio'
-    } else if(mes==='6'){
-     return  'Julio'
-    } else if(mes==='7'){
-     return  'Agosto'
-    } else if(mes==='8'){
-     return  'Septiembre'
-    } else if(mes==='9'){
-     return  'Octubre'
-    } else if(mes==='10'){
-     return  'Noviembre'
-    } else if(mes==='11'){
-     return  'Diciembre'
-    } else {
-      return '';
-    }
-  }
 
   elegirMesParaService(mes:any):any {
     if(mes==='Enero'){
@@ -148,7 +119,7 @@ export class ListadoEcografiasTotalesComponent implements AfterViewInit,OnInit {
   }
   ngOnInit(): void {
     let date :Date= new Date()
-    this.mes =  this.elegirMes(date.getMonth().toString());
+    this.mes =  this.dataService.elegirMes(date.getMonth().toString());
     this.uploadData();
   }
   ngOnChanges(changes:SimpleChanges){
@@ -167,19 +138,18 @@ export class ListadoEcografiasTotalesComponent implements AfterViewInit,OnInit {
   }
 
   async exportarDataExcel(){
-    this.excelService.exportarExcel(this.dataSource,this.elegirMes((new Date()).getMonth().toString()))
+    this.excelService.exportarExcel(this.dataSource,this.dataService.elegirMes((new Date()).getMonth().toString()))
   }
 
   async listarEcografias(){
-    debugger;
     this.montoEfectivoDelDia = 0;
-    await this.dataService.traerTodasLasEcografias(this.elegirMesParaService(this.mes)).then((data:any)=>{
-      data.sort((a:any,b:any) =>{
-        if(a.fecha < b.fecha) return 1
-        else if(a.fecha > b.fecha) return -1
-        else return 0
-      })
+    let ecografiasConDia:any[]=[];
+    let ecografiasFiltradas:any=[];
+    await this.dataService.traerTodasLasEcografias(this.dataService.elegirMesParaService(this.mes)).then((data:any)=>{
       for(let eco of data){
+
+        ecografiasConDia.push(eco)
+
         eco.fecha = this.getFechaParseada(eco.fecha);
         if(eco.fecha[0]==='0' && eco.fecha[1]===this.numeroDiaSeleccionado.toString() ){
           this.montoEfectivoDelDia += Number(eco.montoEfectivo);
@@ -187,7 +157,23 @@ export class ListadoEcografiasTotalesComponent implements AfterViewInit,OnInit {
           this.montoEfectivoDelDia += Number(eco.montoEfectivo);
         }
       }
-      this.dataSource = data;
+
+
+      ecografiasConDia.sort((a:any,b:any) =>{
+        if(Number(a.dia) < Number(b.dia)) return 1
+        else if(Number(a.dia) > Number(b.dia)) return -1
+        else if(Number(a.hora) < Number(b.hora)) return 1
+        else if(Number(a.hora) > Number(b.hora)) return -1
+        else if(Number(a.minutos) < Number(b.minutos)) return 1
+        else if(Number(a.minutos) > Number(b.minutos)) return -1
+        else if(Number(a.segundos) < Number(b.segundos)) return 1
+        else if(Number(a.segundos) > Number(b.segundos)) return -1
+        else return 0;
+      })
+      for(let eco of ecografiasConDia){
+        ecografiasFiltradas.push(eco)
+      }
+      this.dataSource = ecografiasFiltradas;
     })
   }
   montoEfectivo(eco: any) {

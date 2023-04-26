@@ -1,12 +1,15 @@
 
-<div style="background-color:#D4D4D4">
-  <div style="text-align: center;color:#ED7180;height: 100px;align-items: center ;text-align: center ;vertical-align: middle;display: flex;font-size: 35px;"  class="font">
-    <div style="    height: 100%;
-    width: 100%;
-    margin-top: 50px;;">
-      Actualizacion Ecografia
+  <div style="background-color:#ffffff">
+    <div style="height: 70px !important; background-color: #D4D4D4;text-align: center;color:#ED7180;align-items: center ;text-align: center ;vertical-align: middle;display: flex;font-size: 30px;margin-bottom: 10px;"  class="font">
+      <div style="display: flex;    width: 100%;">
+        <div style="height: 20%;">
+          <img (click)="cancelarCarga()" style="cursor:pointer;margin-left: 10px;" src="https://cdn-icons-png.flaticon.com/128/10486/10486494.png" data-src="https://cdn-icons-png.flaticon.com/128/10486/10486494.png" width="50" height="50" class="lzy lazyload--done" srcset="https://cdn-icons-png.flaticon.com/128/10486/10486494.png 4x">
+        </div>
+        <div style="height: 100%;align-items: center;text-align: left;display: grid; width: 80%;margin-left: 20px;">
+          Actualizacion Ecografia
+        </div>
+      </div>
     </div>
-  </div>
   <div class="input-container" style="  color: #191919;">
     <div  class="item-container font">Fecha</div>
     <input  class="input-data input-font-control" [(ngModel)]="fecha" type="date">
@@ -31,7 +34,7 @@
       <div class="input-container">
         <div  class="item-container font">
           <div class="dropdown"  style="background-color: transparent;">
-            <button class="btn btn-secondary dropdown-toggle"  style="background-color: transparent; color: #191919;  font-weight: bold;border-color: #ED7180" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle"  style="padding: 0px;border:none;background-color: transparent; color: #191919;  font-weight: bold;border-color: #ED7180" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{getNombreEcografista()}}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -67,7 +70,7 @@
       <div class="input-container">
         <div  class="item-container font">
           <div class="dropdown"  style="background-color: transparent;">
-            <button class="btn btn-secondary dropdown-toggle"  style="background-color: transparent; color: #191919;  font-weight: bold;border-color: #ED7180" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle"  style="padding: 0px;border:none;background-color: transparent; color: #191919;  font-weight: bold;border-color: #ED7180" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Caso Especial
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -84,7 +87,7 @@
     <div class="input-container">
       <div  class="item-container font">
         <div class="dropdown"   style="background-color: transparent; ;">
-          <button class="btn btn-secondary dropdown-toggle"  style="background-color: transparent; color: #191919;  font-weight: bold;border-color: #ED7180;" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button class="btn btn-secondary dropdown-toggle"  style="padding: 0px;border:none;background-color: transparent; color: #191919;  font-weight: bold;border-color: #ED7180;" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{getMetodoPago()}}
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenu2">

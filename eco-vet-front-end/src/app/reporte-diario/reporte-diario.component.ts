@@ -18,10 +18,14 @@ export class ReporteDiarioComponent {
   cantidadMercadoPago:number=0;
   cantidadEfectivo:number=0;
   cantidadTransferencia:number=0;
+  cantidadOtro:number=0;
+  cantidadSinMetodo:number=0;
   informesSinRealizar:any;
   contadorMP = 0;
   contadorEF = 0;
   contadorTR = 0;
+  contadorOtro= 0;
+  contadorSinMetodo=0;
   ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura'];
   dataSource = [];
   clickedRows = new Set<Ecografia>();
@@ -53,27 +57,46 @@ export class ReporteDiarioComponent {
         ecografiasParaTabla.sort((a:any,b:any) =>{
           if(a.fecha < b.fecha) return 1
           else if(a.fecha > b.fecha) return -1
-          else return 0
-        })
-        this.dataSource = ecografiasParaTabla;
+          else return 0;
+        });
+
+      this.dataSource = ecografiasParaTabla;
       this.calcularMontosSegunMetodoPago();
     });
   }
   calcularMontosSegunMetodoPago() {
     this.contadorMP = 0;
     this.contadorEF = 0;
+    this.contadorTR = 0;
+    this.contadorOtro = 0;
     this.cantidadMercadoPago=0;
     this.cantidadEfectivo=0;
+    this.cantidadTransferencia=0;
+    this.cantidadOtro=0;
+    this.contadorSinMetodo=0;
+    this.cantidadSinMetodo=0;
     for(let ecografia of this.ecografiasReportadas){
+      debugger;
+      if(ecografia.montoMercadoPago && ecografia.montoMercadoPago!==undefined && ecografia.montoMercadoPago.stringValue !== '') {
+        this.cantidadMercadoPago += Number(ecografia.montoMercadoPago.stringValue);
+      }
+      if(ecografia.montoEfectivo && ecografia.montoEfectivo!==undefined && ecografia.montoEfectivo.stringValue !== '') {
+        this.cantidadEfectivo += Number(ecografia.montoEfectivo.stringValue);
+      }
+
+      if(ecografia.montoTransferencia && ecografia.montoTransferencia!==undefined && ecografia.montoTransferencia.stringValue !== '') {
+        this.cantidadTransferencia += Number(ecografia.montoTransferencia.stringValue);
+      }
       if(ecografia.metodoPago.stringValue==='Mercado Pago'){
         this.contadorMP+=1;
-        this.cantidadMercadoPago += Number(ecografia.monto.stringValue);
       } else if(ecografia.metodoPago.stringValue === 'Efectivo'){
         this.contadorEF+=1
-        this.cantidadEfectivo += Number(ecografia.monto.stringValue);
       }else if(ecografia.metodoPago.stringValue === 'Transferencia'){
         this.contadorTR+=1
-        this.cantidadTransferencia += Number(ecografia.monto.stringValue);
+      }else if(ecografia.metodoPago.stringValue === 'Otro'){
+        this.contadorOtro+=1
+      } else {
+        this.contadorSinMetodo+=1;
       }
     }
   }

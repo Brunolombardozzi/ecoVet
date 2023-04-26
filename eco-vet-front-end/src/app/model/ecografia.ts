@@ -19,4 +19,7 @@ export interface Ecografia{
   dia:any;
   casoEspecial:any;
   observaciones:any;
+  hora:any;
+  minutos:any;
+  segundos:any;
 }

@@ -14,6 +14,8 @@ export class ReporteMensualComponent {
   fechaDesde:any;
   semanaElegida:string='';
   quincenas:any[]=['1er Quincena','2da Quincena']
+  anios:any[]=['2023','2024','2025','2026','2027','2028','2029','2030']
+  meses:any[]=[ 'Enero', 'Febrero','Marzo', 'Abril','Mayo', 'Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   mes:any='';
   anio:any;
   ecografista:string='';
@@ -31,11 +33,12 @@ export class ReporteMensualComponent {
   porcentaje=0;
   dataSource = [];
   clickedRows = new Set<Ecografia>();
-  displayedColumns: string[] = ['nombreEcografista', 'fecha','monto','metodoPago','apellido','nombreMascota','realizada','estadoInforme','derivante'];
+  displayedColumns: string[] = ['nombreEcografista', 'fecha','monto','metodoPago','apellido','nombreMascota','estadoInforme','derivante'];
+
+
   generarReportes(){
 
-    this.dataService.traerReporteMensual(this.mes,this.anio,this.ecografista).then(data=>{
-        this.elegirMes();
+    this.dataService.traerReporteMensual(this.dataService.elegirMesParaService(this.mes),this.anio,this.ecografista).then(data=>{
         let ecografiasParaTabla:any=[];
         this.ecografiasReportadas1 = [];
         for(let ecografia of data){
@@ -48,6 +51,7 @@ export class ReporteMensualComponent {
                 nombreEcografista: ecografia.nombreEcografista.stringValue,
                 fecha: ecografia.fecha.stringValue,
                 monto: ecografia.monto.stringValue,
+                montoTra:ecografia.montoEfectivo.stringValue,
                 metodoPago:ecografia.metodoPago.stringValue,
                 apellido:ecografia.apellido.stringValue,
                 nombreDuenio:ecografia.nombreDuenio.stringValue,
@@ -63,18 +67,39 @@ export class ReporteMensualComponent {
       });
 
   }
-  getPorcentaje(){
-    debugger
-
+  getPorcentaje():any{
     let cantPorcentaje=0;
       for(let eco of this.ecografiasReportadas1){
-        if(eco.metodoPago.stringValue==='Mercado Pago'){ //PORCENTAJE CON IMPUESTO MERCADO PAGO
-          cantPorcentaje += (Number(eco.monto.stringValue) * this.getPorcentajeImpuestoMercadoPago()) * this.getValorParaPorcentaje();
-        } else if(eco.metodoPago.stringValue==='Efectivo'){ //PORCENTAJE SIN IMPUESTO MERCADO PAGO
-          cantPorcentaje += Number(eco.monto.stringValue) * this.getValorParaPorcentaje();
+        debugger
+        if(eco.metodoPago.stringValue=== 'Mercado Pago' && eco.montoMercadoPago && eco.montoMercadoPago.stringValue !== '') {
+          cantPorcentaje += (Number(eco.montoMercadoPago.stringValue) * this.getPorcentajeImpuestoMercadoPago()) * this.getValorParaPorcentaje();
         }
-    }
-    return cantPorcentaje;
+        if(eco.metodoPago.stringValue=== 'Efectivo' && eco.montoEfectivo && eco.montoEfectivo.stringValue !== '') {
+          cantPorcentaje += Number(eco.montoEfectivo.stringValue) * this.getValorParaPorcentaje();
+        }
+
+        if(eco.metodoPago.stringValue=== 'Transferencia' &&  eco.montoTransferencia && eco.montoTransferencia.stringValue !== '') {
+          cantPorcentaje += Number(eco.montoTransferencia.stringValue) * this.getValorParaPorcentaje();
+        }
+
+        if(eco.metodoPago.stringValue=== 'Otro' ) {
+          if(eco.montoMercadoPago && eco.montoMercadoPago!==undefined && eco.montoMercadoPago.stringValue !== '') {
+            cantPorcentaje += (Number(eco.montoMercadoPago.stringValue) * this.getPorcentajeImpuestoMercadoPago()) * this.getValorParaPorcentaje();
+          }
+          if(eco.montoEfectivo && eco.montoEfectivo!==undefined && eco.montoEfectivo.stringValue !== '') {
+            cantPorcentaje += Number(eco.montoEfectivo.stringValue) * this.getValorParaPorcentaje();
+          }
+
+          if(eco.montoTransferencia && eco.montoTransferencia!==undefined && eco.montoTransferencia.stringValue !== '') {
+            cantPorcentaje += Number(eco.montoTransferencia.stringValue) * this.getValorParaPorcentaje();
+          }
+        }
+
+        if(eco.metodoPago.stringValue=== '' || !eco.metodoPago.stringValue || eco.metodoPago.stringValue=== undefined || eco.metodoPago.stringValue=== ' ' ){
+          console.log('Se encontro por lo menos una ecografia sin metodo de pago')
+        }
+      }
+      return cantPorcentaje;
   }
   getPorcentajeImpuestoMercadoPago() {
     return 0.9; //Devuelve el monto menos el 10%
@@ -82,17 +107,17 @@ export class ReporteMensualComponent {
 
   getPorcentajePorEcografista(){
     if(this.ecografista ==='Ornela'){
-      return '30%'
+      return '30'
     }  else if(this.ecografista === 'Emilce') {
-      return '22%'
+      return '22'
     } else if(this.ecografista === 'Laura') {
-      return '35%'
+      return '35'
     } else if(this.ecografista === 'Santiago') {
-      return '22%'
+      return '22'
     } else if(this.ecografista === '') {
-      return ''
+      return '0'
     } else {
-      return '100%'
+      return '100'
     }
   }
   getValorParaPorcentaje(){
@@ -114,33 +139,33 @@ export class ReporteMensualComponent {
       return 0
     }
   }
-  elegirMes() {
-    if(this.mes==='1'){
-      this.mesParaMuestra =  'Enero'
-    } else if(this.mes==='2'){
-      this.mesParaMuestra =  'Febrero'
-    }else if(this.mes==='3'){
-      this.mesParaMuestra =  'Marzo'
-    } else if(this.mes==='4'){
-      this.mesParaMuestra =   'Abril'
-    } else if(this.mes==='5'){
-      this.mesParaMuestra =  'Mayo'
-    } else if(this.mes==='6'){
-      this.mesParaMuestra =  'Junio'
-    } else if(this.mes==='7'){
-      this.mesParaMuestra =  'Julio'
-    } else if(this.mes==='8'){
-      this.mesParaMuestra =  'Agosto'
-    } else if(this.mes==='9'){
-      this.mesParaMuestra =  'Septiembre'
-    } else if(this.mes==='10'){
-      this.mesParaMuestra =  'Octubre'
-    } else if(this.mes==='11'){
-      this.mesParaMuestra =   'Noviembre'
-    } else if(this.mes==='12'){
-      this.mesParaMuestra =  'Diciembre'
-    }
-  }
+  // elegirMes() {
+  //   if(this.mes==='1'){
+  //     this.mesParaMuestra =  'Enero'
+  //   } else if(this.mes==='2'){
+  //     this.mesParaMuestra =  'Febrero'
+  //   }else if(this.mes==='3'){
+  //     this.mesParaMuestra =  'Marzo'
+  //   } else if(this.mes==='4'){
+  //     this.mesParaMuestra =   'Abril'
+  //   } else if(this.mes==='5'){
+  //     this.mesParaMuestra =  'Mayo'
+  //   } else if(this.mes==='6'){
+  //     this.mesParaMuestra =  'Junio'
+  //   } else if(this.mes==='7'){
+  //     this.mesParaMuestra =  'Julio'
+  //   } else if(this.mes==='8'){
+  //     this.mesParaMuestra =  'Agosto'
+  //   } else if(this.mes==='9'){
+  //     this.mesParaMuestra =  'Septiembre'
+  //   } else if(this.mes==='10'){
+  //     this.mesParaMuestra =  'Octubre'
+  //   } else if(this.mes==='11'){
+  //     this.mesParaMuestra =   'Noviembre'
+  //   } else if(this.mes==='12'){
+  //     this.mesParaMuestra =  'Diciembre'
+  //   }
+  // }
   seleccionEcorafista(ecografista:any){
     if(this.ecografistas.includes(ecografista)){
       this.ecografista = ecografista;
@@ -156,8 +181,17 @@ getEcografistaName(){
     return ''
   }
 }
+
+seleccionAnios(anio:any){
+  this.anio = anio;
+}
 modificarRow(ecografia:any){
 // console.log(1)
+}
+
+seleccionMes(mes:any){
+  this.mes = mes;
+  this.mesParaMuestra = mes;
 }
 }
 

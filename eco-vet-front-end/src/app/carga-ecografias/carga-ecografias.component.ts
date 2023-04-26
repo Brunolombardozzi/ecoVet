@@ -32,7 +32,7 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
   derivante:any='';
   mes:any='';
   anio:any='';
-  ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura'];
+  ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura','Yanina'];
   metodosPago:any[] = ['Efectivo','Mercado Pago','Transferencia','Otro'];
   placeHolder='Seleccione Ecografista'
   montoMP:any='';
@@ -59,14 +59,17 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
   guardarEcografia(){
     if(this.metodoPago==='Otro'){
       this.monto = (Number(this.montoEF) + Number(this.montoMP) + Number(this.montoTR)).toString();
-    }
-
-    if(this.metodoPago==='Efectivo'){
-      this.montoEF = this.monto;
-    } else if(this.metodoPago==='Mercado Pago'){
-      this.montoMP = this.monto;
-    } else if(this.metodoPago==='Transferencia'){
-      this.montoTR = this.monto;
+    } else {
+      this.montoEF = 0;
+      this.montoMP = 0;
+      this.montoTR = 0;
+      if(this.metodoPago==='Efectivo'){
+        this.montoEF = this.monto;
+      } else if(this.metodoPago==='Mercado Pago'){
+        this.montoMP = this.monto;
+      } else if(this.metodoPago==='Transferencia'){
+        this.montoTR = this.monto;
+      }
     }
     let nuevaEco :Ecografia = {
       apellido  : this.apellido,
@@ -86,9 +89,12 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
      tipo  : this.tipoEcografia,
      mes : this.fecha.substring(5,7),
      anio : this.fecha.substring(0,4),
-     dia : Number(this.fecha.substring(8,6)),
+     dia : (Number(this.fecha.substring(8,10))).toString(),
      observaciones : this.observaciones,
-     casoEspecial : this.casoEspecial
+     casoEspecial : this.casoEspecial,
+     hora : (new Date).getHours().toString(),
+     minutos : (new Date).getMinutes().toString(),
+     segundos : (new Date).getSeconds().toString()
     }
     this.dataService.cargarNuevaEcografia(nuevaEco,this);
     this.actulizarListadoEcos.emit(1);

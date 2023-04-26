@@ -26,7 +26,7 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
   ecografiaSeleccionada:any;
   @Output()
   actulizarListadoEcos = new EventEmitter<any>();
-  ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura'];
+  ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura','Yanina'];
   metodosPago:any[] = ['Efectivo','Mercado Pago','Transferencia','Otro'];
   placeHolder='Seleccione Ecografista'
   montoMP:any='';
@@ -40,20 +40,23 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
   }
 
   ngOnInit(): void {
-
     this.tipoEcografia = this.ecografiaSeleccionada.tipo;
     this.nombreEcografista = this.ecografiaSeleccionada.nombreEcografista;
-    // console.log(this.getFechaParseada(this.ecografiaSeleccionada.fecha))
     this.fecha= this.getFechaParseada(this.ecografiaSeleccionada.fecha)
     this.monto = this.ecografiaSeleccionada.monto
     this.metodoPago = this.ecografiaSeleccionada.metodoPago
     this.apellido = this.ecografiaSeleccionada.apellido
     this.nombreDuenio = this.ecografiaSeleccionada.nombreDuenio
     this.nombreMascota = this.ecografiaSeleccionada.nombreMascota
-    if(this.ecografiaSeleccionada.montoEfectivo && this.ecografiaSeleccionada.montoMercadoPago &&this.ecografiaSeleccionada.montoTransferencia){
+    if(this.ecografiaSeleccionada.montoEfectivo ){
       this.montoEF = this.ecografiaSeleccionada.montoEfectivo;
-      this.montoTR = this.ecografiaSeleccionada.montoTransferencia;
+    }
+    if(this.ecografiaSeleccionada.montoMercadoPago) {
       this.montoMP = this.ecografiaSeleccionada.montoMercadoPago;
+    }
+
+    if(this.ecografiaSeleccionada.montoTransferencia) {
+      this.montoTR = this.ecografiaSeleccionada.montoTransferencia;
     }
     if(this.ecografiaSeleccionada.casoEspecial){
       this.casoEspecial = this.ecografiaSeleccionada.casoEspecial
@@ -72,15 +75,18 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
   actualizarEcografia(){
     if(this.metodoPago==='Otro'){
       this.monto = (Number(this.montoEF) + Number(this.montoMP) + Number(this.montoTR)).toString();
+    }else {
+      this.montoEF = 0;
+      this.montoMP = 0;
+      this.montoTR = 0;
+      if(this.metodoPago==='Efectivo'){
+        this.montoEF = this.monto;
+      } else if(this.metodoPago==='Mercado Pago'){
+        this.montoMP = this.monto;
+      } else if(this.metodoPago==='Transferencia'){
+        this.montoTR = this.monto;
+      }
     }
-    if(this.metodoPago==='Efectivo'){
-      this.montoEF = this.monto;
-    } else if(this.metodoPago==='Mercado Pago'){
-      this.montoMP = this.monto;
-    } else if(this.metodoPago==='Transferencia'){
-      this.montoTR = this.monto;
-    }
-    let metodoPagoFijado;
     if(!this.metodoPago && this.metodoPago === undefined) {
       this.metodoPago = ' '
     }
@@ -102,19 +108,15 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
        tipo  : this.tipoEcografia,
        mes : this.fecha.substring(5,7),
        anio : this.fecha.substring(0,4),
-       dia : Number(this.fecha.substring(8,10)),
-       hora : 1,
+       dia : Number(this.fecha.substring(8,10)).toString(),
+       hora : this.ecografiaSeleccionada.hora,
+       minutos : this.ecografiaSeleccionada.minutos,
        observaciones : this.observaciones,
-       casoEspecial : this.casoEspecial
+       casoEspecial : this.casoEspecial,
+       segundos : this.ecografiaSeleccionada.segundos
       }
     this.dataService.actualizarEcografia(eco,this)
     this.actulizarListadoEcos.emit(1);
-    // this.dataService.traerTodasLasEcografias(this.fecha.substring(5,7)).then((data:any)=>{
-    //   ecografiasActualizadas = data;
-    //   for(let eco of ecografiasActualizadas){
-    //     eco.fecha = this.getFechaParaMuestra(eco.fecha);
-    //   }
-    // });
   }
 
   getFechaParaMuestra(fecha: any): any {

@@ -1,115 +1,106 @@
 
-<div style="background-color:#D4D4D4">
-  <div style="text-align: center;color:#ED7180;height: 100px;align-items: center ;text-align: center ;vertical-align: middle;display: flex;font-size: 35px;"  class="font">
-    <div style="    height: 100%;
-    width: 100%;
-    margin-top: 50px;;">
-      Carga Ecografia
+<div style="background-color:#ffffff">
+  <div style="height: 70px !important; background-color: #D4D4D4;text-align: center;color:#ED7180;align-items: center ;text-align: center ;vertical-align: middle;display: flex;font-size: 30px;margin-bottom: 10px;"  class="font">
+    <div style="display: flex;    width: 100%;">
+      <div style="height: 20%;">
+        <img (click)="cancelarCarga()" style="cursor:pointer;margin-left: 10px;" src="https://cdn-icons-png.flaticon.com/128/10486/10486494.png" data-src="https://cdn-icons-png.flaticon.com/128/10486/10486494.png" width="50" height="50" class="lzy lazyload--done" srcset="https://cdn-icons-png.flaticon.com/128/10486/10486494.png 4x">
+      </div>
+      <div style="height: 100%;align-items: center;text-align: left;display: grid; width: 80%;margin-left: 20px;">
+        Carga Ecografia
+      </div>
     </div>
   </div>
-  <div class="input-container" style="  color: #191919;">
-    <div  class="item-container font">Fecha</div>
-    <input  class="input-data input-font-control" [(ngModel)]="fecha" type="date">
-  </div>
-    <div class="input-container">
-      <div class="item-container font">Apellido dueño</div>
-      <input  class="input-data input-font-control" [(ngModel)]="apellido" type="text">
+
+    <div class="input-container" style="  color: #191919;">
+      <div  class="item-container font">Fecha</div>
+      <input  class="input-data input-font-control" [(ngModel)]="fecha" type="date">
     </div>
-    <div class="input-container">
-      <div class="item-container font">Nombre mascota</div>
-      <input  class="input-data input-font-control" [(ngModel)]="nombreMascota" type="text">
-    </div>
-    <div class="input-container">
-      <div class="item-container font">Derivante</div>
-      <input  class="input-data input-font-control" [(ngModel)]="derivante" type="text">
-    </div>
-    <div style="width: 100%;">
       <div class="input-container">
-        <div class="item-container font">Tipo Ecografia</div>
-          <input class="input-data input-font-control" [(ngModel)]="tipoEcografia" type="text">
+        <div class="item-container font">Apellido dueño</div>
+        <input  class="input-data input-font-control" [(ngModel)]="apellido" type="text">
       </div>
       <div class="input-container">
-        <div  class="item-container font">
-          <div class="dropdown"  style="background-color: transparent;">
-            <button class="btn btn-secondary dropdown-toggle"  style="background-color: transparent; color: #191919;  font-weight: bold;border-color: #ED7180" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{getNombreEcografista()}}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <button *ngFor="let ecografista of ecografistas " (click)="seleccionEcorafista(ecografista)"  style="color: #191919;" class="dropdown-item" type="button">{{ecografista}}</button>
+        <div class="item-container font">Nombre mascota</div>
+        <input  class="input-data input-font-control" [(ngModel)]="nombreMascota" type="text">
+      </div>
+      <div class="input-container">
+        <div class="item-container font">Derivante</div>
+        <input  class="input-data input-font-control" [(ngModel)]="derivante" type="text">
+      </div>
+      <div style="width: 100%;">
+        <div class="input-container">
+          <div class="item-container font">Tipo Ecografia</div>
+            <input class="input-data input-font-control" [(ngModel)]="tipoEcografia" type="text">
+        </div>
+      </div>
+        <div class="input-container">
+          <div  class="item-container font">
+            <div class="dropdown"  style="background-color: transparent;">
+              <button class="btn btn-secondary dropdown-toggle"  style="background-color: transparent; color: #191919;  font-weight: bold;border:none;padding: 0px;" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{getNombreEcografista()}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button *ngFor="let ecografista of ecografistas " (click)="seleccionEcorafista(ecografista)"  style="color: #191919;" class="dropdown-item" type="button">{{ecografista}}</button>
+              </div>
             </div>
           </div>
+          <input disabled="true" class="input-data input-font-control" [(ngModel)]="nombreEcografista" type="text">
         </div>
-        <input disabled="true" class="input-data input-font-control" [(ngModel)]="nombreEcografista" type="text">
-      </div>
-      <div class="input-container">
-        <div class="item-container font">Informe</div>
-        <input  class="input-data input-font-control" [(ngModel)]="estadoInforme" type="text">
-      </div>
-      <div class="input-container" *ngIf="metodoPago!=='Otro'">
-        <div  class="item-container font">Monto </div>
-        <input   class="input-data input-font-control" [(ngModel)]="monto" type="text">
-      </div>
-      <div class="input-container" *ngIf="metodoPago==='Otro'">
-        <div  class="item-container font">Monto EF</div>
-        <input   class="input-data input-font-control" [(ngModel)]="montoEF" type="text">
-      </div>
-      <div class="input-container" *ngIf="metodoPago==='Otro'">
-        <div  class="item-container font">Monto MP</div>
-        <input   class="input-data input-font-control" [(ngModel)]="montoMP" type="text">
-      </div>
-      <div class="input-container" *ngIf="metodoPago==='Otro'">
-        <div  class="item-container font">Monto TR</div>
-        <input   class="input-data input-font-control" [(ngModel)]="montoTR" type="text">
-      </div>
+        <div class="input-container">
+          <div class="item-container font">Informe</div>
+          <input  class="input-data input-font-control" [(ngModel)]="estadoInforme" type="text">
+        </div>
+        <div class="input-container" *ngIf="metodoPago!=='Otro'">
+          <div  class="item-container font">Monto </div>
+          <input   class="input-data input-font-control" [(ngModel)]="monto" type="text">
+        </div>
+        <div class="input-container" *ngIf="metodoPago==='Otro'">
+          <div  class="item-container font">Monto EF</div>
+          <input   class="input-data input-font-control" [(ngModel)]="montoEF" type="text">
+        </div>
+        <div class="input-container" *ngIf="metodoPago==='Otro'">
+          <div  class="item-container font">Monto MP</div>
+          <input   class="input-data input-font-control" [(ngModel)]="montoMP" type="text">
+        </div>
+        <div class="input-container" *ngIf="metodoPago==='Otro'">
+          <div  class="item-container font">Monto TR</div>
+          <input   class="input-data input-font-control" [(ngModel)]="montoTR" type="text">
+        </div>
+
+        <div class="input-container">
+          <div  class="item-container font">
+            <div class="dropdown"  style="background-color: transparent;">
+              <button class="btn btn-secondary dropdown-toggle"  style="background-color: transparent; color: #191919;  font-weight: bold; border:none;padding: 0px;" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Caso Especial
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button *ngFor="let resp of respCasoEsp " (click)="seleccionCasoEspecial(resp)"  style="color: #191919;" class="dropdown-item" type="button">{{resp}}</button>
+              </div>
+            </div>
+          </div>
+          <input disabled="true" class="input-data input-font-control" [(ngModel)]="casoEspecial" type="text">
+        </div>
+        <div class="input-container">
+          <div  class="item-container font">Observaciones</div>
+          <input   class="input-data input-font-control" [(ngModel)]="observaciones" type="text">
+        </div>
 
       <div class="input-container">
         <div  class="item-container font">
-          <div class="dropdown"  style="background-color: transparent;">
-            <button class="btn btn-secondary dropdown-toggle"  style="background-color: transparent; color: #191919;  font-weight: bold;border-color: #ED7180" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Caso Especial
+          <div class="dropdown"   style="background-color: transparent; ;">
+            <button class="btn btn-secondary dropdown-toggle"  style="background-color: transparent; color: #191919;  font-weight: bold;border:none;padding: 0px;" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{getMetodoPago()}}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <button *ngFor="let resp of respCasoEsp " (click)="seleccionCasoEspecial(resp)"  style="color: #191919;" class="dropdown-item" type="button">{{resp}}</button>
+              <button *ngFor="let metodoPago of metodosPago " (click)="seleccionMetodoPago(metodoPago)" class="dropdown-item" type="button">{{metodoPago}}</button>
             </div>
           </div>
         </div>
-        <input disabled="true" class="input-data input-font-control" [(ngModel)]="casoEspecial" type="text">
-      </div>
-      <div class="input-container">
-        <div  class="item-container font">Observaciones</div>
-        <input   class="input-data input-font-control" [(ngModel)]="observaciones" type="text">
+        <input disabled="true" class="input-data input-font-control" [(ngModel)]="metodoPago" type="text">
       </div>
 
-    <div class="input-container">
-      <div  class="item-container font">
-        <div class="dropdown"   style="background-color: transparent; ;">
-          <button class="btn btn-secondary dropdown-toggle"  style="background-color: transparent; color: #191919;  font-weight: bold;border-color: #ED7180" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{getMetodoPago()}}
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <button *ngFor="let metodoPago of metodosPago " (click)="seleccionMetodoPago(metodoPago)" class="dropdown-item" type="button">{{metodoPago}}</button>
-          </div>
-        </div>
-      </div>
-      <input disabled="true" class="input-data input-font-control" [(ngModel)]="metodoPago" type="text">
-    </div>
-    <!-- <div class="input-container">
-      <div class="item-container font">Nombre dueño</div>
-      <input  class="input-data input-font-control" [(ngModel)]="nombreDuenio" type="text">
-    </div> -->
-    <!-- <div class="input-container">
-      <div class="item-container font">Realizada</div>
-      <div style="display: flex;align-items: flex-end;">
-        <input  class="input-data input-font-control" style="height: 20px;"  [(ngModel)]="realizada" type="checkbox">
-      </div>
-    </div> -->
-  </div>
-  <div style="display:flex;width: 100%; align-items: center;    margin-top: 5%;">
-    <div style="width:50%">
-      <button class="btn btn-danger margin" (click)="cancelarCarga()">Cancelar</button>
-    </div>
-    <div style="width:50%">
+
+  <div style="display: flex;justify-content: space-around;width: 100%;margin: 3% 0px;">
       <button class="btn btn-success margin" (click)="guardarEcografia()">Guardar</button>
-    </div>
   </div>
 </div>

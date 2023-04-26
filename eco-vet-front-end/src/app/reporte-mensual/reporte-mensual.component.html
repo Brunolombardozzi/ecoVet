@@ -1,27 +1,43 @@
 
-<div style="background-color: rebeccapurple;color: white;">
-  <div style="border:1px solid #1315AE;margin:20px;border-radius: 15px;background-color: #1315AE;"  >
+<div style="background-color: #D4D4D4;color: #D4D4D4;">
+  <div style="border:1px solid white;margin:20px;background-color: white;"  >
     <div style="display: flex;margin:5px">
-      <div>
-        <div class="font item-filter">Año</div>
-        <input class="input-control font" [(ngModel)]="anio">
-      </div>
-      <div>
-        <div class="font item-filter">Mes</div>
-        <input class="input-control font" [(ngModel)]="mes" >
-      </div>
-      <!-- <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{placeHolder}}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <button *ngFor="let quincena of quincenas " (click)="seleccionQuincena(quincena)" class="dropdown-item" type="button">{{quincena}}</button>
+
+
+      <div style="margin-right: 20px;">
+        <div class="font item-filter">
+          <div class="dropdown"  style="background-color: transparent;">
+            <button class="btn btn-secondary dropdown-toggle font"  style="border: 1px solid #ED7180;background-color: transparent;color: black ;  font-weight: bold;" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Año
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <button *ngFor="let anio of anios" (click)="seleccionAnios(anio)"  style="color: black ;  font-weight: bold;" class="dropdown-item" type="button">{{anio}}</button>
+            </div>
+          </div>
         </div>
-      </div> -->
+        <input  style="border-bottom: 1px solid gray;color: black;width: 85px;" disabled="true" class="input-control font"  [(ngModel)]="anio">
+      </div>
+
+      <div style="margin-right: 20px;">
+        <div class="font item-filter">
+          <div class="dropdown"  style="background-color: transparent;">
+            <button class="btn btn-secondary dropdown-toggle font"  style="border: 1px solid #ED7180;background-color: transparent;color: black ;  font-weight: bold;" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Mes
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <button *ngFor="let mes of meses" (click)="seleccionMes(mes)"  style="color: black ;  font-weight: bold;" class="dropdown-item" type="button">{{mes}}</button>
+            </div>
+          </div>
+        </div>
+        <input  style="border-bottom: 1px solid gray;color: black;width: 85px;" disabled="true" class="input-control font"  [(ngModel)]="mes">
+      </div>
+
+
+
       <div>
         <div class="font item-filter">
           <div class="dropdown"  style="background-color: transparent;">
-            <button class="btn btn-secondary dropdown-toggle"  style="background-color: transparent;color: white ;  font-weight: bold;" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle font"  style="border: 1px solid #ED7180;background-color: transparent;color: black ;  font-weight: bold;" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {{getNombreEcografista()}}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
@@ -29,94 +45,85 @@
             </div>
           </div>
         </div>
-        <input disabled="true" class="input-control font"  [(ngModel)]="ecografista">
+        <input  style="border-bottom: 1px solid gray;;color: black;" disabled="true" class="input-control font"  [(ngModel)]="ecografista">
       </div>
+
+
+
       <div style="display: flex;align-items: center;    margin: 0 5px;">
-        <button type="button" class="btn btn-primary" (click)="generarReportes()">Filtrar</button>
+        <button type="button" class="btn btn-primary" style="background-color: transparent;border: 1px solid #ED7180;color: #191919;height: 44px;font-weight :bold ;" (click)="generarReportes()">Filtrar</button>
       </div>
+
+
     </div>
   </div>
+
+
+
   <div>
 
     <div style="display: flex;font-size: 25px;">
-
-      <div style="margin: 20px;
-      background-color: #1315AE;
-      border-radius: 20px;color: white;display: inline;
-      text-align: center;    width: 100%;    margin-top: 0px;">
-        <label style="font-weight: bold;"> REPORTE {{ mesParaMuestra}}</label>
-        <div style="margin:10px;display: grid;">
-          <label>Cantidad ecografias</label>
-          <label>{{getCantidadTotal(1)}}</label>
-        </div>
-        <div style="margin:10px">
-          <label>Porcentajes</label>
-          <div style="display: flex;">
-            <label style="margin-right: 15px;width: 50%;    text-align: center;">{{getPorcentajePorEcografista()}}</label>
-            <div  style="width: 50%;    text-align: center;">${{porcentajePorEcografista}}</div>
+      <div style="margin: 20px;background-color: white;color: black;display: inline;text-align: center;    width: 100%;    margin-top: 0px;">
+        <label style="font-weight: bold;"> Reporte {{ mesParaMuestra}}</label>
+        <div style="display: flex;justify-content: center;">
+          <div style="margin:10px;display: grid;">
+            <label>Cantidad ecografias</label>
+            <label style="margin-right: 15px;margin-top: 15px;; color: black;   text-align: center;">{{getCantidadTotal(1)}}</label>
           </div>
-          <!-- <div style="display: flex;">
-            <label style="margin-right: 15px;width: 50%;    text-align: center;">40%</label>
-            <div  style="width: 50%;    text-align: center;">${{getPorcentaje(0.4,1)}}</div>
-          </div> -->
+          <div style="margin:10px;display: flex;">
+            <div style="display: grid;margin: 0px 35px;">
+              <label>Porcentaje</label>
+              <label style="margin-right: 15px;margin-top: 15px;; color: black;   text-align: center;">{{getPorcentajePorEcografista()}}%</label>
+            </div>
+            <div >
+              <label>Monto Total </label>
+              <div  style="  margin-top: 15px;  text-align: center;color: black">${{porcentajePorEcografista}}</div>
+            </div>
+          </div>
         </div>
 
       </div>
     </div>
-    <div style="font-size: 25px;border: 1px solid  #1315AE; background-color:  white;margin: 20px;">
+
+
+
+    <div style="font-size: 25px; background-color:  white;margin: 20px;">
       <label style="width: 100%;text-align: center;font-weight: bold;color: #ED7180;">ECOGRAFIAS REPORTADAS</label>
-      <div style="margin: 20px;
-      background-color: white;
-      border-radius: 20px;color: white;display: inline;
-      text-align: center;    width: 100%;    margin-top: 0px;">
+      <div style="margin: 20px;background-color: white;border-radius: 20px;color: white;display: inline;text-align: center;    width: 100%;    margin-top: 0px;">
 
         <table style="background-color:  white !important; color: white;" mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table ">
-
-          <ng-container matColumnDef="fecha">
-            <th mat-header-cell *matHeaderCellDef>Fecha</th>
-            <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
-          </ng-container>
           <ng-container matColumnDef="nombreEcografista">
-            <th mat-header-cell *matHeaderCellDef>Nombre ecografista</th>
-            <td mat-cell *matCellDef="let element">{{element.nombreEcografista}}</td>
+            <th class="fonta" mat-header-cell *matHeaderCellDef>ECOGRAFISTA</th>
+            <td class="new-font" mat-cell *matCellDef="let element">{{element.nombreEcografista}}</td>
           </ng-container>
-          <ng-container matColumnDef="apellido">
-            <th mat-header-cell *matHeaderCellDef>Apellido dueño</th>
-            <td mat-cell *matCellDef="let element">{{element.apellido}}</td>
-          </ng-container>
-          <ng-container matColumnDef="nombreDuenio">
-            <th mat-header-cell *matHeaderCellDef>Nombre dueño</th>
-            <td mat-cell *matCellDef="let element">{{element.nombreDuenio}}</td>
-          </ng-container>
-          <ng-container matColumnDef="nombreMascota">
-            <th mat-header-cell *matHeaderCellDef>Nombre mascota</th>
-            <td mat-cell *matCellDef="let element">{{element.nombreMascota}}</td>
-          </ng-container>
-          <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef>Tipo</th>
-            <td mat-cell *matCellDef="let element">{{element.tipo}}</td>
+          <ng-container matColumnDef="fecha">
+            <th class="fonta" mat-header-cell *matHeaderCellDef>FECHA</th>
+            <td class="new-font" mat-cell *matCellDef="let element">{{element.fecha}}</td>
           </ng-container>
           <ng-container matColumnDef="monto">
-            <th mat-header-cell *matHeaderCellDef>Monto</th>
-            <td mat-cell *matCellDef="let element">{{element.monto}}</td>
+            <th class="fonta" mat-header-cell *matHeaderCellDef>MONTO</th>
+            <td class="new-font" mat-cell *matCellDef="let element">{{element.monto}}</td>
           </ng-container>
           <ng-container matColumnDef="metodoPago">
-            <th mat-header-cell *matHeaderCellDef>Metodo pago</th>
-            <td mat-cell *matCellDef="let element">{{element.metodoPago}}</td>
+            <th class="fonta" mat-header-cell *matHeaderCellDef>METODO PAGO</th>
+            <td class="new-font" mat-cell *matCellDef="let element">{{element.metodoPago}}</td>
           </ng-container>
-          <ng-container matColumnDef="realizada">
-            <th mat-header-cell *matHeaderCellDef>Realizada</th>
-            <td mat-cell *matCellDef="let element">{{element.realizada}}</td>
+          <ng-container matColumnDef="apellido">
+            <th class="fonta" mat-header-cell *matHeaderCellDef>APELLIDO DUEÑO</th>
+            <td class="new-font" mat-cell *matCellDef="let element">{{element.apellido}}</td>
+          </ng-container>
+          <ng-container matColumnDef="nombreMascota">
+            <th class="fonta" mat-header-cell *matHeaderCellDef>MASCOTA</th>
+            <td class="new-font" mat-cell *matCellDef="let element">{{element.nombreMascota}}</td>
           </ng-container>
           <ng-container matColumnDef="estadoInforme">
-            <th mat-header-cell *matHeaderCellDef>Estado informe</th>
-            <td mat-cell *matCellDef="let element">{{element.estadoInforme}}</td>
+            <th class="fonta" mat-header-cell *matHeaderCellDef>ESTADO INFORME</th>
+            <td class="new-font" mat-cell *matCellDef="let element">{{element.estadoInforme}}</td>
           </ng-container>
           <ng-container matColumnDef="derivante">
-            <th mat-header-cell *matHeaderCellDef>Derivante</th>
-            <td mat-cell *matCellDef="let element">{{element.derivante}}</td>
+            <th class="fonta" mat-header-cell *matHeaderCellDef>DERIVANTE</th>
+            <td class="new-font" mat-cell *matCellDef="let element">{{element.derivante}}</td>
           </ng-container>
-
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr
               mat-row
@@ -127,6 +134,8 @@
         </table>
       </div>
     </div>
+
+
   </div>
 
 </div>
