@@ -28,7 +28,7 @@ export class ReporteMensualComponent {
   mesParaMuestra:any = ' ';
   @Input()
   mostrarReporteSemanal:boolean=false;
-  ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura'];
+  ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura','Yanina'];
   porcentajePorEcografista=0;
   porcentaje=0;
   dataSource = [];
@@ -70,7 +70,6 @@ export class ReporteMensualComponent {
   getPorcentaje():any{
     let cantPorcentaje=0;
       for(let eco of this.ecografiasReportadas1){
-        debugger
         if(eco.metodoPago.stringValue=== 'Mercado Pago' && eco.montoMercadoPago && eco.montoMercadoPago.stringValue !== '') {
           cantPorcentaje += (Number(eco.montoMercadoPago.stringValue) * this.getPorcentajeImpuestoMercadoPago()) * this.getValorParaPorcentaje();
         }
@@ -114,7 +113,9 @@ export class ReporteMensualComponent {
       return '35'
     } else if(this.ecografista === 'Santiago') {
       return '22'
-    } else if(this.ecografista === '') {
+    } else if(this.ecografista === 'Yanina') {
+      return '22'
+    }  else if(this.ecografista === '') {
       return '0'
     } else {
       return '100'
@@ -124,8 +125,8 @@ export class ReporteMensualComponent {
     if(this.ecografista ==='Ornela'){
       return 0.3
     }  else if(this.ecografista === 'Laura') {
-      return 0.22
-    } else if(this.ecografista === 'Emilce' ||this.ecografista === 'Santiago') {
+      return 0.35
+    } else if(this.ecografista === 'Emilce' || this.ecografista === 'Santiago' ||  this.ecografista === 'Yanina') {
       return 0.22
     } else {
       return 1

@@ -22,6 +22,7 @@ import { ReporteMensualComponent } from './reporte-mensual/reporte-mensual.compo
 import { ReporteDiarioComponent } from './reporte-diario/reporte-diario.component';
 import { LoginComponent } from './seguridad/login/login.component';
 import { ReporteQuincenaComponent } from './reporte-quincena/reporte-quincena.component';
+import { ReporteHorasExtraComponent } from './reporte-horas-extra/reporte-horas-extra.component';
 // import { FileSaverModule } from 'ngx-filesaver';
 
 const routes: Routes  = [
@@ -29,8 +30,8 @@ const routes: Routes  = [
   { path: 'listado-ecografias', component: ListadoEcografiasTotalesComponent},
   { path: 'reporte-mensual', component: ReporteMensualComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'reporte-quincena', component: ReporteQuincenaComponent}
-
+  { path: 'reporte-quincena', component: ReporteQuincenaComponent},
+  { path: 'reporte-horas-extra', component: ReporteHorasExtraComponent}
 ];
 
 @NgModule({
@@ -43,7 +44,8 @@ const routes: Routes  = [
     ReporteMensualComponent,
     ReporteDiarioComponent,
     LoginComponent,
-    ReporteQuincenaComponent
+    ReporteQuincenaComponent,
+    ReporteHorasExtraComponent
   ],
   imports: [
     BrowserModule,

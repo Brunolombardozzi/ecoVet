@@ -21,6 +21,8 @@ export class LoginComponent implements  OnChanges {
     // console.log(changes)
   }
   acceder(){
+    this.vistaCargaOReportes.emit(1);
+    this.vistaLogin.emit(1);
     let contraseniaReportes:any;
     let contraseniaCarga:any;
     this.dataService.traerContrasenias().then(data=>{
@@ -38,8 +40,6 @@ export class LoginComponent implements  OnChanges {
         this.viewAlert = true;
       }
     })
-    this.vistaCargaOReportes.emit(1);
-    this.vistaLogin.emit(1);
   }
 
   alert(){

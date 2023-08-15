@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { DataService } from '../service/data.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-actualizacion-ecografias',
@@ -25,7 +26,7 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
   @Input()
   ecografiaSeleccionada:any;
   @Output()
-  actulizarListadoEcos = new EventEmitter<any>();
+  actulizarListadoEcos:any = new EventEmitter<any>();
   ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura','Yanina'];
   metodosPago:any[] = ['Efectivo','Mercado Pago','Transferencia','Otro'];
   placeHolder='Seleccione Ecografista'
@@ -35,7 +36,12 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
   observaciones:any='';
   casoEspecial:any='';
   respCasoEsp:any[]=['Si','No']
-  constructor(private dataService:DataService) {}
+  montoHorasExtra:any='';
+  ecoHoraExtra:any='';
+  respEcoHoraExtra:any[]=['Si','No']
+  modalRef?: BsModalRef | null;
+  @ViewChild('eliminarEco') eliminarEco: any;
+  constructor(private dataService:DataService,private modalService: BsModalService) {}
   ngOnChanges(changes: SimpleChanges): void {
   }
 
@@ -71,6 +77,9 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
     }
     this.estadoInforme = this.ecografiaSeleccionada.estadoInforme
     this.derivante = this.ecografiaSeleccionada.derivante
+    if(this.ecografiaSeleccionada.montoHorasExtra) {
+      this.ecoHoraExtra = this.ecografiaSeleccionada.montoHorasExtra
+    }
   }
   actualizarEcografia(){
     if(this.metodoPago==='Otro'){
@@ -113,7 +122,8 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
        minutos : this.ecografiaSeleccionada.minutos,
        observaciones : this.observaciones,
        casoEspecial : this.casoEspecial,
-       segundos : this.ecografiaSeleccionada.segundos
+       segundos : this.ecografiaSeleccionada.segundos,
+       montoHorasExtra : this.ecoHoraExtra
       }
     this.dataService.actualizarEcografia(eco,this)
     this.actulizarListadoEcos.emit(1);
@@ -135,15 +145,26 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
   cancelarCarga(){
     this.parent?.closeModal();
   }
-  eliminarEcografia(){
-    this.dataService.eliminarEcografia(this.ecografiaSeleccionada.numero,this);
-    this.actulizarListadoEcos.emit(this.dataService.traerTodasLasEcografias(this.fecha.substring(5,7)));
+  async eliminarEcografia(){
+    await this.dataService.eliminarEcografia(this.ecografiaSeleccionada.numero,this);
+    this.actulizarListadoEcos.emit(1);
   }
+  eliminarEcografiaPopUp(){
+    this.cancelarCarga();
+    this.modalRef = this.modalService.show(this.eliminarEco, { id: 10, class: 'modal-lg' });
+  }
+  cerrarPopUpEliminar(){
+    this.modalService.hide(10);
+  }
+
   seleccionEcorafista(ecografista:any){
     this.nombreEcografista = ecografista;
   }
   seleccionMetodoPago(metodoPago:any){
     this.metodoPago = metodoPago;
+  }
+  seleccionHoraExtra(horaExtra:any){
+    this.ecoHoraExtra = horaExtra;
   }
   getNombreEcografista(){
     return 'Ecografista'

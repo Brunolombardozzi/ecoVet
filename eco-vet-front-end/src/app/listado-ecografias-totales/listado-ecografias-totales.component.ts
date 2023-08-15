@@ -13,7 +13,7 @@ export class ListadoEcografiasTotalesComponent implements AfterViewInit,OnInit {
   constructor(private modalService: BsModalService,private dataService:DataService, private excelService:ExcelService){  }
   modalRef?: BsModalRef | null;
   ecografiaSeleccionada:any;
-  displayedColumns: string[] = [/*'numero',*/ 'fecha','apellido','nombreMascota','derivante', 'tipo', 'nombreEcografista','estadoInforme','monto','metodoPago'];
+  displayedColumns: string[] = [/*'numero',*/ 'fecha','apellido','nombreMascota','derivante', 'tipo', 'nombreEcografista','estadoInforme','monto','metodoPago','observaciones'];
   dataSource = [];
   clickedRows = new Set<Ecografia>();
   meses:any[]=[ 'Enero', 'Febrero','Marzo', 'Abril','Mayo', 'Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
@@ -27,7 +27,10 @@ export class ListadoEcografiasTotalesComponent implements AfterViewInit,OnInit {
 
   @ViewChild('exportacionExcel') cargaExcel: any;
 
+  @ViewChild('eliminarEco') eliminarEco: any;
   soloCasosEspeciales:boolean=false;
+
+  @ViewChild('cargaEcografia') cargaEcografia: any;
 
   filtrarPorCasosEspeciales(){
     this.soloCasosEspeciales = !this.soloCasosEspeciales;
@@ -114,7 +117,7 @@ export class ListadoEcografiasTotalesComponent implements AfterViewInit,OnInit {
      }
   }
 
-  async actualizarListado(value:any){
+  actualizarListado(value:any){
     this.listarEcografias();
   }
   ngOnInit(): void {
@@ -188,5 +191,18 @@ export class ListadoEcografiasTotalesComponent implements AfterViewInit,OnInit {
   closeModal(){
     //Se le pasa el id del modal a cerrar al hide.
     this.modalService.hide(2);
+  }
+
+
+  closeModalCarga(){
+    this.modalService.hide(3);
+  }
+
+  cargarEcografia(){
+    // this.ocultarListado.emit(1);  OCULTAR?
+    this.modalRef = this.modalService.show(this.cargaEcografia, { id: 3, class: 'modal-lg' });
+    let e :any= document.getElementsByClassName('modal-content')[0];
+    e.style.width='70%'
+    e.style.marginLeft='16%'
   }
 }

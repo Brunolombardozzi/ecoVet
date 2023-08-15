@@ -11,7 +11,7 @@
       </div>
     </div>
   <div class="input-container" style="  color: #191919;">
-    <div  class="item-container font">Fecha</div>
+    <div  class="item-container font" style="display: flex;justify-content: space-between;">Fecha</div>
     <input  class="input-data input-font-control" [(ngModel)]="fecha" type="date">
   </div>
     <div class="input-container">
@@ -50,20 +50,20 @@
       </div>
       <div class="input-container" *ngIf="metodoPago!=='Otro'">
         <div  class="item-container font">Monto </div>
-        <input   class="input-data input-font-control" [(ngModel)]="monto" type="text">
+        <input onkeypress='return event.charCode >= 48 && event.charCode <= 57'  class="input-data input-font-control" [(ngModel)]="monto" type="text">
       </div>
 
       <div class="input-container" *ngIf="metodoPago==='Otro'">
         <div  class="item-container font">Monto EF</div>
-        <input   class="input-data input-font-control" [(ngModel)]="montoEF" type="text">
+        <input  onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="input-data input-font-control" [(ngModel)]="montoEF" type="text">
       </div>
       <div class="input-container" *ngIf="metodoPago==='Otro'">
         <div  class="item-container font">Monto MP</div>
-        <input   class="input-data input-font-control" [(ngModel)]="montoMP" type="text">
+        <input  onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="input-data input-font-control" [(ngModel)]="montoMP" type="text">
       </div>
       <div class="input-container" *ngIf="metodoPago==='Otro'">
         <div  class="item-container font">Monto TR</div>
-        <input   class="input-data input-font-control" [(ngModel)]="montoTR" type="text">
+        <input  onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="input-data input-font-control" [(ngModel)]="montoTR" type="text">
       </div>
 
 
@@ -84,6 +84,19 @@
         <div  class="item-container font">Observaciones</div>
         <input   class="input-data input-font-control" [(ngModel)]="observaciones" type="text">
       </div>
+      <div class="input-container">
+        <div  class="item-container font">
+          <div class="dropdown"  style="background-color: transparent;">
+            <button class="btn btn-secondary dropdown-toggle"  style="background-color: transparent; color: #191919;  font-weight: bold; border:none;padding: 0px;" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Fuera de Hora
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <button *ngFor="let resp of respEcoHoraExtra " (click)="seleccionHoraExtra(resp)"  style="color: #191919;" class="dropdown-item" type="button">{{resp}}</button>
+            </div>
+          </div>
+        </div>
+        <input disabled="true" class="input-data input-font-control" [(ngModel)]="ecoHoraExtra" type="text">
+      </div>
     <div class="input-container">
       <div  class="item-container font">
         <div class="dropdown"   style="background-color: transparent; ;">
@@ -98,12 +111,9 @@
       <input disabled="true" class="input-data input-font-control" [(ngModel)]="metodoPago" type="text">
     </div>
   </div>
-  <div style="display:flex;width: 100%; align-items: center;    margin-top: 5%;">
-    <div style="width:33%">
-      <button class="btn btn-danger margin" (click)="cancelarCarga()">Cancelar</button>
-    </div>
-    <div style="width: 33%; margin-left: 4.5%;">
-      <button class="btn btn-danger margin" style=" display: flex;   width: 55%;" (click)="eliminarEcografia()">
+  <div style="display:flex;width: 100%; align-items: center;margin-top: 5%;">
+    <div style="width: 50%;display: flex; justify-content: center;">
+      <button class="btn btn-danger margin" style=" display: flex;   justify-content: center;" (click)="eliminarEcografiaPopUp()">
         <div >
           <svg style="margin-bottom: 5%;margin-right: 5px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
             <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
@@ -114,8 +124,30 @@
         </div>
       </button>
     </div>
-    <div style="width:33%">
-      <button class="btn btn-success margin" (click)="actualizarEcografia()">Actualizar</button>
+    <div style="width: 50%;display: flex; justify-content: center;">
+      <button class="btn btn-success margin" (click)="actualizarEcografia()" style="background-color: #ED7180;border: 1px solid #ED7180;">Actualizar</button>
     </div>
   </div>
 </div>
+<ng-template #eliminarEco style="background-color:#ffffff">
+  <div style="background-color:#ffffff">
+    <div style="background-color:#ffffff">
+        <div style="     border-bottom: 0px solid #B7B0B0;text-align: center;color:#ED7180;height: 100px;align-items: center ;text-align: center ;vertical-align: middle;display: flex;font-size: 35px;"  class="font">
+          <div style="    height: 100%;
+          width: 100%;
+          margin-top: 50px;;">
+            Estas segura/o que queres eliminar la ecografia de {{this.nombreMascota}} ?
+          </div>
+        </div>
+        </div>
+        <div style="display:flex;width: 100%; align-items: center;    margin-top: 5%;justify-content: space-around;
+        color: black;background-color:#ffffff">
+        <div style="width: 200px;">
+          <button class="btn btn-danger margin" (click)="cancelarCarga()">Cancelar</button>
+        </div>
+        <div  style="width: 200px;">
+          <button   class="btn btn-success margin" (click)="eliminarEcografia()">Eliminar</button>
+        </div>
+        </div>
+  </div>
+</ng-template>

@@ -52,19 +52,19 @@
         </div>
         <div class="input-container" *ngIf="metodoPago!=='Otro'">
           <div  class="item-container font">Monto </div>
-          <input   class="input-data input-font-control" [(ngModel)]="monto" type="text">
+          <input  onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="input-data input-font-control" [(ngModel)]="monto" type="text">
         </div>
         <div class="input-container" *ngIf="metodoPago==='Otro'">
           <div  class="item-container font">Monto EF</div>
-          <input   class="input-data input-font-control" [(ngModel)]="montoEF" type="text">
+          <input onkeypress='return event.charCode >= 48 && event.charCode <= 57'  class="input-data input-font-control" [(ngModel)]="montoEF" type="text">
         </div>
         <div class="input-container" *ngIf="metodoPago==='Otro'">
           <div  class="item-container font">Monto MP</div>
-          <input   class="input-data input-font-control" [(ngModel)]="montoMP" type="text">
+          <input  onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="input-data input-font-control" [(ngModel)]="montoMP" type="text">
         </div>
         <div class="input-container" *ngIf="metodoPago==='Otro'">
           <div  class="item-container font">Monto TR</div>
-          <input   class="input-data input-font-control" [(ngModel)]="montoTR" type="text">
+          <input  onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="input-data input-font-control" [(ngModel)]="montoTR" type="text">
         </div>
 
         <div class="input-container">
@@ -83,6 +83,19 @@
         <div class="input-container">
           <div  class="item-container font">Observaciones</div>
           <input   class="input-data input-font-control" [(ngModel)]="observaciones" type="text">
+        </div>
+        <div class="input-container">
+          <div  class="item-container font">
+            <div class="dropdown"  style="background-color: transparent;">
+              <button class="btn btn-secondary dropdown-toggle"  style="background-color: transparent; color: #191919;  font-weight: bold; border:none;padding: 0px;" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Fuera de Hora
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button *ngFor="let resp of respEcoHoraExtra " (click)="seleccionHoraExtra(resp)"  style="color: #191919;" class="dropdown-item" type="button">{{resp}}</button>
+              </div>
+            </div>
+          </div>
+          <input disabled="true" class="input-data input-font-control" [(ngModel)]="ecoHoraExtra" type="text">
         </div>
 
       <div class="input-container">

@@ -32,9 +32,7 @@ export class DataService {
 
     async actualizarEcografia(ecografia:Ecografia,componenteActualizacion:any){
       try {
-        console.log(ecografia)
         await setDoc(doc(db, "ecografia", ecografia.numero), ecografia);
-        console.log("Se actualizo correctamente la ecografia de ", ecografia.nombreMascota);
         componenteActualizacion.parent.closeModal();
       } catch (e) {
         console.error("Error al actualizar la ecografia", e);
@@ -43,13 +41,72 @@ export class DataService {
 
     async traerTodasLasEcografias(mes:string){
       let ecografias:Ecografia[]=[];
-      let fechaHoy:Date = new Date();
       const ecografiasCollection = collection(db, "ecografia");
       const q = query(ecografiasCollection,where("mes","==",mes));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc:any) => {
         let ecografia:any = doc._document.data.value.mapValue.fields;
-        if(ecografia.montoEfectivo && ecografia.montoMercadoPago  && ecografia.montoTransferencia){
+
+        if(ecografia.montoHorasExtra) {
+
+          ecografias.push({
+            numero: doc.id,
+            mes: ecografia.mes.stringValue,
+            anio: ecografia.anio.stringValue,
+            tipo: ecografia.tipo.stringValue,
+            nombreEcografista: ecografia.nombreEcografista.stringValue,
+            fecha: ecografia.fecha.stringValue,
+            monto: ecografia.monto.stringValue,
+            montoEfectivo : ecografia.montoEfectivo.stringValue,
+            montoMercadoPago : ecografia.montoMercadoPago.stringValue,
+            montoTransferencia : ecografia.montoTransferencia.stringValue,
+            metodoPago:ecografia.metodoPago.stringValue,
+            apellido:ecografia.apellido.stringValue,
+            nombreDuenio:ecografia.nombreDuenio.stringValue,
+            nombreMascota:ecografia.nombreMascota.stringValue,
+            realizada:ecografia.realizada.booleanValue,
+            estadoInforme:ecografia.estadoInforme.stringValue,
+            derivante:ecografia.derivante.stringValue,
+            dia:ecografia.dia.stringValue,
+            casoEspecial:ecografia.casoEspecial.stringValue,
+            observaciones:ecografia.observaciones.stringValue,
+            minutos : ecografia.minutos.stringValue,
+            hora: ecografia.hora.stringValue,
+            segundos : ecografia.segundos.stringValue,
+            montoHorasExtra : ecografia.montoHorasExtra.stringValue
+          })
+
+        } else {
+
+          ecografias.push({
+            numero: doc.id,
+            mes: ecografia.mes.stringValue,
+            anio: ecografia.anio.stringValue,
+            tipo: ecografia.tipo.stringValue,
+            nombreEcografista: ecografia.nombreEcografista.stringValue,
+            fecha: ecografia.fecha.stringValue,
+            monto: ecografia.monto.stringValue,
+            montoEfectivo : ecografia.montoEfectivo.stringValue,
+            montoMercadoPago : ecografia.montoMercadoPago.stringValue,
+            montoTransferencia : ecografia.montoTransferencia.stringValue,
+            metodoPago:ecografia.metodoPago.stringValue,
+            apellido:ecografia.apellido.stringValue,
+            nombreDuenio:ecografia.nombreDuenio.stringValue,
+            nombreMascota:ecografia.nombreMascota.stringValue,
+            realizada:ecografia.realizada.booleanValue,
+            estadoInforme:ecografia.estadoInforme.stringValue,
+            derivante:ecografia.derivante.stringValue,
+            dia:ecografia.dia.stringValue,
+            casoEspecial:ecografia.casoEspecial.stringValue,
+            observaciones:ecografia.observaciones.stringValue,
+            minutos : ecografia.minutos.stringValue,
+            hora: ecografia.hora.stringValue,
+            segundos : ecografia.segundos.stringValue,
+            montoHorasExtra : ''
+          })
+        }
+
+       /* if(ecografia.montoEfectivo && ecografia.montoMercadoPago  && ecografia.montoTransferencia){
 
           if(ecografia.casoEspecial && ecografia.observaciones){
 
@@ -280,7 +337,7 @@ export class DataService {
           }
 
       }
-    }
+    }*/
     });
       return ecografias;
     }
@@ -300,6 +357,7 @@ export class DataService {
         if(mes.length===1){
           mes = '0' + mes;
         }
+        debugger
         let ecografias:Ecografia[]=[];
         const ecografiasCollection = collection(db, 'ecografia');
         const q = query(ecografiasCollection,where("anio","==",anio),where("mes","==",mes),where("nombreEcografista","==",ecografista));
@@ -314,6 +372,7 @@ export class DataService {
       async eliminarEcografia(id:string,componenteActualizacion:any){
         await deleteDoc(doc(db, "ecografia", id));
         componenteActualizacion.parent.closeModal();
+        componenteActualizacion.cerrarPopUpEliminar();
       }
 
       // elegirMes(mes:any):any {

@@ -41,6 +41,17 @@
             <button *ngFor="let mes of meses " (click)="seleccionMes(mes)"  style="color: white ;  font-weight: bold;" class="dropdown-item tn" type="button">{{mes}}</button>
       <!-- <input disabled="true" class="input-control font" style="margin-top: 10px;" [(ngModel)]="mes"> -->
           </div>
+
+          <div style="display: flex;   margin: 0px;margin-left: 20px;">
+            <button type="button" style="background-color: transparent;font-size: 20px;font-weight: bold;border: 1px solid #ED7180;height: 44px;border-radius: 0px; color: #191919 " class="btn btn-primary" (click)="cargarEcografia()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+              </svg>
+              Nueva Eco</button>
+          </div>
+
+
           <div style="display: flex;   margin: 20px">
             <button type="button" style="background-color: transparent;font-size: 20px;font-weight: bold;border-radius: 0px;border: 1px solid #ED7180;height: 44px; color: #191919 "
              class="btn btn-primary" (click)="uploadData()">
@@ -50,20 +61,20 @@
               </svg>
               Actualizar</button>
           </div>
-          <div style="display: flex;   margin: 0px;">
+          <!-- <div style="display: flex;   margin: 0px;">
             <button type="button" style="background-color: transparent;font-size: 20px;font-weight: bold;border: 1px solid #ED7180;height: 44px;border-radius: 0px; color: #191919 " class="btn btn-primary" (click)="exportarExcel()">
               <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 30 30" width="30px" height="30px">
                   <path d="M 15 3 A 2 2 0 0 0 14.599609 3.0429688 L 14.597656 3.0410156 L 4.6289062 5.0351562 L 4.6269531 5.0371094 A 2 2 0 0 0 3 7 L 3 23 A 2 2 0 0 0 4.6289062 24.964844 L 14.597656 26.958984 A 2 2 0 0 0 15 27 A 2 2 0 0 0 17 25 L 17 5 A 2 2 0 0 0 15 3 z M 19 5 L 19 8 L 21 8 L 21 10 L 19 10 L 19 12 L 21 12 L 21 14 L 19 14 L 19 16 L 21 16 L 21 18 L 19 18 L 19 20 L 21 20 L 21 22 L 19 22 L 19 25 L 25 25 C 26.105 25 27 24.105 27 23 L 27 7 C 27 5.895 26.105 5 25 5 L 19 5 z M 23 8 L 24 8 C 24.552 8 25 8.448 25 9 C 25 9.552 24.552 10 24 10 L 23 10 L 23 8 z M 6.1855469 10 L 8.5878906 10 L 9.8320312 12.990234 C 9.9330313 13.234234 10.013797 13.516891 10.091797 13.837891 L 10.125 13.837891 C 10.17 13.644891 10.258531 13.351797 10.394531 12.966797 L 11.785156 10 L 13.972656 10 L 11.359375 14.955078 L 14.050781 19.998047 L 11.716797 19.998047 L 10.212891 16.740234 C 10.155891 16.625234 10.089203 16.393266 10.033203 16.072266 L 10.011719 16.072266 C 9.9777187 16.226266 9.9105937 16.458578 9.8085938 16.767578 L 8.2949219 20 L 5.9492188 20 L 8.7324219 14.994141 L 6.1855469 10 z M 23 12 L 24 12 C 24.552 12 25 12.448 25 13 C 25 13.552 24.552 14 24 14 L 23 14 L 23 12 z M 23 16 L 24 16 C 24.552 16 25 16.448 25 17 C 25 17.552 24.552 18 24 18 L 23 18 L 23 16 z M 23 20 L 24 20 C 24.552 20 25 20.448 25 21 C 25 21.552 24.552 22 24 22 L 23 22 L 23 20 z"/></svg>
               Excel</button>
-          </div>
-          <div style="display: flex; height: 43px; ;margin-left: 20px;border: 1px solid #ED7180;" >
+          </div> -->
+          <div style="display: flex; height: 43px; ;margin-left: 0px;border: 1px solid #ED7180;" >
             <div style="margin-left: 10px;font-size: 20px;font-weight: bold;border-bottom: 0px;    height: 34px; color: #191919 ;height: 100%;width: 100%;display: flex;align-items: center;" class="font">
-               Solo Casos Especiales </div>
+               Casos Especiales </div>
             <input type="checkbox" style="margin:0px 5px" (click)="filtrarPorCasosEspeciales()">
           </div>
           <div style="display: flex; height: 43px;   margin: 20px;margin-left: 20px;border: 1px solid #ED7180;">
             <div type="button" style="background-color: transparent;font-size: 20px;font-weight: bold;border-radius: 0px;height: 34px; color: #191919 "
-             class="btn " (click)="uploadData()"> Monto efectivo </div>
+             class="btn " (click)="uploadData()"> Monto Efectivo </div>
              <div >
               <div style="    border-bottom: 0px solid #B7B0B0;  height: 15px;" class="item-container font">
                 <div class="dropdown"  style="background-color: transparent;">
@@ -128,10 +139,11 @@
         <th class="fontas"    mat-header-cell *matHeaderCellDef>Realizada</th>
         <td class="font"  mat-cell *matCellDef="let element">{{element.realizada}}</td>
       </ng-container> -->
-      <!-- <ng-container matColumnDef="nombreDuenio">
-        <th class="fontas"    mat-header-cell *matHeaderCellDef>NOMBRE TUTOR</th>
-        <td class="font"  mat-cell *matCellDef="let element">{{element.nombreDuenio}}</td>
-      </ng-container> -->
+      <ng-container matColumnDef="observaciones">
+        <th class="fontas"    mat-header-cell *matHeaderCellDef>Observaciones</th>
+        <td class="font"  mat-cell *matCellDef="let element" maxlength="5">
+          <input type="text" maxlength="10" [(ngModel)]="element.observaciones" disabled="true" style="background: none;border: none;  color: #191919;  font-size: 15px;">
+      </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr
           mat-row
@@ -140,11 +152,43 @@
           *matRowDef="let row; columns: displayedColumns;"
       ></tr>
     </table>
+    <ng-template #cargaEcografia>
+      <app-carga-ecografias [metodoPago]="null" [parent]="this"(actulizarListadoEcos)="actualizarListado($event)"></app-carga-ecografias>
+    </ng-template>
+
 
     <ng-template #editarEcografia>
       <app-actualizacion-ecografias (actulizarListadoEcos)="actualizarListado($event)"  [ecografiaSeleccionada]="ecografiaSeleccionada" [parent]="this"></app-actualizacion-ecografias>
     </ng-template>
+
+
     <ng-template #exportacionExcel style="background-color:#D4D4D4">
+      <div style="background-color:#D4D4D4">
+        <div style="background-color:#D4D4D4">
+            <div style="     border-bottom: 0px solid #B7B0B0;text-align: center;color:#ED7180;height: 100px;align-items: center ;text-align: center ;vertical-align: middle;display: flex;font-size: 35px;"  class="font">
+              <div style="    height: 100%;
+              width: 100%;
+              margin-top: 50px;;">
+                Exportacion Datos a Excel
+              </div>
+            </div>
+            <!-- <div class="input-container" style="background-color:#D4D4D4;  color: #191919;">
+              <div  class="item-container font">Mes</div>
+              <input  class="input-data input-font-control" [(ngModel)]="mesParaExcel" type="text">
+            </div>-->
+            </div>
+            <div style="display:flex;width: 100%; align-items: center;    margin-top: 5%;background-color:#D4D4D4">
+              <div style="width:50%">
+                <button style="    margin-left: 35%;margin-bottom: 10%;" class="btn btn-danger margin" (click)="cancelarExcel()">Cancelar</button>
+              </div>
+              <div style="width:50%">
+                <button  style="    margin-left: 35%;margin-bottom: 10%;"  class="btn btn-success margin" (click)="exportarDataExcel()">Descargar</button>
+              </div>
+            </div>
+      </div>
+    </ng-template>
+
+    <ng-template #eliminarEco style="background-color:#D4D4D4">
       <div style="background-color:#D4D4D4">
         <div style="background-color:#D4D4D4">
             <div style="     border-bottom: 0px solid #B7B0B0;text-align: center;color:#ED7180;height: 100px;align-items: center ;text-align: center ;vertical-align: middle;display: flex;font-size: 35px;"  class="font">

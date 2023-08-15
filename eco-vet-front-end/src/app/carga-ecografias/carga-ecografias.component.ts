@@ -5,6 +5,7 @@ import { DataService } from '../service/data.service';
 import { Ecografia } from '../model/ecografia';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ThisReceiver } from '@angular/compiler';
+import { ListadoEcografiasTotalesComponent } from '../listado-ecografias-totales/listado-ecografias-totales.component';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { ThisReceiver } from '@angular/compiler';
 export class CargaEcografiasComponent implements OnInit,OnChanges{
 
   @Input()
-  parent?: NavBarComponent;
+  parent?: ListadoEcografiasTotalesComponent;
   @Output()
   actulizarListadoEcos = new EventEmitter<any>();
   tipoEcografia:any='';
@@ -41,10 +42,10 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
   observaciones:any='';
   casoEspecial:any='';
   respCasoEsp:any[]=['Si','No']
+  ecoHoraExtra:any='No';
+  respEcoHoraExtra:any[]=['Si','No']
   constructor(private dataService:DataService) {}
   ngOnChanges(changes: SimpleChanges): void {
-      console.log(changes)
-
   }
 
   ngOnInit(): void {
@@ -94,19 +95,24 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
      casoEspecial : this.casoEspecial,
      hora : (new Date).getHours().toString(),
      minutos : (new Date).getMinutes().toString(),
-     segundos : (new Date).getSeconds().toString()
+     segundos : (new Date).getSeconds().toString(),
+     montoHorasExtra : this.ecoHoraExtra
     }
     this.dataService.cargarNuevaEcografia(nuevaEco,this);
     this.actulizarListadoEcos.emit(1);
+    this.parent?.closeModalCarga();
   }
   cancelarCarga(){
-    this.parent?.closeModal();
+    this.parent?.closeModalCarga();
   }
   seleccionEcorafista(ecografista:any){
     this.nombreEcografista = ecografista;
   }
   seleccionMetodoPago(metodoPago:any){
     this.metodoPago = metodoPago;
+  }
+  seleccionHoraExtra(horaExtra:any){
+    this.ecoHoraExtra = horaExtra;
   }
   getNombreEcografista(){
       return 'Ecografista'

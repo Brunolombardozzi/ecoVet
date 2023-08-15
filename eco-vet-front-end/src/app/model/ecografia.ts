@@ -22,4 +22,5 @@ export interface Ecografia{
   hora:any;
   minutos:any;
   segundos:any;
+  montoHorasExtra:any;
 }
