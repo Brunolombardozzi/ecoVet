@@ -40,6 +40,7 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
   ecoHoraExtra:any='';
   respEcoHoraExtra:any[]=['Si','No']
   modalRef?: BsModalRef | null;
+  id:any='';
   @ViewChild('eliminarEco') eliminarEco: any;
   constructor(private dataService:DataService,private modalService: BsModalService) {}
   ngOnChanges(changes: SimpleChanges): void {
@@ -80,6 +81,7 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
     if(this.ecografiaSeleccionada.montoHorasExtra) {
       this.ecoHoraExtra = this.ecografiaSeleccionada.montoHorasExtra
     }
+    this.id = this.ecografiaSeleccionada.id
   }
   actualizarEcografia(){
     if(this.metodoPago==='Otro'){
@@ -123,7 +125,8 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
        observaciones : this.observaciones,
        casoEspecial : this.casoEspecial,
        segundos : this.ecografiaSeleccionada.segundos,
-       montoHorasExtra : this.ecoHoraExtra
+       montoHorasExtra : this.ecoHoraExtra,
+       id:this.id
       }
     this.dataService.actualizarEcografia(eco,this)
     this.actulizarListadoEcos.emit(1);

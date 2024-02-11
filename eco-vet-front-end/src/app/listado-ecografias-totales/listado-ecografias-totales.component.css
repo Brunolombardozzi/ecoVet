@@ -40,8 +40,6 @@
   font-family: 'Montserrat';
   font-size: 15px;
   height: 30px;
-  margin-top: 1.7%;
-  margin-left: 30px;
 }
 .input-control{
   border: none;
@@ -59,14 +57,14 @@
   font-weight: bold;
 }
 .input-data {
-  background-color:#D4D4D4;
   border: none;
   border-bottom: 2px solid #AEABAB;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
   font-size: 15px;
   font-weight: bold;
   color: #191919;
-  overflow: auto;
+  overflow-wrap: inherit;
+  width: 120px;
 }
 .input-control:focus-visible{
   border: none;
@@ -83,4 +81,94 @@ table tr {
   font-family: 'Montserrat';
   font-size: 18px;
   font-weight: bold;
+}
+::ng-deep .datatable-header-cell-template-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+::ng-deep  .datatable-body-cell-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+::ng-deep  .datatable-body-cell-label {
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 13px;
+  font-weight: 400;
+  color: #191919;
+}
+::ng-deep  .datatable-row-wrapper{
+  border-top: 2px solid  grey;
+}
+
+::ng-deep  .datatable-header-cell {
+  width: 100px !important;
+}
+
+::ng-deep  .datatable-body-cell
+{
+  width: 100px !important;
+}
+
+:host ::ng-deep  .datatable-header-cell-template-wrap
+ {
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 15px;
+  font-weight: 500;
+  color: #191919;
+}
+
+::ng-deep  .datatable-header
+{
+  /* border-bottom: 3px solid grey; */
+  display: flex !important;
+  align-items: center !important;
+  /* margin-bottom: 10px; */
+}
+
+::ng-deep  .datatable-body-cell
+{
+  display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+
+::ng-deep  .empty-row {
+  padding: 10% 35%
+}
+
+.spinner-container {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 9999;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+:focus-visible div {
+  border: none;
 }

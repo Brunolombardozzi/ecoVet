@@ -3,3 +3,6 @@
   background: #D4D4D4;
   width: 100%;
 }
+body {
+  overflow: hidden;
+}

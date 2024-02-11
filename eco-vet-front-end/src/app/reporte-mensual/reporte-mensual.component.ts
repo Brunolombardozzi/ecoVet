@@ -41,7 +41,9 @@ export class ReporteMensualComponent {
     this.dataService.traerReporteMensual(this.dataService.elegirMesParaService(this.mes),this.anio,this.ecografista).then(data=>{
         let ecografiasParaTabla:any=[];
         this.ecografiasReportadas1 = [];
+        debugger
         for(let ecografia of data){
+          if(ecografia.montoHorasExtra && ecografia.montoHorasExtra.stringValue !== 'Si'){
             this.ecografiasReportadas1.push(ecografia)
             ecografiasParaTabla.push({
                 numero: ecografia.numero.stringValue,
@@ -61,6 +63,7 @@ export class ReporteMensualComponent {
                 derivante:ecografia.derivante.stringValue,
                 dia:ecografia.dia.IntegerValue
               })
+          }
         }
         this.dataSource = ecografiasParaTabla;
         this.porcentajePorEcografista = this.getPorcentaje();
@@ -185,9 +188,6 @@ getEcografistaName(){
 
 seleccionAnios(anio:any){
   this.anio = anio;
-}
-modificarRow(ecografia:any){
-// console.log(1)
 }
 
 seleccionMes(mes:any){

@@ -1,4 +1,5 @@
 export interface Ecografia{
+  id:any;
   numero: any;
   tipo: any;
   nombreEcografista: any;

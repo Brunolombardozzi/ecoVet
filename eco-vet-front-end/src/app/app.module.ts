@@ -23,6 +23,7 @@ import { ReporteDiarioComponent } from './reporte-diario/reporte-diario.componen
 import { LoginComponent } from './seguridad/login/login.component';
 import { ReporteQuincenaComponent } from './reporte-quincena/reporte-quincena.component';
 import { ReporteHorasExtraComponent } from './reporte-horas-extra/reporte-horas-extra.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 // import { FileSaverModule } from 'ngx-filesaver';
 
 const routes: Routes  = [
@@ -59,7 +60,8 @@ const routes: Routes  = [
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    NgxDatatableModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

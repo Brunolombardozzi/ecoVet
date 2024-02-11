@@ -19,6 +19,10 @@
       <input  class="input-data input-font-control" [(ngModel)]="apellido" type="text">
     </div>
     <div class="input-container">
+      <div  class="item-container font">ID </div>
+      <input  onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="input-data input-font-control" [(ngModel)]="id" type="text">
+    </div>
+    <div class="input-container">
       <div class="item-container font">Nombre mascota</div>
       <input  class="input-data input-font-control" [(ngModel)]="nombreMascota" type="text">
     </div>
@@ -52,7 +56,6 @@
         <div  class="item-container font">Monto </div>
         <input onkeypress='return event.charCode >= 48 && event.charCode <= 57'  class="input-data input-font-control" [(ngModel)]="monto" type="text">
       </div>
-
       <div class="input-container" *ngIf="metodoPago==='Otro'">
         <div  class="item-container font">Monto EF</div>
         <input  onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="input-data input-font-control" [(ngModel)]="montoEF" type="text">
@@ -136,7 +139,7 @@
           <div style="    height: 100%;
           width: 100%;
           margin-top: 50px;;">
-            Estas segura/o que queres eliminar la ecografia de {{this.nombreMascota}} ?
+            Se esta por eliminar la ecografia de {{this.nombreMascota}}
           </div>
         </div>
         </div>

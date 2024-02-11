@@ -107,7 +107,6 @@ export class ReporteDiarioComponent {
       return 'Ecografista'
   }
   modificarRow(ecografia:any){
-    // console.log(1)
     }
 }
 

@@ -32,6 +32,7 @@ export class DataService {
 
     async actualizarEcografia(ecografia:Ecografia,componenteActualizacion:any){
       try {
+        debugger
         await setDoc(doc(db, "ecografia", ecografia.numero), ecografia);
         componenteActualizacion.parent.closeModal();
       } catch (e) {
@@ -39,15 +40,15 @@ export class DataService {
       }
     }
 
-    async traerTodasLasEcografias(mes:string){
+    async traerTodasLasEcografias(fecha:string){
       let ecografias:Ecografia[]=[];
       const ecografiasCollection = collection(db, "ecografia");
-      const q = query(ecografiasCollection,where("mes","==",mes));
+      const q = query(ecografiasCollection,where("fecha","==",fecha));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc:any) => {
         let ecografia:any = doc._document.data.value.mapValue.fields;
 
-        if(ecografia.montoHorasExtra) {
+        if(ecografia.id) {
 
           ecografias.push({
             numero: doc.id,
@@ -73,7 +74,8 @@ export class DataService {
             minutos : ecografia.minutos.stringValue,
             hora: ecografia.hora.stringValue,
             segundos : ecografia.segundos.stringValue,
-            montoHorasExtra : ecografia.montoHorasExtra.stringValue
+            montoHorasExtra : ecografia.montoHorasExtra.stringValue,
+            id: ecografia.id.stringValue
           })
 
         } else {
@@ -102,7 +104,8 @@ export class DataService {
             minutos : ecografia.minutos.stringValue,
             hora: ecografia.hora.stringValue,
             segundos : ecografia.segundos.stringValue,
-            montoHorasExtra : ''
+            montoHorasExtra : '',
+            id: ""
           })
         }
 
@@ -357,7 +360,6 @@ export class DataService {
         if(mes.length===1){
           mes = '0' + mes;
         }
-        debugger
         let ecografias:Ecografia[]=[];
         const ecografiasCollection = collection(db, 'ecografia');
         const q = query(ecografiasCollection,where("anio","==",anio),where("mes","==",mes),where("nombreEcografista","==",ecografista));

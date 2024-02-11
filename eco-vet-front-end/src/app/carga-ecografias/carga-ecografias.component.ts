@@ -44,6 +44,7 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
   respCasoEsp:any[]=['Si','No']
   ecoHoraExtra:any='No';
   respEcoHoraExtra:any[]=['Si','No']
+  id:any='';
   constructor(private dataService:DataService) {}
   ngOnChanges(changes: SimpleChanges): void {
   }
@@ -96,7 +97,8 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
      hora : (new Date).getHours().toString(),
      minutos : (new Date).getMinutes().toString(),
      segundos : (new Date).getSeconds().toString(),
-     montoHorasExtra : this.ecoHoraExtra
+     montoHorasExtra : this.ecoHoraExtra,
+     id : this.id
     }
     this.dataService.cargarNuevaEcografia(nuevaEco,this);
     this.actulizarListadoEcos.emit(1);

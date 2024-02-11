@@ -23,8 +23,6 @@ export class AppComponent implements OnInit , OnChanges{
   constructor(private modalService: BsModalService,private dataService:DataService){}
   ngOnInit(): void {
     this.mostrarLogin=true;
-    // var URLactual = window.location;
-    // console.log(URLactual);
   }
   ngOnChanges(changes:SimpleChanges){
   }

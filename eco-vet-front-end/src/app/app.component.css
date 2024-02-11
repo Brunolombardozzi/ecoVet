@@ -13,3 +13,7 @@
 :root ::ng-deep mat-mdc-row{
   height: 25px !important;
 }
+
+:root ::ng-deep body {
+  overflow: hidden;
+}

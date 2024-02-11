@@ -18,11 +18,9 @@ export class LoginComponent implements  OnChanges {
   @Output()
   vistaCargaOReportes = new EventEmitter<any>();
   ngOnChanges(changes:SimpleChanges){
-    // console.log(changes)
+
   }
   acceder(){
-    this.vistaCargaOReportes.emit(1);
-    this.vistaLogin.emit(1);
     let contraseniaReportes:any;
     let contraseniaCarga:any;
     this.dataService.traerContrasenias().then(data=>{
