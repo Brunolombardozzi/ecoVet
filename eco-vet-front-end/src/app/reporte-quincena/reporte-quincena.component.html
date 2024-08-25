@@ -1,78 +1,167 @@
+<div *ngIf="true" style="background-color:#D4D4D4; display: flex;">
+  <app-nav-bar *ngIf="true"></app-nav-bar>
 
-<div style="background-color: rebeccapurple;color: white;">
-  <div style="border:1px solid #8b8e93;margin:20px;border-radius: 15px;background-color: #8b8e93;"  >
-    <div style="display: flex;margin:5px">
-      <div>
-        <div class="font item-filter" style="color: black ;">Año</div>
-        <input class="input-control font" [(ngModel)]="anio">
-      </div>
-      <div>
-        <div class="font item-filter" style="color: black ;">Mes</div>
-        <input class="input-control font" [(ngModel)]="mes" >
-      </div>
-      <!-- <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{placeHolder}}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <button *ngFor="let quincena of quincenas " (click)="seleccionQuincena(quincena)" class="dropdown-item" type="button">{{quincena}}</button>
+  <div style="background-color: #D4D4D4;color: #D4D4D4;">
+    <div
+      style="border:1px solid white;margin:20px;background-color: white;;border-radius: 10px">
+      <div style="display: flex;margin:5px">
+
+        <div style="margin-right: 20px;">
+          <div class="font item-filter">
+            <div class="dropdown" style="background-color: transparent;">
+              <button class="btn btn-secondary dropdown-toggle font"
+                style="border: 1px solid #ED7180;background-color: transparent;color: black ;  font-weight: bold;"
+                type="button" id="dropdownMenu2" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Año
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button *ngFor="let anio of anios"
+                  (click)="seleccionAnios(anio)"
+                  style="color: black ;  font-weight: bold;"
+                  class="dropdown-item" type="button">{{anio}}</button>
+              </div>
+            </div>
+          </div>
+          <input style="border-bottom: 1px solid gray;color: black;width: 85px;"
+            disabled="true" class="input-control font" [(ngModel)]="anio">
         </div>
-      </div> -->
-      <div>
-        <div class="font item-filter" style="color: black ;">Ecografista</div>
-        <input class="input-control font"  [(ngModel)]="ecografista">
+
+        <div style="margin-right: 20px;">
+          <div class="font item-filter">
+            <div class="dropdown" style="background-color: transparent;">
+              <button class="btn btn-secondary dropdown-toggle font"
+                style="border: 1px solid #ED7180;background-color: transparent;color: black ;  font-weight: bold;"
+                type="button" id="dropdownMenu2" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Mes
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button *ngFor="let mes of meses" (click)="seleccionMes(mes)"
+                  style="color: black ;  font-weight: bold;"
+                  class="dropdown-item" type="button">{{mes}}</button>
+              </div>
+            </div>
+          </div>
+          <input style="border-bottom: 1px solid gray;color: black;width: 85px;"
+            disabled="true" class="input-control font" [(ngModel)]="mes">
+        </div>
+
+        <div>
+          <div class="font item-filter">
+            <div class="dropdown" style="background-color: transparent;">
+              <button class="btn btn-secondary dropdown-toggle font"
+                style="border: 1px solid #ED7180;background-color: transparent;color: black ;  font-weight: bold;"
+                type="button" id="dropdownMenu2" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                {{getNombreEcografista()}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button *ngFor="let ecografista of ecografistas "
+                  (click)="seleccionEcorafista(ecografista)"
+                  style="color: black ;  font-weight: bold;"
+                  class="dropdown-item" type="button">{{ecografista}}</button>
+              </div>
+            </div>
+          </div>
+          <input style="border-bottom: 1px solid gray;;color: black;"
+            disabled="true" class="input-control font"
+            [(ngModel)]="ecografista">
+        </div>
+
+        <div class="input-container">
+          <div class="item-container font">
+            <div class="dropdown" style="background-color: transparent; ;">
+              <button class="btn btn-secondary dropdown-toggle"
+                style="background-color: transparent; color: #191919;  font-weight: bold;border:none;padding: 0px;"
+                type="button" id="dropdownMenu2" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                {{getMetodoPago()}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button *ngFor="let metodoPago of metodosPago "
+                  (click)="seleccionMetodoPago(metodoPago)"
+                  class="dropdown-item" type="button">{{metodoPago}}</button>
+              </div>
+            </div>
+          </div>
+          <input disabled="true" class="input-data input-font-control"
+            [(ngModel)]="metodoPago" type="text">
+        </div>
+
+        <div style="display: flex;align-items: center;    margin: 0 5px;">
+          <button type="button" class="btn btn-primary"
+            style="background-color: transparent;border: 1px solid #ED7180;color: #191919;height: 44px;font-weight :bold ;"
+            (click)="generarReportes()">Filtrar</button>
+        </div>
+
       </div>
-      <div style="display: flex;align-items: center;">
-        <button type="button" class="btn btn-primary" (click)="generarReportes()">Filtrar</button>
+    </div>
+
+    <div>
+      <div
+        style="font-size: 25px; background-color:  white;margin: 20px;;border-radius: 10px">
+        <label
+          style="width: 100%;text-align: center;font-weight: bold;color: #ED7180;">ECOGRAFIAS
+          REPORTADAS</label>
+        <div
+          style="margin: 20px;background-color: white;border-radius: 20px;color: white;display: inline;text-align: center;    width: 100%;    margin-top: 0px;">
+
+          <table style="background-color:  white !important; color: white;"
+            mat-table [dataSource]="dataSource"
+            class="mat-elevation-z8 demo-table ">
+            <ng-container matColumnDef="nombreEcografista">
+              <th class="fonta" mat-header-cell
+                *matHeaderCellDef>ECOGRAFISTA</th>
+              <td class="new-font" mat-cell
+                *matCellDef="let element">{{element.nombreEcografista}}</td>
+            </ng-container>
+            <ng-container matColumnDef="fecha">
+              <th class="fonta" mat-header-cell *matHeaderCellDef>FECHA</th>
+              <td class="new-font" mat-cell
+                *matCellDef="let element">{{element.fecha}}</td>
+            </ng-container>
+            <ng-container matColumnDef="monto">
+              <th class="fonta" mat-header-cell *matHeaderCellDef>MONTO</th>
+              <td class="new-font" mat-cell
+                *matCellDef="let element">{{element.monto}}</td>
+            </ng-container>
+            <ng-container matColumnDef="metodoPago">
+              <th class="fonta" mat-header-cell *matHeaderCellDef>METODO
+                PAGO</th>
+              <td class="new-font" mat-cell
+                *matCellDef="let element">{{element.metodoPago}}</td>
+            </ng-container>
+            <ng-container matColumnDef="apellido">
+              <th class="fonta" mat-header-cell *matHeaderCellDef>APELLIDO
+                DUEÑO</th>
+              <td class="new-font" mat-cell
+                *matCellDef="let element">{{element.apellido}}</td>
+            </ng-container>
+            <ng-container matColumnDef="nombreMascota">
+              <th class="fonta" mat-header-cell *matHeaderCellDef>MASCOTA</th>
+              <td class="new-font" mat-cell
+                *matCellDef="let element">{{element.nombreMascota}}</td>
+            </ng-container>
+            <ng-container matColumnDef="estadoInforme">
+              <th class="fonta" mat-header-cell *matHeaderCellDef>ESTADO
+                INFORME</th>
+              <td class="new-font" mat-cell
+                *matCellDef="let element">{{element.estadoInforme}}</td>
+            </ng-container>
+            <ng-container matColumnDef="derivante">
+              <th class="fonta" mat-header-cell *matHeaderCellDef>DERIVANTE</th>
+              <td class="new-font" mat-cell
+                *matCellDef="let element">{{element.derivante}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr
+              mat-row
+              [class.demo-row-is-clicked]="clickedRows.has(row)"
+              *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-  <div style="display: flex;font-size: 25px;">
-
-    <div style="margin: 20px;
-    background-color: #8b8e93;
-    border-radius: 20px;color: white;display: inline;
-    text-align: center;    width: 50%;    margin-top: 0px;">
-      <label style="text-decoration: underline;font-weight: bold;">1RA QUINCENA</label>
-      <div style="margin:10px;display: grid;">
-        <label>Cantidad ecografias</label>
-        <label>{{getCantidadTotal(1)}}</label>
-      </div>
-      <div style="margin:10px">
-        <label>Porcentajes</label>
-        <div style="display: flex;">
-          <label style="margin-right: 15px;width: 50%;    text-align: center;">20%</label>
-          <div  style="width: 50%;    text-align: center;">${{getPorcentaje(0.2,1)}}</div>
-        </div>
-        <div style="display: flex;">
-          <label style="margin-right: 15px;width: 50%;    text-align: center;">40%</label>
-          <div  style="width: 50%;    text-align: center;">${{getPorcentaje(0.4,1)}}</div>
-        </div>
-      </div>
-
-    </div>
-    <div style="margin: 20px;
-    background-color: #8b8e93;
-    border-radius: 20px;color: white;display: inline;
-    text-align: center;    width: 50%;    margin-top: 0px;" >
-      <label  style="text-decoration: underline;font-weight: bold;">2DA QUINCENA</label>
-      <div style="margin:10px;display: grid;">
-        <label>Cantidad ecografias</label>
-        <label>{{getCantidadTotal(2)}}</label>
-      </div>
-      <div style="margin:10px;width: 100%;">
-        <label>Porcentajes</label>
-        <div style="display: flex;">
-          <label style="margin-right: 15px;width: 50%;    text-align: center;">20%</label>
-          <div style="width: 50%;    text-align: center;">${{getPorcentaje(0.2,2)}}</div>
-        </div>
-        <div style="display: flex;width: 100%;">
-          <label style="margin-right: 15px;width: 50%;    text-align: center;">40%</label>
-          <div style="width: 50%;    text-align: center;">${{getPorcentaje(0.4,2)}}</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
 </div>

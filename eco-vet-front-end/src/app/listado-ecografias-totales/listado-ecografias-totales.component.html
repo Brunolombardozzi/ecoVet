@@ -1,97 +1,102 @@
+<div *ngIf="true" style="background-color:#D4D4D4; display: flex;" >
+  <app-nav-bar *ngIf="true"  (actulizarListadoEcos)="actualizarListado($event)"></app-nav-bar>
 
-<div style="    width: 1155px; height: 100vh;padding: 20px;">
-<div style="font-size: 25px; width: 100%;border: 0px solid  #8b8e93; background-color:  white;margin: 0px; height: auto;position:relative ;z-index: 1; border-radius: 10px;">
+  <div style="    width: 1155px; height: 100vh;padding: 20px;">
+    <div style="font-size: 25px; width: 100%;border: 0px solid  #8b8e93; background-color:  white;margin: 0px; height: auto;position:relative ;z-index: 1; border-radius: 10px;">
 
-  <div style="    width: 100%;height: 100px;background-color: #E3E3E3;border-bottom: 1px solid #D7D7D7;display: flex;align-items: center;border-radius: 10px; border-bottom-left-radius: 0px;border-bottom-right-radius: 0px;">
-    <div  style="color: #ED7180;
-    background-color: #E7E6E6;
-    margin: 0px 10px; border-radius: 10px;" class="fonta">Ecografías</div>
-  </div>
-  <div style="display: flex;align-items: center; padding: 10px;justify-content: space-between;  ">
+      <div style="    width: 100%;height: 100px;background-color: #E3E3E3;border-bottom: 1px solid #D7D7D7;display: flex;align-items: center;border-radius: 10px; border-bottom-left-radius: 0px;border-bottom-right-radius: 0px;">
+        <div  style="color: #ED7180;
+        background-color: #E7E6E6;
+        margin: 0px 10px; border-radius: 10px;" class="fonta">Ecografías</div>
+      </div>
+      <div style="display: flex;align-items: center; padding: 10px;justify-content: space-between;  ">
 
-    <div  style="  color: #191919; display: flex;">
-      <!-- <div >Fecha</div> -->
-      <input  class="input-data input-font-control" [(ngModel)]="fecha" placeholder="fecha" (change)="seleccionFecha()" type="date">
-    </div>
-          <div style="display: flex; align-items: center;">
-            <button  style="background-color: transparent;font-size: 20px;font-weight: 600;border: none; height: 44px; color: #191919 ;display: flex; align-items: center;"
-             (click)="uploadData()">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
-                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
-              </svg>
-              <div>
-                Actualizar
+        <div  style="  color: #191919; display: flex;">
+          <!-- <div >Fecha</div> -->
+          <input  class="input-data input-font-control" [(ngModel)]="fecha" placeholder="fecha" (change)="seleccionFecha()" type="date">
+        </div>
+              <div style="display: flex; align-items: center;">
+                <button  style="background-color: transparent;font-size: 20px;font-weight: 600;border: none; height: 44px; color: #191919 ;display: flex; align-items: center;"
+                 (click)="uploadData()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                    <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                  </svg>
+                  <div>
+                    Actualizar
+                  </div>
+                </button>
               </div>
-            </button>
-          </div>
 
-          <div style="display: flex;justify-content: center;align-items: center">
-            <button style="background-color: transparent;font-size: 20px;font-weight: 600; height: 44px;border: none;padding-left: 5px; color: #191919 " (click)="cargarEcografia()">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-              </svg>
-              Nueva Eco</button>
-          </div>
+              <div style="display: flex;justify-content: center;align-items: center">
+                <button style="background-color: transparent;font-size: 20px;font-weight: 600; height: 44px;border: none;padding-left: 5px; color: #191919 " (click)="cargarEcografia()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                  </svg>
+                  Nueva Eco</button>
+              </div>
 
-          <div style="display: flex; align-items: center; " >
-            <div style="margin-left: 10px;font-size: 20px;font-weight: 600;border-bottom: 0px;    height: 34px; color: #191919 ;height: 100%;width: 100%;display: flex;align-items: center;" class="font">
-               Casos Especiales </div>
-            <input type="checkbox" style="margin:0px 5px;width: 20px;height: 20px;" (click)="filtrarPorCasosEspeciales()">
-          </div>
+              <div style="display: flex; align-items: center; " >
+                <div style="margin-left: 10px;font-size: 20px;font-weight: 600;border-bottom: 0px;    height: 34px; color: #191919 ;height: 100%;width: 100%;display: flex;align-items: center;" class="font">
+                   Casos Especiales </div>
+                <input type="checkbox" style="margin:0px 5px;width: 20px;height: 20px;" (click)="filtrarPorCasosEspeciales()">
+              </div>
 
 
 
-          <div style="display: flex; height: 43px; align-items: center; justify-content: center;">
-            <div style="background-color: transparent;font-size: 20px;font-weight: 600;border-radius: 0px;height: 34px; color: #191919 "
-             > Monto Efectivo </div>
-             <div style="font-size: 20px;background-color: transparent;font-weight: 600;border-radius: 0px;height: 44px; color: #191919 ;width: 120px;display: flex;align-items: center;justify-content: center;"
-             >$ {{montoEfectivoDelDia}}</div>
-          </div>
-</div>
-</div>
-<div style="width: 100%;height: 100%;background-color: white;margin-top: 20px;border-radius: 10px;">
-  <div *ngIf="showSpinner" class="d-flex justify-content-center"  style=" display: inline !important;  width: 1115px;height: 100%;position:absolute;z-index: 2;background-color: #191919;opacity: 0.5;text-align: center;border-radius: 10px;" >
-    <div style="padding: 25%;color: #ED7180;">
-     <div class="spinner-border" role="status">
-     </div>
-     <div>
-      Cargando Ecografias
-     </div>
+              <div style="display: flex; height: 43px; align-items: center; justify-content: center;">
+                <div style="background-color: transparent;font-size: 20px;font-weight: 600;border-radius: 0px;height: 34px; color: #191919 "
+                 > Monto Efectivo </div>
+                 <div style="font-size: 20px;background-color: transparent;font-weight: 600;border-radius: 0px;height: 44px; color: #191919 ;width: 120px;display: flex;align-items: center;justify-content: center;"
+                 >$ {{montoEfectivoDelDia}}</div>
+              </div>
     </div>
-  <span class="sr-only"></span>
-  </div>
-  <ngx-datatable [messages]="customMessages" [rows]="dataSource" [columns]="displayedColumns" [headerHeight]=40 [rowHeight]=30 [scrollbarH]=false [scrollbarV]=true [selectCheck]=true [selected]="selected" style="height: 100%;width: 100%;padding: 10px;">
-    <ngx-datatable-column *ngFor="let column of displayedColumns" [name]=column.prop>
-      <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
-        <div style=" width: 100%;text-align: center;" (dblclick)="modificarRow(row)">
-          {{ value }}
+    </div>
+    <div style="width: 100%;height: 100%;background-color: white;margin-top: 20px;border-radius: 10px;">
+      <div *ngIf="showSpinner" class="d-flex justify-content-center"  style=" display: inline !important;  width: 1115px;height: 100%;position:absolute;z-index: 2;background-color: #191919;opacity: 0.5;text-align: center;border-radius: 10px;" >
+        <div style="padding: 25%;color: #ED7180;">
+         <div class="spinner-border" role="status">
+         </div>
+         <div>
+          Cargando Ecografias
+         </div>
         </div>
-      </ng-template>
+      <span class="sr-only"></span>
+    </div>
+    <ngx-datatable [messages]="customMessages" [rows]="dataSource" [columns]="displayedColumns" [headerHeight]=40 [rowHeight]=30 [scrollbarH]=false [scrollbarV]=true [selectCheck]=true [selected]="selected" style="height: 100%;width: 100%;padding: 10px;">
+      <ngx-datatable-column *ngFor="let column of displayedColumns" [name]=column.prop>
+          <ng-template ngx-datatable-cell-template let-row="row" let-value="value">
+            <div style=" width: 100%;text-align: center;" (dblclick)="modificarRow(row)">
+              {{ value }}
+            </div>
+          </ng-template>
 
-      <ng-template ngx-datatable-header-template let-column="column">
-        <div style="display:inline ;">
-          <div >
-            {{ getValue(column)}}
-          </div>
-          <!-- <input
-            type="text"
-            placeholder="Buscar..."
-            (input)="filtrarDatos()"
-          /> -->
-        </div>
-      </ng-template>
-    </ngx-datatable-column>
+          <ng-template ngx-datatable-header-template let-column="column">
+            <div style="display:inline ;">
+              <div >
+                {{ getValue(column)}}
+              </div>
+              <!-- <input
+                type="text"
+                placeholder="Buscar..."
+                (input)="filtrarDatos()"
+              /> -->
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
 
-  </ngx-datatable>
+      </ngx-datatable>
+    </div>
+    </div>
+
+    <ng-template #cargaEcografia>
+      <app-carga-ecografias [metodoPago]="null" [parent]="this"(actulizarListadoEcos)="actualizarListado($event)"></app-carga-ecografias>
+    </ng-template>
+
+    <ng-template #editarEcografia>
+      <app-actualizacion-ecografias (actulizarListadoEcos)="actualizarListado($event)"  [ecografiaSeleccionada]="ecografiaSeleccionada" [parent]="this"></app-actualizacion-ecografias>
+    </ng-template>
 </div>
-</div>
 
-<ng-template #cargaEcografia>
-  <app-carga-ecografias [metodoPago]="null" [parent]="this"(actulizarListadoEcos)="actualizarListado($event)"></app-carga-ecografias>
-</ng-template>
 
-<ng-template #editarEcografia>
-  <app-actualizacion-ecografias (actulizarListadoEcos)="actualizarListado($event)"  [ecografiaSeleccionada]="ecografiaSeleccionada" [parent]="this"></app-actualizacion-ecografias>
-</ng-template>

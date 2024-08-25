@@ -5,6 +5,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AppComponent } from '../app.component';
 import { Ecografia } from '../model/ecografia';
 import { DataService } from '../service/data.service';
+import { Router } from '@angular/router';
 
 
 export interface DialogData {
@@ -35,7 +36,7 @@ export class NavBarComponent implements OnInit{
   mostrarReporteDiario:boolean=true;
   mostrarReporteQuincena=false;
 
-  constructor(private modalService: BsModalService,private dataService:DataService) {}
+  constructor(private modalService: BsModalService, public dataService :DataService) {}
   ngOnInit(): void {
     if(this.muestraMenu === 1){
       this.mostrarCargaEcografias = true;

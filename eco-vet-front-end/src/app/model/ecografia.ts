@@ -24,4 +24,5 @@ export interface Ecografia{
   minutos:any;
   segundos:any;
   montoHorasExtra:any;
+  montoDebito:any
 }

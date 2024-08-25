@@ -1,10 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import { collection, getDocs, getFirestore,addDoc } from 'firebase/firestore/lite';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import { DataService } from '../service/data.service';
 import { Ecografia } from '../model/ecografia';
-import { NavBarComponent } from '../nav-bar/nav-bar.component';
-import { ThisReceiver } from '@angular/compiler';
 import { ListadoEcografiasTotalesComponent } from '../listado-ecografias-totales/listado-ecografias-totales.component';
 
 
@@ -34,11 +30,12 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
   mes:any='';
   anio:any='';
   ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura','Yanina'];
-  metodosPago:any[] = ['Efectivo','Mercado Pago','Transferencia','Otro'];
+  metodosPago:any[] = ['Efectivo','Transferencia','Débito', 'Crédito','Otro'];
   placeHolder='Seleccione Ecografista'
-  montoMP:any='';
+  montoCRED:any='';
   montoEF:any='';
   montoTR:any='';
+  montoDEB:any = '';
   observaciones:any='';
   casoEspecial:any='';
   respCasoEsp:any[]=['Si','No']
@@ -46,7 +43,7 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
   respEcoHoraExtra:any[]=['Si','No']
   id:any='';
   constructor(private dataService:DataService) {}
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
   }
 
   ngOnInit(): void {
@@ -59,18 +56,22 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
     this.casoEspecial = resp;
   }
   guardarEcografia(){
+    debugger
     if(this.metodoPago==='Otro'){
-      this.monto = (Number(this.montoEF) + Number(this.montoMP) + Number(this.montoTR)).toString();
+      this.monto = (Number(this.montoEF) + Number(this.montoCRED) + Number(this.montoTR) + Number(this.montoDEB)).toString();
     } else {
       this.montoEF = 0;
-      this.montoMP = 0;
+      this.montoCRED = 0;
       this.montoTR = 0;
+      this.montoDEB = 0;
       if(this.metodoPago==='Efectivo'){
         this.montoEF = this.monto;
-      } else if(this.metodoPago==='Mercado Pago'){
-        this.montoMP = this.monto;
+      } else if(this.metodoPago==='Crédito'){
+        this.montoCRED = this.monto;
       } else if(this.metodoPago==='Transferencia'){
         this.montoTR = this.monto;
+      } else if(this.metodoPago==='Débito'){
+        this.montoDEB = this.monto;
       }
     }
     let nuevaEco :Ecografia = {
@@ -81,8 +82,9 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
      metodoPago  : this.metodoPago,
      monto  : this.monto.toString(),
      montoEfectivo : this.montoEF.toString(),
-     montoMercadoPago : this.montoMP.toString(),
+     montoMercadoPago : this.montoCRED.toString(),
      montoTransferencia: this.montoTR.toString(),
+     montoDebito: this.montoDEB.toString(),
      nombreDuenio  : this.nombreDuenio,
      nombreEcografista  : this.nombreEcografista,
      nombreMascota  : this.nombreMascota,

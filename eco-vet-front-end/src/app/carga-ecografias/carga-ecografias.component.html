@@ -63,12 +63,16 @@
     <input onkeypress='return event.charCode >= 48 && event.charCode <= 57'  class="input-data input-font-control" [(ngModel)]="montoEF" type="text">
   </div>
   <div class="input-container" *ngIf="metodoPago==='Otro'">
-    <div  class="item-container font">Monto MP</div>
-    <input  onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="input-data input-font-control" [(ngModel)]="montoMP" type="text">
+    <div  class="item-container font">Monto DEB</div>
+    <input onkeypress='return event.charCode >= 48 && event.charCode <= 57'  class="input-data input-font-control" [(ngModel)]="montoDEB" type="text">
   </div>
   <div class="input-container" *ngIf="metodoPago==='Otro'">
     <div  class="item-container font">Monto TR</div>
     <input  onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="input-data input-font-control" [(ngModel)]="montoTR" type="text">
+  </div>
+  <div class="input-container" *ngIf="metodoPago==='Otro'">
+    <div  class="item-container font">Monto CRED</div>
+    <input  onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="input-data input-font-control" [(ngModel)]="montoCRED" type="text">
   </div>
 
   <div class="input-container">

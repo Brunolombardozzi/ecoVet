@@ -4,7 +4,7 @@ import { Ecografia } from '../model/ecografia';
 import { DataService } from '../service/data.service';
 import { ExcelService } from '../service/excel.service';
 import { SelectionType, TableColumn } from '@swimlane/ngx-datatable';
-const ExcelJS = require('exceljs');
+// const ExcelJS = require('exceljs');
 @Component({
   selector: 'app-listado-ecografias-totales',
   templateUrl: './listado-ecografias-totales.component.html',
@@ -182,7 +182,7 @@ export class ListadoEcografiasTotalesComponent implements OnInit {
   }
 
   async exportarDataExcel(){
-    this.excelService.exportarExcel(this.dataSource,this.dataService.elegirMes((new Date()).getMonth().toString()))
+    // this.excelService.exportarExcel(this.dataSource,this.dataService.elegirMes((new Date()).getMonth().toString()))
   }
 
   async listarEcografias(){

@@ -8,15 +8,15 @@ import { DataService } from '../service/data.service';
   styleUrls: ['./reporte-quincena.component.css']
 })
 export class ReporteQuincenaComponent {
-
   constructor(private dataService:DataService){}
-  ecografiasReportadas2:Ecografia[]=[];
   ecografiasReportadas1:Ecografia[]=[];
   fechaHasta:any;
   fechaDesde:any;
   semanaElegida:string='';
   quincenas:any[]=['1er Quincena','2da Quincena']
-  mes:any;
+  anios:any[]=['2023','2024','2025','2026','2027','2028','2029','2030']
+  meses:any[]=[ 'Enero', 'Febrero','Marzo', 'Abril','Mayo', 'Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  mes:any='';
   anio:any;
   ecografista:string='';
   cantidadTotal:any;
@@ -25,40 +25,88 @@ export class ReporteQuincenaComponent {
   informesSinRealizar:any;
   contadorMP = 0;
   contadorEF = 0;
+  mesParaMuestra:any = ' ';
   @Input()
   mostrarReporteSemanal:boolean=false;
+  ecografistas:any[]=['Todas','Marina','Ornela','Emilce','Santiago','Laura','Yanina'];
+  porcentajePorEcografista=0;
+  porcentaje=0;
+  dataSource = [];
+  clickedRows = new Set<Ecografia>();
+  displayedColumns: string[] = ['nombreEcografista', 'fecha','monto','metodoPago','apellido','nombreMascota','estadoInforme','derivante'];
+  metodosPago:any[] = ['Efectivo','Transferencia','Débito', 'Crédito','Otro'];
+  metodoPago:any='';
+
   generarReportes(){
 
-    this.dataService.traerReporteQuincena(this.mes,this.anio,this.ecografista).then(data=>{
+    this.dataService.traerReporteMensual(this.dataService.elegirMesParaService(this.mes),this.anio,this.ecografista, this.metodoPago).then(data=>{
+        let ecografiasParaTabla:any=[];
         this.ecografiasReportadas1 = [];
-        this.ecografiasReportadas2 = [];
         for(let ecografia of data){
-          if(ecografia.dia.integerValue <= 15){
+          if(ecografia.montoHorasExtra && ecografia.montoHorasExtra.stringValue !== 'Si'){
             this.ecografiasReportadas1.push(ecografia)
-          } else {
-            this.ecografiasReportadas2.push(ecografia)
+            ecografiasParaTabla.push({
+                numero: ecografia.numero.stringValue,
+                mes: ecografia.mes.stringValue,
+                anio: ecografia.anio.stringValue,
+                tipo: ecografia.tipo.stringValue,
+                nombreEcografista: ecografia.nombreEcografista.stringValue,
+                fecha: ecografia.fecha.stringValue,
+                monto: ecografia.monto.stringValue,
+                montoTra:ecografia.montoEfectivo.stringValue,
+                metodoPago:ecografia.metodoPago.stringValue,
+                apellido:ecografia.apellido.stringValue,
+                nombreDuenio:ecografia.nombreDuenio.stringValue,
+                nombreMascota:ecografia.nombreMascota.stringValue,
+                realizada:ecografia.realizada.booleanValue,
+                estadoInforme:ecografia.estadoInforme.stringValue,
+                derivante:ecografia.derivante.stringValue,
+                dia:ecografia.dia.IntegerValue
+              })
           }
         }
+        this.dataSource = ecografiasParaTabla;
       });
+
   }
-  getPorcentaje(porcentaje:any,index:any){
-    let cantPorcentaje=0;
-    if(index===1){
-      for(let eco of this.ecografiasReportadas1){
-        cantPorcentaje += Number(eco.monto.stringValue) * porcentaje;
-      }
-    } else {
-      for(let eco of this.ecografiasReportadas2){
-        cantPorcentaje += Number(eco.monto.stringValue) * porcentaje;
-      }
-    }
-    return cantPorcentaje;
-  }
+
   getCantidadTotal(index:any){
-    if(index===1){
+    if(this.ecografiasReportadas1){
       return this.ecografiasReportadas1.length
     } else {
-      return this.ecografiasReportadas2.length
+      return 0
     }
   }
+
+  seleccionEcorafista(ecografista:any){
+    if(this.ecografistas.includes(ecografista)){
+      this.ecografista = ecografista;
+    }
+  }
+  getNombreEcografista(){
+    return 'Ecografista'
 }
+getEcografistaName(){
+  if(this.ecografistas.includes(this.ecografista)){
+    return this.ecografista
+  } else {
+    return ''
+  }
+}
+
+seleccionAnios(anio:any){
+  this.anio = anio;
+}
+
+seleccionMes(mes:any){
+  this.mes = mes;
+  this.mesParaMuestra = mes;
+}
+getMetodoPago(){
+  return 'Metodo Pago'
+}
+seleccionMetodoPago(metodoPago:any){
+this.metodoPago = metodoPago;
+}
+}
+

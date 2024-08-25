@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from 'src/app/service/data.service';
 
 @Component({
@@ -7,8 +8,8 @@ import { DataService } from 'src/app/service/data.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements  OnChanges {
-  constructor(private dataService:DataService){}
-  usuario:any;
+  constructor(private dataService:DataService, private router: Router){}
+  email:any;
   contrasenia:string='';
   @Input()
   viewAlert:boolean=false;
@@ -20,24 +21,38 @@ export class LoginComponent implements  OnChanges {
   ngOnChanges(changes:SimpleChanges){
 
   }
-  acceder(){
-    let contraseniaReportes:any;
-    let contraseniaCarga:any;
-    this.dataService.traerContrasenias().then(data=>{
-      if(data){
-        contraseniaCarga = data[0];
-        contraseniaReportes = data[1]
-      }
-      if(this.contrasenia===contraseniaCarga.valor.stringValue){
-        this.vistaCargaOReportes.emit(1);
-        this.vistaLogin.emit(1);
-      } else if(this.contrasenia===contraseniaReportes.valor.stringValue){
-        this.vistaCargaOReportes.emit(0);
-        this.vistaLogin.emit(1);
-      } else {
-        this.viewAlert = true;
-      }
+  accederPorCorreo(){
+    this.dataService.loginPorCorreo(this.email, this.contrasenia)
+    .then((userData:any) => {
+      this.evaluarCorreosAdminParaMenu();
+      console.log('Sesion iniciada correctamente');
     })
+    .catch((error:any) => {
+      console.error('Error al iniciar sesión:');
+    });
+
+
+  }
+  evaluarCorreosAdminParaMenu():any {
+    let correos:any = [];
+    let adminAuth = false;
+    this.dataService.traerCorreos().then((data:any) =>{
+      for(let correo of data) {
+        correos.push(correo.correo.stringValue)
+      }
+      for(let correo of correos) {
+        if(correo.toString() === this.dataService.userData.email){
+          adminAuth = true;
+          this.dataService.setAdminMenu(true);
+        }
+      }
+      if(adminAuth){
+        this.vistaCargaOReportes.emit(0);
+      }else {
+        this.vistaCargaOReportes.emit(1);
+      }
+      this.dataService.verEstadoUsuario()
+    });
   }
 
   alert(){

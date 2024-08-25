@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { CargaEcografiasComponent } from './carga-ecografias/carga-ecografias.component';
@@ -24,7 +24,9 @@ import { LoginComponent } from './seguridad/login/login.component';
 import { ReporteQuincenaComponent } from './reporte-quincena/reporte-quincena.component';
 import { ReporteHorasExtraComponent } from './reporte-horas-extra/reporte-horas-extra.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-// import { FileSaverModule } from 'ngx-filesaver';
+import { AuthGuard } from './guards/auth.guard';
+import { NgModule } from '@angular/core';
+import { provideAuth,getAuth } from '@angular/fire/auth';
 
 const routes: Routes  = [
   { path: 'reporte-diario', component: ReporteDiarioComponent},
@@ -32,7 +34,7 @@ const routes: Routes  = [
   { path: 'reporte-mensual', component: ReporteMensualComponent},
   { path: 'login', component: LoginComponent},
   { path: 'reporte-quincena', component: ReporteQuincenaComponent},
-  { path: 'reporte-horas-extra', component: ReporteHorasExtraComponent}
+  { path: 'reporte-horas-extra', component: ReporteHorasExtraComponent},
 ];
 
 @NgModule({
@@ -52,16 +54,16 @@ const routes: Routes  = [
     BrowserModule,
     RouterModule.forRoot(routes),
     AppRoutingModule,
-    MatDialogModule,
     ModalModule.forRoot(),
     FormsModule,
     BsDatepickerModule.forRoot(),
-    MatTableModule,
-    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    NgxDatatableModule,
     AngularFireAuthModule,
-    NgxDatatableModule
+    provideAuth(() => getAuth()),
+    MatTableModule,
+    MatDialogModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

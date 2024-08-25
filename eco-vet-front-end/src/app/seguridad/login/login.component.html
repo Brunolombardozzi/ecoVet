@@ -1,17 +1,24 @@
-<div style="width:100%;height:100%">
-  <div class="caixa__login">
-      <h2>ANIMAL SCAN</h2>
-          <div class="caixa__login-input">
-              <input placeholder="Ingrese contraseña" (click)="alert()" [(ngModel)]="contrasenia" type="password" />
-              <label>Contraseña</label>
-              <div *ngIf="viewAlert" class="alert alert-danger" role="alert">
-                Contraseña incorrecta
-              </div>
-          </div>
-          <div>
-            <a (click)="acceder()">
-                Acceder
-            </a>
-          </div>
+<!-- <div style="background-color: rebeccapurple;width:100%;height:100%"> -->
+  <div style="width:100%;height:100%">
+    <div class="caixa__login">
+        <h2>ANIMAL SCAN</h2>
+            <div class="caixa__login-input">
+                <input placeholder="Ingrese email" (click)="alert()" [(ngModel)]="email" type="email" />
+                <label>E-mail</label>
+            </div>
+            <div class="caixa__login-input">
+                <input placeholder="Ingrese contraseña" (click)="alert()" [(ngModel)]="contrasenia" type="password" />
+                <label>Contraseña</label>
+                <div *ngIf="viewAlert" class="alert alert-danger" role="alert">
+                  Contraseña incorrecta
+                </div>
+            </div>
+            <div>
+              <a (click)="accederPorCorreo()">
+                  Acceder
+              </a>
+            </div>
+    </div>
   </div>
-</div>
+
+<!-- </div> -->

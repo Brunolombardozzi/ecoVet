@@ -28,9 +28,10 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
   @Output()
   actulizarListadoEcos:any = new EventEmitter<any>();
   ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura','Yanina'];
-  metodosPago:any[] = ['Efectivo','Mercado Pago','Transferencia','Otro'];
+  metodosPago:any[] = ['Efectivo','Transferencia','Débito', 'Crédito','Otro'];
   placeHolder='Seleccione Ecografista'
-  montoMP:any='';
+  montoCRED:any='';
+  montoDEB:any='';
   montoEF:any='';
   montoTR:any='';
   observaciones:any='';
@@ -59,9 +60,11 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
       this.montoEF = this.ecografiaSeleccionada.montoEfectivo;
     }
     if(this.ecografiaSeleccionada.montoMercadoPago) {
-      this.montoMP = this.ecografiaSeleccionada.montoMercadoPago;
+      this.montoCRED = this.ecografiaSeleccionada.montoMercadoPago;
     }
-
+    if(this.ecografiaSeleccionada.montoDebito) {
+      this.montoCRED = this.ecografiaSeleccionada.montoDebito;
+    }
     if(this.ecografiaSeleccionada.montoTransferencia) {
       this.montoTR = this.ecografiaSeleccionada.montoTransferencia;
     }
@@ -85,17 +88,19 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
   }
   actualizarEcografia(){
     if(this.metodoPago==='Otro'){
-      this.monto = (Number(this.montoEF) + Number(this.montoMP) + Number(this.montoTR)).toString();
+      this.monto = (Number(this.montoEF) + Number(this.montoCRED) + Number(this.montoTR) + Number(this.montoDEB)).toString();
     }else {
       this.montoEF = 0;
-      this.montoMP = 0;
+      this.montoCRED = 0;
       this.montoTR = 0;
       if(this.metodoPago==='Efectivo'){
         this.montoEF = this.monto;
       } else if(this.metodoPago==='Mercado Pago'){
-        this.montoMP = this.monto;
+        this.montoCRED = this.monto;
       } else if(this.metodoPago==='Transferencia'){
         this.montoTR = this.monto;
+      } else if(this.metodoPago==='Débito'){
+        this.montoDEB = this.monto;
       }
     }
     if(!this.metodoPago && this.metodoPago === undefined) {
@@ -109,7 +114,8 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
        metodoPago  : this.metodoPago,
        monto  : this.monto.toString(),
        montoEfectivo : this.montoEF.toString(),
-       montoMercadoPago : this.montoMP.toString(),
+       montoMercadoPago : this.montoCRED.toString(),
+       montoDebito : this.montoDEB.toString(),
        montoTransferencia: this.montoTR.toString(),
        nombreDuenio  : this.nombreDuenio,
        nombreEcografista  : this.nombreEcografista,

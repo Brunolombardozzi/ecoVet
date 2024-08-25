@@ -1,8 +1,8 @@
-<div *ngIf="true" style="background-color:#D4D4D4; display: flex;" >
-  <app-nav-bar *ngIf="true" ></app-nav-bar>
+<div style="background-color:#D4D4D4; display: flex;" >
+  <app-nav-bar></app-nav-bar>
 
   <div style="background-color: #D4D4D4;color: #D4D4D4;">
-    <div style="border:1px solid white;margin:20px;background-color: white;;border-radius: 10px"  >
+    <div style="border:1px solid white;margin:20px;background-color: white;"  >
       <div style="display: flex;margin:5px">
 
 
@@ -59,37 +59,9 @@
 
       </div>
     </div>
-
-
-
     <div>
 
-      <div style="display: flex;font-size: 25px;;border-radius: 10px">
-        <div style="margin: 20px;background-color: white;color: black;display: inline;text-align: center;    width: 100%;    margin-top: 0px;;border-radius: 10px">
-          <label style="font-weight: bold;"> Reporte {{ mesParaMuestra}}</label>
-          <div style="display: flex;justify-content: center;">
-            <div style="margin:10px;display: grid;">
-              <label>Cantidad ecografias</label>
-              <label style="margin-right: 15px;margin-top: 15px;; color: black;   text-align: center;">{{getCantidadTotal(1)}}</label>
-            </div>
-            <div style="margin:10px;display: flex;">
-              <div style="display: grid;margin: 0px 35px;">
-                <label>Porcentaje</label>
-                <label style="margin-right: 15px;margin-top: 15px;; color: black;   text-align: center;">{{getPorcentajePorEcografista()}}%</label>
-              </div>
-              <div >
-                <label>Monto Total </label>
-                <div  style="  margin-top: 15px;  text-align: center;color: black">${{porcentajePorEcografista}}</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-
-
-      <div style="font-size: 25px; background-color:  white;margin: 20px;;border-radius: 10px">
+      <div style="font-size: 25px; background-color:  white;margin: 20px;">
         <label style="width: 100%;text-align: center;font-weight: bold;color: #ED7180;">ECOGRAFIAS REPORTADAS</label>
         <div style="margin: 20px;background-color: white;border-radius: 20px;color: white;display: inline;text-align: center;    width: 100%;    margin-top: 0px;">
 
@@ -118,13 +90,9 @@
               <th class="fonta" mat-header-cell *matHeaderCellDef>MASCOTA</th>
               <td class="new-font" mat-cell *matCellDef="let element">{{element.nombreMascota}}</td>
             </ng-container>
-            <ng-container matColumnDef="estadoInforme">
-              <th class="fonta" mat-header-cell *matHeaderCellDef>ESTADO INFORME</th>
-              <td class="new-font" mat-cell *matCellDef="let element">{{element.estadoInforme}}</td>
-            </ng-container>
-            <ng-container matColumnDef="derivante">
-              <th class="fonta" mat-header-cell *matHeaderCellDef>DERIVANTE</th>
-              <td class="new-font" mat-cell *matCellDef="let element">{{element.derivante}}</td>
+            <ng-container matColumnDef="montoHorasExtra">
+              <th class="fonta" mat-header-cell *matHeaderCellDef>HORA EXTRA</th>
+              <td class="new-font" mat-cell *matCellDef="let element">{{element.montoHorasExtra}}</td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr
@@ -135,8 +103,10 @@
           </table>
         </div>
       </div>
+
+
     </div>
+
   </div>
+
 </div>
-
-

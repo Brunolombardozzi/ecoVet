@@ -2,6 +2,7 @@ import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Ecografia } from './model/ecografia';
 import { DataService } from './service/data.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 var ELEMENT_DATA: Ecografia[] = [];
 @Component({
@@ -20,9 +21,11 @@ export class AppComponent implements OnInit , OnChanges{
   muestraMenu :any;
   @ViewChild('editarEcografia') editorEcografia: any;
     @ViewChild('listadoEcos') listadoEcos: any;
-  constructor(private modalService: BsModalService,private dataService:DataService){}
+  constructor(private modalService: BsModalService,private router: Router){}
   ngOnInit(): void {
-    this.mostrarLogin=true;
+      this.router.navigate(['login'])
+
+
   }
   ngOnChanges(changes:SimpleChanges){
   }
@@ -54,8 +57,9 @@ export class AppComponent implements OnInit , OnChanges{
   }
 
   vistaLogin() {
+
     this.mostrarLogin = false;
-    this.uploadData();
+    // this.uploadData();
   }
   evaluarVistaMenu(muestraMenu:any){
       this.muestraMenu = muestraMenu;
