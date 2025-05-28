@@ -28,7 +28,7 @@ export class ReporteMensualComponent {
   mesParaMuestra: any = ' ';
   @Input()
   mostrarReporteSemanal: boolean = false;
-  ecografistas: any[] = ['Todas', 'Marina', 'Ornela', 'Emilce', 'Santiago', 'Laura', 'Yanina'];
+  ecografistas: any[] = ['Todas', 'Marina', 'Ornela', 'Emilce', 'Santiago', 'Laura', 'Lucero', 'Yanina'];
   porcentajePorEcografista = 0;
   porcentaje = 0;
   dataSource = [];
@@ -71,24 +71,29 @@ export class ReporteMensualComponent {
   }
   getPorcentaje(): any {
     let cantPorcentaje = 0;
+    let cantEF =0, cantDeb=0, cantCred=0,cantTransf=0;
     for (let eco of this.ecografiasReportadas1) {
-
       if (eco.metodoPago.stringValue === 'Efectivo' && eco.montoEfectivo && eco.montoEfectivo.stringValue !== '') {
         cantPorcentaje += Number(eco.montoEfectivo.stringValue) * this.getValorParaPorcentaje();
+        cantEF +=1;
       }
 
       if (eco.metodoPago.stringValue === 'Transferencia' && eco.montoTransferencia && eco.montoTransferencia.stringValue !== '') {
         cantPorcentaje += (Number(eco.montoTransferencia.stringValue) * this.getPorcentajeImpuestoTransfODebito()) * this.getValorParaPorcentaje();
+        cantTransf +=1;
       }
 
       if (eco.metodoPago.stringValue === 'Débito' && eco.montoDebito && eco.montoDebito.stringValue !== '') {
-        cantPorcentaje += (Number(eco.montoTransferencia.stringValue) * this.getPorcentajeImpuestoTransfODebito()) * this.getValorParaPorcentaje();
+        cantPorcentaje += (Number(eco.montoDebito.stringValue) * this.getPorcentajeImpuestoTransfODebito()) * this.getValorParaPorcentaje();
+        cantDeb +=1;
       }
 
-      if (eco.metodoPago.stringValue === 'Crédito' && eco.montoMercadoPago && eco.montoMercadoPago.stringValue !== '') {
-        cantPorcentaje += (Number(eco.montoMercadoPago.stringValue) * this.getPorcentajeImpuestoMercadoPago()) * this.getValorParaPorcentaje();
+      if ((eco.metodoPago.stringValue === 'Crédito' || eco.metodoPago.stringValue === 'Mercado Pago') && eco.montoMercadoPago && eco.montoMercadoPago.stringValue !== '') {
+        cantPorcentaje += ((Number(eco.montoMercadoPago.stringValue)!== 0? Number(eco.montoMercadoPago.stringValue) :Number(eco.monto.stringValue) ) * this.getPorcentajeImpuestoMercadoPago()) * this.getValorParaPorcentaje();
+        cantCred += 1;
       }
 
+      console.log(cantPorcentaje)
       //Metodo de pago multiple.
       if (eco.metodoPago.stringValue === 'Otro') {
         if (eco.montoEfectivo && eco.montoEfectivo !== undefined && eco.montoEfectivo.stringValue !== '') {
@@ -100,7 +105,6 @@ export class ReporteMensualComponent {
         }
 
         if (eco.montoDebito && eco.montoDebito !== undefined && eco.montoDebito.stringValue !== '') {
-          debugger
           cantPorcentaje += (Number(eco.montoDebito.stringValue) * this.getPorcentajeImpuestoTransfODebito()) * this.getValorParaPorcentaje();
         }
 
@@ -110,7 +114,7 @@ export class ReporteMensualComponent {
       }
 
       if (eco.metodoPago.stringValue === '' || !eco.metodoPago.stringValue || eco.metodoPago.stringValue === undefined || eco.metodoPago.stringValue === ' ') {
-        console.log('Se encontro por lo menos una ecografia sin metodo de pago')
+        console.log('Se encontro por lo menos una ecografia sin metodo de pago', eco.apellido.stringValue, eco.fecha.stringValue)
       }
     }
     return cantPorcentaje;
@@ -133,6 +137,8 @@ export class ReporteMensualComponent {
       return '22'
     } else if (this.ecografista === 'Yanina') {
       return '22'
+    } else if (this.ecografista === 'Lucero') {
+      return '22'
     } else if (this.ecografista === '') {
       return '0'
     } else {
@@ -144,7 +150,7 @@ export class ReporteMensualComponent {
       return 0.3
     } else if (this.ecografista === 'Laura') {
       return 0.35
-    } else if (this.ecografista === 'Emilce' || this.ecografista === 'Santiago' || this.ecografista === 'Yanina') {
+    } else if (this.ecografista === 'Emilce' || this.ecografista === 'Santiago' || this.ecografista === 'Yanina' || this.ecografista === 'Lucero') {
       return 0.22
     } else {
       return 1

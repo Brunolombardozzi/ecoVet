@@ -28,7 +28,7 @@ export class ReporteQuincenaComponent {
   mesParaMuestra:any = ' ';
   @Input()
   mostrarReporteSemanal:boolean=false;
-  ecografistas:any[]=['Todas','Marina','Ornela','Emilce','Santiago','Laura','Yanina'];
+  ecografistas:any[]=['Todas','Marina','Ornela','Emilce','Santiago','Laura', 'Lucero','Yanina'];
   porcentajePorEcografista=0;
   porcentaje=0;
   dataSource = [];

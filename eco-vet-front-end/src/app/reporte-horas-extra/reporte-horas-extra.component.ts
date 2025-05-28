@@ -26,7 +26,7 @@ export class ReporteHorasExtraComponent {
   contadorMP = 0;
   contadorEF = 0;
   mesParaMuestra:any = ' ';
-  ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura','Yanina'];
+  ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura', 'Lucero','Yanina'];
   porcentajePorEcografista=0;
   porcentaje=0;
   dataSource = [];

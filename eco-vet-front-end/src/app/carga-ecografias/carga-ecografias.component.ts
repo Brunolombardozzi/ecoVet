@@ -29,7 +29,7 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
   derivante:any='';
   mes:any='';
   anio:any='';
-  ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura','Yanina'];
+  ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura', 'Lucero','Yanina'];
   metodosPago:any[] = ['Efectivo','Transferencia','Débito', 'Crédito','Otro'];
   placeHolder='Seleccione Ecografista'
   montoCRED:any='';
@@ -112,9 +112,6 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
   seleccionEcorafista(ecografista:any){
     this.nombreEcografista = ecografista;
   }
-  seleccionMetodoPago(metodoPago:any){
-    this.metodoPago = metodoPago;
-  }
   seleccionHoraExtra(horaExtra:any){
     this.ecoHoraExtra = horaExtra;
   }
@@ -123,5 +120,8 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
   }
   getMetodoPago(){
       return 'Metodo Pago'
+  }
+  seleccionMetodoPago(metodoPago:any){
+    this.metodoPago = metodoPago;
   }
 }

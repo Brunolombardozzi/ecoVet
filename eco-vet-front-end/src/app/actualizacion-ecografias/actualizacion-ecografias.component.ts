@@ -27,7 +27,7 @@ export class ActualizacionEcografiasComponent  implements OnChanges {
   ecografiaSeleccionada:any;
   @Output()
   actulizarListadoEcos:any = new EventEmitter<any>();
-  ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura','Yanina'];
+  ecografistas:any[]=['Marina','Ornela','Emilce','Santiago','Laura', 'Lucero','Yanina'];
   metodosPago:any[] = ['Efectivo','Transferencia','Débito', 'Crédito','Otro'];
   placeHolder='Seleccione Ecografista'
   montoCRED:any='';
