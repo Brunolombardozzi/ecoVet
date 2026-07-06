@@ -371,6 +371,11 @@
   padding: 10% 35%
 }
 
+::ng-deep .table-scroll-container {
+    max-height: 330px;
+    min-height: auto !important;
+}
+
 .spinner-container {
   display: none;
   justify-content: center;

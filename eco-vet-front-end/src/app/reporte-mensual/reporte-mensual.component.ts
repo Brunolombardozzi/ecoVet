@@ -17,7 +17,7 @@ export class ReporteMensualComponent {
   anios: any[] = ['2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030']
   meses: any[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   mes: any = '';
-  anio: any;
+  anio: any = new Date().getFullYear();
   ecografista: string = '';
   cantidadTotal: any;
   cantidadMercadoPago: number = 0;

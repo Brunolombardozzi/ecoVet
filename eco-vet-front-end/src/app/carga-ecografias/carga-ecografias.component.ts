@@ -50,7 +50,11 @@ export class CargaEcografiasComponent implements OnInit,OnChanges{
   }
 
   getFecha(): any {
-    return new Date().getDate();
+    const hoy = new Date();
+
+  // Al usar toISOString() obtenemos 'YYYY-MM-DDTHH:mm:ss.sssZ',
+  // por lo que hacemos un split en la 'T' y nos quedamos con la primera parte.
+  return hoy.toISOString().split('T')[0];
   }
   seleccionCasoEspecial(resp:any){
     this.casoEspecial = resp;
