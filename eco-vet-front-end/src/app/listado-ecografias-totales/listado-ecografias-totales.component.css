@@ -73,8 +73,236 @@
 .tn:hover {
   background-color: #8b8e93;
 }
-table tr {
-  height: 30px;
+
+.listado-page {
+  display: flex;
+  min-height: 100vh;
+  background-color: #D4D4D4;
+}
+
+.listado-content {
+  flex: 1;
+  padding: 20px;
+  min-width: 0;
+}
+
+.listado-panel {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.listado-title {
+  margin: 0 0 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  color: #ED7180;
+}
+
+.listado-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.toolbar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.toolbar-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+}
+
+.toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: transparent;
+  border: 1px solid #ED7180;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #191919;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.toolbar-btn:hover {
+  background-color: #fff5f6;
+}
+
+.toolbar-btn-primary {
+  background-color: #ED7180;
+  color: white;
+}
+
+.toolbar-btn-primary:hover {
+  background-color: #d85a6a;
+}
+
+.toolbar-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 10px 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #191919;
+  cursor: pointer;
+}
+
+.toolbar-checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: #ED7180;
+  cursor: pointer;
+}
+
+.listado-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 12px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  border: 1px solid #e8e8e8;
+}
+
+.stat-card-accent {
+  background-color: #fff5f6;
+  border-color: #ED7180;
+}
+
+.stat-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  color: #191919;
+}
+
+.stat-value-date {
+  font-size: 20px;
+}
+
+.stat-card-accent .stat-value {
+  color: #ED7180;
+}
+
+.listado-table-section {
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+}
+
+.listado-table-title {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: #ED7180;
+  margin-bottom: 16px;
+}
+
+.table-scroll-container {
+  position: relative;
+  height: calc(100vh - 380px);
+  min-height: 400px;
+  border-radius: 8px;
+  border: 1px solid #e8e8e8;
+  overflow: hidden;
+}
+
+.listado-datatable {
+  height: 100% !important;
+  width: 100%;
+}
+
+.spinner-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(25, 25, 25, 0.5);
+  border-radius: 8px;
+}
+
+.spinner-content {
+  text-align: center;
+  color: #ED7180;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+}
+
+.spinner-content .spinner-border {
+  margin-bottom: 12px;
+  color: #ED7180;
+}
+
+.cell-content,
+.header-content {
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .listado-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .listado-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toolbar-actions {
+    justify-content: flex-start;
+  }
 }
 .item-container{
   width: 35%;

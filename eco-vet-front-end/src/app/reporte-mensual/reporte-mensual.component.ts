@@ -25,6 +25,7 @@ export class ReporteMensualComponent {
   informesSinRealizar: any;
   contadorMP = 0;
   contadorEF = 0;
+  contadorEcografiasEnHorasExtra:number = 0;
   mesParaMuestra: any = ' ';
   @Input()
   mostrarReporteSemanal: boolean = false;
@@ -37,11 +38,10 @@ export class ReporteMensualComponent {
 
 
   generarReportes() {
-    debugger
     this.dataService.traerReporteMensual(this.dataService.elegirMesParaService(this.mes), this.anio, this.ecografista).then(data => {
-      console.log(data)
       let ecografiasParaTabla: any = [];
       this.ecografiasReportadas1 = [];
+      this.contadorEcografiasEnHorasExtra = 0;
       for (let ecografia of data) {
         if (ecografia.montoHorasExtra && ecografia.montoHorasExtra.stringValue !== 'Si') {
           this.ecografiasReportadas1.push(ecografia)
@@ -63,6 +63,8 @@ export class ReporteMensualComponent {
             derivante: ecografia.derivante.stringValue,
             dia: ecografia.dia.IntegerValue
           })
+        } else if (ecografia.montoHorasExtra && ecografia.montoHorasExtra.stringValue === 'Si') {
+          this.contadorEcografiasEnHorasExtra += 1;
         }
       }
       this.dataSource = ecografiasParaTabla;
@@ -93,8 +95,6 @@ export class ReporteMensualComponent {
         cantPorcentaje += ((Number(eco.montoMercadoPago.stringValue)!== 0? Number(eco.montoMercadoPago.stringValue) :Number(eco.monto.stringValue) ) * this.getPorcentajeImpuestoMercadoPago()) * this.getValorParaPorcentaje();
         cantCred += 1;
       }
-
-      console.log(cantPorcentaje)
       //Metodo de pago multiple.
       if (eco.metodoPago.stringValue === 'Otro') {
         if (eco.montoEfectivo && eco.montoEfectivo !== undefined && eco.montoEfectivo.stringValue !== '') {
@@ -189,6 +189,23 @@ export class ReporteMensualComponent {
   seleccionMes(mes: any) {
     this.mes = mes;
     this.mesParaMuestra = mes;
+  }
+
+  formatearNumero(valor: number | string | null | undefined, decimales: number = 2): string {
+    const numero = Number(valor);
+    if (isNaN(numero)) {
+      return decimales > 0 ? '0,' + '0'.repeat(decimales) : '0';
+    }
+
+    const fixed = numero.toFixed(decimales);
+    const [parteEntera, parteDecimal] = fixed.split('.');
+    const conMiles = parteEntera.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+    if (decimales === 0) {
+      return conMiles;
+    }
+
+    return `${conMiles},${parteDecimal}`;
   }
 }
 

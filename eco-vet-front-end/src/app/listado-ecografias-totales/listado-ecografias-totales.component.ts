@@ -247,4 +247,25 @@ export class ListadoEcografiasTotalesComponent implements OnInit {
   customMessages = {
     emptyMessage: 'No hay Ecografias para el dia seleccionado.',
   };
+
+  getCantidadEcografias(): number {
+    return this.dataSource?.length ?? 0;
+  }
+
+  formatearNumero(valor: number | string | null | undefined, decimales: number = 2): string {
+    const numero = Number(valor);
+    if (isNaN(numero)) {
+      return decimales > 0 ? '0,' + '0'.repeat(decimales) : '0';
+    }
+
+    const fixed = numero.toFixed(decimales);
+    const [parteEntera, parteDecimal] = fixed.split('.');
+    const conMiles = parteEntera.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+    if (decimales === 0) {
+      return conMiles;
+    }
+
+    return `${conMiles},${parteDecimal}`;
+  }
 }
