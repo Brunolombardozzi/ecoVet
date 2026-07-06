@@ -106,7 +106,7 @@ export class ReporteHorasExtraComponent {
   }
 
   getPorcentajePorEcografista(){
-    if(this.ecografista ==='Ornela'){
+    if(this.ecografista ==='Ornela' || this.ecografista ==='Lucero' ){
       return '30'
     }  else if(this.ecografista === 'Emilce') {
       return '22'
@@ -123,7 +123,7 @@ export class ReporteHorasExtraComponent {
     }
   }
   getValorParaPorcentaje(){
-    if(this.ecografista ==='Ornela'){
+    if(this.ecografista ==='Ornela' || this.ecografista ==='Lucero'){
       return 0.3
     }  else if(this.ecografista === 'Laura') {
       return 0.22

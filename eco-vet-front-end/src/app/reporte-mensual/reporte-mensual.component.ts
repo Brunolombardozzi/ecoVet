@@ -37,8 +37,9 @@ export class ReporteMensualComponent {
 
 
   generarReportes() {
-
+    debugger
     this.dataService.traerReporteMensual(this.dataService.elegirMesParaService(this.mes), this.anio, this.ecografista).then(data => {
+      console.log(data)
       let ecografiasParaTabla: any = [];
       this.ecografiasReportadas1 = [];
       for (let ecografia of data) {
@@ -138,7 +139,7 @@ export class ReporteMensualComponent {
     } else if (this.ecografista === 'Yanina') {
       return '22'
     } else if (this.ecografista === 'Lucero') {
-      return '22'
+      return '30'
     } else if (this.ecografista === '') {
       return '0'
     } else {
@@ -146,11 +147,11 @@ export class ReporteMensualComponent {
     }
   }
   getValorParaPorcentaje() {
-    if (this.ecografista === 'Ornela') {
+    if (this.ecografista === 'Ornela' || this.ecografista === 'Lucero') {
       return 0.3
     } else if (this.ecografista === 'Laura') {
       return 0.35
-    } else if (this.ecografista === 'Emilce' || this.ecografista === 'Santiago' || this.ecografista === 'Yanina' || this.ecografista === 'Lucero') {
+    } else if (this.ecografista === 'Emilce' || this.ecografista === 'Santiago' || this.ecografista === 'Yanina') {
       return 0.22
     } else {
       return 1
